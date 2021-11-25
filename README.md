@@ -1,6 +1,4 @@
-# Plant App - Flutter UI
-
-## [Watch it on YouTube](https://youtu.be/LN668OAUrK4)
+# Directory App - Flutter UI
 
 **Packages we are using:**
 
