@@ -23,7 +23,7 @@ class _BodyState extends State<Body> {
     FontAwesomeIcons.addressBook,
     FontAwesomeIcons.yoast,
     FontAwesomeIcons.youtube,
-    FontAwesomeIcons.list,
+    Icons.more_horiz,
   ];
 
   Widget _buildIcon(int index) {

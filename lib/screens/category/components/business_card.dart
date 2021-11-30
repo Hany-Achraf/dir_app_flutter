@@ -3,10 +3,10 @@ import 'package:plant_app/models/Product.dart';
 
 import '../../../constants.dart';
 
-class CategoryCard extends StatelessWidget {
+class BusinessCard extends StatelessWidget {
   final Product product;
   final Function press;
-  const CategoryCard({
+  const BusinessCard({
     Key key,
     this.product,
     this.press,

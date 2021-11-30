@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/category/components/body.dart';
 
 class CategoryScreen extends StatelessWidget {
@@ -9,7 +10,9 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(
+        destination: destinations[0],
+      ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -44,14 +47,6 @@ class CategoryScreen extends StatelessWidget {
           // ),
           onPressed: () {},
         ),
-        // IconButton(
-        //   icon: SvgPicture.asset(
-        //     "assets/icons/cart.svg",
-        //     // By default our  icon color is white
-        //     color: kTextColor,
-        //   ),
-        //   onPressed: () {},
-        // ),
         SizedBox(width: kDefaultPadding / 2)
       ],
     );
