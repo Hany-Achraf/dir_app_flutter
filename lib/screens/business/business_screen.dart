@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/business/components/business_info.dart';
+import 'package:plant_app/screens/business/components/business_reviews.dart';
 import 'package:plant_app/screens/business/components/business_sliver_app_bar.dart';
-import 'package:plant_app/screens/business/components/business_sub_screen.dart';
-import 'package:plant_app/screens/business/components/portfolio_tutorials_sub_page.dart';
+import 'package:plant_app/screens/business/components/business_photos.dart';
 import 'package:plant_app/screens/business/delegates/sliver_persistent_header_delegate_impl.dart';
 import 'package:tuple/tuple.dart';
 
@@ -23,9 +24,9 @@ class _BusinessScreenState extends State<BusinessScreen>
   // ];
 
   final List<Tuple3> _pages = [
-    Tuple3('Info', PortfolioTutorialsSubPage(), Icon(Icons.video_library)),
-    Tuple3('Photos', PortfolioTutorialsSubPage(), Icon(Icons.image)),
-    Tuple3('Reviews', PortfolioTutorialsSubPage(), Icon(Icons.image)),
+    Tuple3('Info', BusinessInfo(), Icon(Icons.video_library)),
+    Tuple3('Photos', BusinessPhotos(), Icon(Icons.image)),
+    Tuple3('Reviews', BusinessReviews(), Icon(Icons.image)),
   ];
 
   TabController _tabController;
@@ -49,7 +50,7 @@ class _BusinessScreenState extends State<BusinessScreen>
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            BusinessSliverAppBar('Hany Ashraf Mohamed', _tabController),
+            BusinessSliverAppBar('Business Name', _tabController),
             // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit',_tabController),
             SliverPersistentHeader(
               pinned: true,
@@ -71,6 +72,9 @@ class _BusinessScreenState extends State<BusinessScreen>
           children: _pages.map<Widget>((Tuple3 page) => page.item2).toList(),
         ),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //   onPressed: () {},
+      // ),
       // bottomNavigationBar: Container(
       //   color: Colors.blue,
       //   child: TabBar(
