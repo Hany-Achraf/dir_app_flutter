@@ -35,12 +35,6 @@ class BusinessSliverAppBar extends StatelessWidget {
       actions: <Widget>[
         IconButton(
           icon: Icon(
-            Icons.share,
-          ),
-          onPressed: () {},
-        ),
-        IconButton(
-          icon: Icon(
             Icons.more_vert,
           ),
           onPressed: () {},

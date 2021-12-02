@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/business/components/add_review_screen.dart';
 import 'package:plant_app/screens/business/components/business_info.dart';
 import 'package:plant_app/screens/business/components/business_reviews.dart';
 import 'package:plant_app/screens/business/components/business_sliver_app_bar.dart';
@@ -15,18 +16,26 @@ class BusinessScreen extends StatefulWidget {
 
 class _BusinessScreenState extends State<BusinessScreen>
     with SingleTickerProviderStateMixin {
-  // final List<Tuple3> _pages = [
-  //   Tuple3(
-  //       'Info', BusinessSubScreen(pageName: 'Info'), Icon(Icons.video_library)),
-  //   Tuple3('Photos', BusinessSubScreen(pageName: 'Photos'), Icon(Icons.image)),
-  //   Tuple3(
-  //       'Reviews', BusinessSubScreen(pageName: 'Reviews'), Icon(Icons.image)),
-  // ];
-
   final List<Tuple3> _pages = [
-    Tuple3('Info', BusinessInfo(), Icon(Icons.video_library)),
-    Tuple3('Photos', BusinessPhotos(), Icon(Icons.image)),
-    Tuple3('Reviews', BusinessReviews(), Icon(Icons.image)),
+    Tuple3('Info', BusinessInfo(), null),
+    Tuple3('Photos', BusinessPhotos(), null),
+    Tuple3(
+      'Reviews',
+      BusinessReviews(),
+      (BuildContext context) {
+        return FloatingActionButton.extended(
+          icon: const Icon(Icons.rate_review),
+          label: const Text('Write a review'),
+          backgroundColor: Colors.purple,
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => AddReviewScreen()),
+            );
+          },
+        );
+      },
+    ),
   ];
 
   TabController _tabController;
@@ -51,7 +60,7 @@ class _BusinessScreenState extends State<BusinessScreen>
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             BusinessSliverAppBar('Business Name', _tabController),
-            // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit',_tabController),
+            // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
             SliverPersistentHeader(
               pinned: true,
               delegate: SliverPersistentHeaderDelegateImpl(
@@ -72,24 +81,9 @@ class _BusinessScreenState extends State<BusinessScreen>
           children: _pages.map<Widget>((Tuple3 page) => page.item2).toList(),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () {},
-      // ),
-      // bottomNavigationBar: Container(
-      //   color: Colors.blue,
-      //   child: TabBar(
-      //     unselectedLabelColor: Colors.grey,
-      //     labelColor: Colors.black,
-      //     indicatorColor: Colors.black,
-      //     controller: _tabController,
-      //     tabs: _pages
-      //         .map<Tab>((Tuple3 page) => Tab(
-      //               text: page.item1,
-      //               icon: page.item3,
-      //             ))
-      //         .toList(),
-      //   ),
-      // ),
+      floatingActionButton: _pages[_tabController.index].item3 == null
+          ? null
+          : _pages[_tabController.index].item3(context),
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/business/components/gallery_screen.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessPhotos extends StatelessWidget {
@@ -21,7 +22,12 @@ class BusinessPhotos extends StatelessWidget {
               ),
               itemBuilder: (context, index) {
                 return RawMaterialButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => GalleryScreen()),
+                    );
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(10),

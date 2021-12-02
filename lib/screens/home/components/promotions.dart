@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/screens/events/events_screen.dart';
+import 'package:plant_app/screens/promotions/promotions_screen.dart';
 
 import '../../../constants.dart';
 
@@ -15,11 +17,21 @@ class FeaturedPlants extends StatelessWidget {
         children: <Widget>[
           FeaturePlantCard(
             image: "assets/images/bottom_img_1.png",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => PromotionsScreen()),
+              );
+            },
           ),
           FeaturePlantCard(
             image: "assets/images/bottom_img_2.png",
-            press: () {},
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EventsScreen()),
+              );
+            },
           ),
         ],
       ),
