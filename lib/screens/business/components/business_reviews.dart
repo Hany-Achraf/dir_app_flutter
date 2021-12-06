@@ -6,18 +6,6 @@ import 'package:readmore/readmore.dart';
 class BusinessReviews extends StatelessWidget {
   const BusinessReviews({Key key}) : super(key: key);
 
-  // Text _buildRatingStars(int rating) {
-  //   String stars = '';
-  //   for (int i = 0; i < 5; i++) {
-  //     if (i < rating)
-  //       stars += '⭐ '; // ★
-  //     else
-  //       stars += '✰ ';
-  //   }
-  //   stars.trim();
-  //   return Text(stars);
-  // }
-
   Row _buildRatingStars(int rating) {
     List<Icon> ratingStars = [];
     for (int i = 0; i < 5; i++) {

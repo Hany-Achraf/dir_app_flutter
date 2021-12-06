@@ -59,7 +59,10 @@ class _BusinessScreenState extends State<BusinessScreen>
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            BusinessSliverAppBar('Business Name', _tabController),
+            BusinessSliverAppBar(
+                'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                // 'Business Name',
+                _tabController),
             // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
             SliverPersistentHeader(
               pinned: true,

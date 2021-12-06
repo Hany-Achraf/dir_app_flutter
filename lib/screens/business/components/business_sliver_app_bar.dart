@@ -14,17 +14,14 @@ class BusinessSliverAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: Container(
-        margin: EdgeInsets.only(left: 20),
-        child: Center(
-          child: RichText(
-            overflow: TextOverflow.ellipsis,
-            text: TextSpan(
-                text: _title,
-                style: TextStyle(
-                  fontWeight: FontWeight.w500,
-                  color: Colors.black,
-                )),
+      centerTitle: true,
+      title: RichText(
+        overflow: TextOverflow.ellipsis,
+        text: TextSpan(
+          text: _title,
+          style: TextStyle(
+            fontWeight: FontWeight.w500,
+            color: Colors.black,
           ),
         ),
       ),
@@ -32,14 +29,6 @@ class BusinessSliverAppBar extends StatelessWidget {
         color: Colors.black,
         size: 25.0,
       ),
-      actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.more_vert,
-          ),
-          onPressed: () {},
-        ),
-      ],
       elevation: 0.0,
       backgroundColor: Colors.purple,
       expandedHeight: 280,
