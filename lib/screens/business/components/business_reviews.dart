@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:plant_app/constants.dart';
 import 'package:tuple/tuple.dart';
 import 'package:readmore/readmore.dart';
 
@@ -69,7 +70,7 @@ class BusinessReviews extends StatelessWidget {
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                               style: TextStyle(color: Colors.black),
                               trimLines: 2,
-                              colorClickableText: Colors.purple,
+                              colorClickableText: kPrimaryColor,
                               trimMode: TrimMode.Line,
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',
@@ -124,7 +125,7 @@ class BusinessReviews extends StatelessWidget {
                               'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
                               style: TextStyle(color: Colors.black),
                               trimLines: 2,
-                              colorClickableText: Colors.purple,
+                              colorClickableText: kPrimaryColor,
                               trimMode: TrimMode.Line,
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',
@@ -179,7 +180,7 @@ class BusinessReviews extends StatelessWidget {
                               'Very professional!',
                               style: TextStyle(color: Colors.black),
                               trimLines: 2,
-                              colorClickableText: Colors.purple,
+                              colorClickableText: kPrimaryColor,
                               trimMode: TrimMode.Line,
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',
@@ -234,7 +235,7 @@ class BusinessReviews extends StatelessWidget {
                               'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
                               style: TextStyle(color: Colors.black),
                               trimLines: 2,
-                              colorClickableText: Colors.purple,
+                              colorClickableText: kPrimaryColor,
                               trimMode: TrimMode.Line,
                               trimCollapsedText: 'Show more',
                               trimExpandedText: 'Show less',

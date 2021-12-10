@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/categories/categories_screen.dart';
 import 'package:plant_app/screens/categories/components/category_card.dart';
+import 'package:plant_app/screens/events/events_screen.dart';
+import 'package:plant_app/screens/home/components/events.dart';
+import 'package:plant_app/screens/promotions/promotions_screen.dart';
 
 import 'promotions.dart';
 import 'header_with_seachbox.dart';
@@ -99,8 +102,29 @@ class _BodyState extends State<Body> {
           SizedBox(height: kDefaultPadding),
           TitleWithMoreBtn(title: "Top Destinations", press: () {}),
           RecomendsPlants(),
-          TitleWithMoreBtn(title: "Promotions", press: () {}),
-          FeaturedPlants(),
+          TitleWithMoreBtn(
+            title: "Promotions",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => PromotionsScreen(autoplay: true)),
+              );
+            },
+          ),
+          Promotions(),
+          SizedBox(height: kDefaultPadding),
+          TitleWithMoreBtn(
+            title: "Events",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EventsScreen(autoplay: true)),
+              );
+            },
+          ),
+          Events(),
           SizedBox(height: kDefaultPadding),
         ],
       ),

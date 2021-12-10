@@ -4,8 +4,8 @@ import 'package:plant_app/screens/promotions/promotions_screen.dart';
 
 import '../../../constants.dart';
 
-class Promotions extends StatelessWidget {
-  const Promotions({
+class Events extends StatelessWidget {
+  const Events({
     Key key,
   }) : super(key: key);
 
@@ -15,13 +15,13 @@ class Promotions extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       child: Row(
         children: <Widget>[
-          PromotionCard(
+          EventCard(
             image: "assets/images/bottom_img_1.png",
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PromotionsScreen(
+                  builder: (context) => EventsScreen(
                     autoplay: false,
                   ),
                 ),
@@ -29,13 +29,13 @@ class Promotions extends StatelessWidget {
             },
             text: 'Everyday Parenting: The ABCs of Child Rearing',
           ),
-          PromotionCard(
+          EventCard(
             image: "assets/images/bottom_img_2.png",
             press: () {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => PromotionsScreen(
+                  builder: (context) => EventsScreen(
                     autoplay: false,
                   ),
                 ),
@@ -49,8 +49,8 @@ class Promotions extends StatelessWidget {
   }
 }
 
-class PromotionCard extends StatelessWidget {
-  const PromotionCard({
+class EventCard extends StatelessWidget {
+  const EventCard({
     Key key,
     this.image,
     this.press,
@@ -142,7 +142,7 @@ class PromotionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       text: TextSpan(
-                        text: 'Untill 31 Dec 2021',
+                        text: 'On 31 Dec 2021',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,

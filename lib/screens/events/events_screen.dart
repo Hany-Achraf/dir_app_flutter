@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:plant_app/constants.dart';
 
 class EventsScreen extends StatefulWidget {
-  const EventsScreen({Key key}) : super(key: key);
+  final bool autoplay;
+  const EventsScreen({Key key, this.autoplay}) : super(key: key);
 
   @override
   _EventsScreenState createState() => _EventsScreenState();
@@ -45,7 +47,7 @@ class _EventsScreenState extends State<EventsScreen> {
                 height: 400.0,
                 initialPage: 0,
                 enlargeCenterPage: true,
-                autoPlay: true,
+                autoPlay: widget.autoplay,
                 reverse: false,
                 enableInfiniteScroll: true,
                 autoPlayInterval: Duration(seconds: 2),
@@ -88,7 +90,7 @@ class _EventsScreenState extends State<EventsScreen> {
                   margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
-                    color: _current == index ? Colors.redAccent : Colors.green,
+                    color: _current == index ? kPrimaryColor : kTextLightColor,
                   ),
                 );
               }),

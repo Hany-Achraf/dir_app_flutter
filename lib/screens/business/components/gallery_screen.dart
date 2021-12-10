@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
+import 'package:plant_app/constants.dart';
 
 class GalleryScreen extends StatefulWidget {
   GalleryScreen({Key key}) : super(key: key);
@@ -55,7 +56,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
             decoration: BoxDecoration(color: Colors.black),
             child: Center(
               child: CircularProgressIndicator(
-                color: Colors.purple,
+                color: kPrimaryColor,
               ),
             ),
           );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/business/components/add_review_screen.dart';
 import 'package:plant_app/screens/business/components/business_info.dart';
 import 'package:plant_app/screens/business/components/business_reviews.dart';
@@ -26,7 +27,7 @@ class _BusinessScreenState extends State<BusinessScreen>
         return FloatingActionButton.extended(
           icon: const Icon(Icons.rate_review),
           label: const Text('Write a review'),
-          backgroundColor: Colors.purple,
+          backgroundColor: kPrimaryColor,
           onPressed: () {
             Navigator.push(
               context,

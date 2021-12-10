@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 
 class SliverPersistentHeaderDelegateImpl
     extends SliverPersistentHeaderDelegate {
   final TabBar tabBar;
-  final Color color;
+  final Color color = kPrimaryColor;
 
-  const SliverPersistentHeaderDelegateImpl({
-    Color color = Colors.purple,
+  SliverPersistentHeaderDelegateImpl({
     @required this.tabBar,
-  }) : this.color = color;
+  });
 
   @override
   Widget build(

@@ -87,9 +87,15 @@ class RecomendPlantCard extends StatelessWidget {
             Container(
               height: 150,
               width: 200,
-              child: Image.asset(
-                image,
-                fit: BoxFit.cover,
+              child: ClipRRect(
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+                child: Image.asset(
+                  image,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Container(
@@ -102,8 +108,8 @@ class RecomendPlantCard extends StatelessWidget {
                 ),
                 boxShadow: [
                   BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 50,
+                    offset: Offset(0, 5),
+                    blurRadius: 5,
                     color: kPrimaryColor.withOpacity(0.23),
                   ),
                 ],

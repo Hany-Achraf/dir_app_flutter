@@ -238,11 +238,9 @@ class _BodyState extends State<Body> {
                   height: 170.0,
                   width: double.infinity,
                   decoration: BoxDecoration(
-                    color: Colors.red,
                     borderRadius: BorderRadius.circular(20.0),
                   ),
                   child: Card(
-                    color: Colors.green,
                     elevation: 1.5,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 20.0),
@@ -299,7 +297,8 @@ class _BodyState extends State<Body> {
                                     padding: EdgeInsets.all(5.0),
                                     width: 70.0,
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).accentColor,
+                                      // color: Theme.of(context).accentColor,
+                                      color: kPrimaryColor,
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     alignment: Alignment.center,
@@ -312,7 +311,8 @@ class _BodyState extends State<Body> {
                                     padding: EdgeInsets.all(5.0),
                                     width: 70.0,
                                     decoration: BoxDecoration(
-                                      color: Theme.of(context).accentColor,
+                                      // color: Theme.of(context).accentColor,
+                                      color: kPrimaryColor,
                                       borderRadius: BorderRadius.circular(10.0),
                                     ),
                                     alignment: Alignment.center,

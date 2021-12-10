@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 
 class BusinessSliverAppBar extends StatelessWidget {
   final String _title;
@@ -30,7 +31,7 @@ class BusinessSliverAppBar extends StatelessWidget {
         size: 25.0,
       ),
       elevation: 0.0,
-      backgroundColor: Colors.purple,
+      backgroundColor: kPrimaryColor,
       expandedHeight: 280,
       pinned: true,
       floating: false,
@@ -46,30 +47,30 @@ class BusinessSliverAppBar extends StatelessWidget {
             left: 0,
             right: 0,
             child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                      Colors.purple.withOpacity(0.9),
-                      Colors.transparent
-                    ]))),
+              height: 150,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [kPrimaryColor.withOpacity(0.9), Colors.transparent],
+                ),
+              ),
+            ),
           ),
           Positioned(
             bottom: 0,
             left: 0,
             right: 0,
             child: Container(
-                height: 150,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                        begin: Alignment.bottomCenter,
-                        end: Alignment.topCenter,
-                        colors: [
-                      Colors.purple.withOpacity(1.0),
-                      Colors.transparent
-                    ]))),
+              height: 150,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [kPrimaryColor.withOpacity(1.0), Colors.transparent],
+                ),
+              ),
+            ),
           ),
         ]),
       ),

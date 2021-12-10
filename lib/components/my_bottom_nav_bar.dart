@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/profile/profile_screen.dart';
+import 'package:plant_app/screens/wishlist/wishlist_screen.dart';
 
 import '../constants.dart';
 
@@ -47,7 +48,13 @@ class MyBottomNavBar extends StatelessWidget {
           IconButton(
             icon: SvgPicture.asset("assets/icons/heart-icon.svg",
                 color: kPrimaryColor),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.pushAndRemoveUntil(
+                context,
+                MaterialPageRoute(builder: (context) => WishlistScreen()),
+                (Route<dynamic> route) => false,
+              );
+            },
           ),
           IconButton(
             icon: SvgPicture.asset("assets/icons/user-icon.svg",

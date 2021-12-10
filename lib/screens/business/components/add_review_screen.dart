@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 
 class AddReviewScreen extends StatefulWidget {
   const AddReviewScreen({Key key}) : super(key: key);
@@ -29,7 +30,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: Colors.purple,
+        foregroundColor: kPrimaryColor,
         backgroundColor: Colors.white,
       ),
       body: Center(
@@ -74,10 +75,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   minLines: 3,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
-                  cursorColor: Colors.purple,
+                  cursorColor: kPrimaryColor,
                   decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.purple, width: 2.0),
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2.0,
+                      ),
                     ),
                     enabledBorder: OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.grey, width: 2.0),
@@ -98,7 +102,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   width: 350,
                   height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.purple,
+                    color: kPrimaryColor,
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Center(
