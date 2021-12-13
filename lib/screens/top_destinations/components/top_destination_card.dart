@@ -5,70 +5,70 @@ import 'package:plant_app/screens/details/details_screen.dart';
 
 import '../../../constants.dart';
 
-class TopDestinations extends StatelessWidget {
-  const TopDestinations({
-    Key key,
-  }) : super(key: key);
+// class TopDestinations extends StatelessWidget {
+//   const TopDestinations({
+//     Key key,
+//   }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          TopDestination(
-            image: "assets/images/mid-valley-jb.png",
-            name: "Angelica",
-            // description: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DestinationScreen(
-                    destination: destinations[0],
-                  ),
-                ),
-              );
-            },
-          ),
-          TopDestination(
-            image: "assets/images/mid-valley-jb.png",
-            name: "Angelica",
-            // description: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DestinationScreen(
-                    destination: destinations[0],
-                  ),
-                ),
-              );
-            },
-          ),
-          TopDestination(
-            image: "assets/images/mid-valley-jb.png",
-            name: "Angelica",
-            // description: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DestinationScreen(
-                    destination: destinations[0],
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return SingleChildScrollView(
+//       scrollDirection: Axis.horizontal,
+//       child: Row(
+//         children: <Widget>[
+//           TopDestinationCard(
+//             image: "assets/images/mid-valley-jb.png",
+//             name: "Angelica",
+//             // description: "Russia",
+//             press: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => DestinationScreen(
+//                     destination: destinations[0],
+//                   ),
+//                 ),
+//               );
+//             },
+//           ),
+//           TopDestinationCard(
+//             image: "assets/images/mid-valley-jb.png",
+//             name: "Angelica",
+//             // description: "Russia",
+//             press: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => DestinationScreen(
+//                     destination: destinations[0],
+//                   ),
+//                 ),
+//               );
+//             },
+//           ),
+//           TopDestinationCard(
+//             image: "assets/images/mid-valley-jb.png",
+//             name: "Angelica",
+//             // description: "Russia",
+//             press: () {
+//               Navigator.push(
+//                 context,
+//                 MaterialPageRoute(
+//                   builder: (context) => DestinationScreen(
+//                     destination: destinations[0],
+//                   ),
+//                 ),
+//               );
+//             },
+//           ),
+//         ],
+//       ),
+//     );
+//   }
+// }
 
-class TopDestination extends StatelessWidget {
-  const TopDestination({
+class TopDestinationCard extends StatelessWidget {
+  const TopDestinationCard({
     Key key,
     this.image,
     this.name,
@@ -85,9 +85,7 @@ class TopDestination extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Container(
       margin: EdgeInsets.only(
-        left: kDefaultPadding,
-        top: kDefaultPadding / 2,
-        // bottom: kDefaultPadding * 2.5,
+        // top: kDefaultPadding / 2,
         bottom: kDefaultPadding,
       ),
       width: size.width * 0.4,
@@ -146,6 +144,13 @@ class TopDestination extends StatelessWidget {
                     ),
                   ),
                   // Spacer(),
+                  // Text(
+                  //   '\$$price',
+                  //   style: Theme.of(context)
+                  //       .textTheme
+                  //       .button
+                  //       .copyWith(color: kPrimaryColor),
+                  // )
                 ],
               ),
             ),

@@ -67,7 +67,7 @@ class _EventsScreenState extends State<EventsScreen> {
                       width: MediaQuery.of(context).size.width,
                       margin: EdgeInsets.symmetric(horizontal: 10.0),
                       decoration: BoxDecoration(
-                        color: Colors.green,
+                        color: kTextLightColor,
                       ),
                       child: Image.network(
                         imgUrl,

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/categories/categories_screen.dart';
 import 'package:plant_app/screens/categories/components/category_card.dart';
+import 'package:plant_app/screens/category/category_screen.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/home/components/events.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
+import 'package:plant_app/screens/top_destinations/top_destinations_screen.dart';
 
 import 'promotions.dart';
 import 'header_with_seachbox.dart';
@@ -18,24 +20,24 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  List<IconData> _icons = [
-    FontAwesomeIcons.coffee,
-    FontAwesomeIcons.bed,
-    FontAwesomeIcons.breadSlice,
-    FontAwesomeIcons.biking,
-    FontAwesomeIcons.addressBook,
-    FontAwesomeIcons.yoast,
-    FontAwesomeIcons.youtube,
-    Icons.more_horiz,
+  List<String> _icons = [
+    'assets/images/hotel.png',
+    'assets/images/food.png',
+    'assets/images/car.png',
+    'assets/images/health.png',
+    'assets/images/shirt.png',
+    'assets/images/beauty.png',
+    'assets/images/lawyer.png',
+    'assets/images/more_horiz.webp',
   ];
 
-  Widget _buildIcon(int index) {
+  Widget _buildIcon(int index, Widget targetScreen) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => CategoriesScreen(),
+            builder: (context) => targetScreen,
           ),
         );
       },
@@ -43,20 +45,20 @@ class _BodyState extends State<Body> {
         height: 60.0,
         width: 60.0,
         decoration: BoxDecoration(
-          // color: _selectedIndex == index
-          //     ? Theme.of(context).dividerColor
-          //     // ? kBackgroundColor
-          //     : Color(0xFFE7EBEE),
           color: Color(0xFFE7EBEE),
           borderRadius: BorderRadius.circular(30.0),
         ),
-        child: Icon(
-          _icons[index],
-          size: 25.0,
-          // color: _selectedIndex == index
-          //     ? Theme.of(context).primaryColor
-          //     : Color(0xFFB4C1C4),
-          color: Theme.of(context).primaryColor,
+        // child: Icon(
+        //   _icons[index],
+        //   size: 25.0,
+        //   color: kPrimaryColor,
+        // ),
+        child: Padding(
+          padding: const EdgeInsets.all(9.0),
+          child: Image.asset(
+            _icons[index],
+            color: kPrimaryColor,
+          ),
         ),
       ),
     );
@@ -76,32 +78,53 @@ class _BodyState extends State<Body> {
             children: [
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: _icons
-                    .sublist(0, 4)
-                    .asMap()
-                    .entries
-                    .map(
-                      (MapEntry map) => _buildIcon(map.key),
-                    )
-                    .toList(),
+                // children: _icons
+                //     .sublist(0, 4)
+                //     .asMap()
+                //     .entries
+                //     .map(
+                //       (MapEntry map) => _buildIcon(map.key, ),
+                //     )
+                //     .toList(),
+                children: [
+                  _buildIcon(0, CategoryScreen()),
+                  _buildIcon(1, CategoryScreen()),
+                  _buildIcon(2, CategoryScreen()),
+                  _buildIcon(3, CategoryScreen()),
+                ],
               ),
               SizedBox(height: kDefaultPadding),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: _icons
-                    .sublist(4, 8)
-                    .asMap()
-                    .entries
-                    .map(
-                      (MapEntry map) => _buildIcon(map.key + 4),
-                    )
-                    .toList(),
+                //   children: _icons
+                //       .sublist(4, 8)
+                //       .asMap()
+                //       .entries
+                //       .map(
+                //         (MapEntry map) => _buildIcon(map.key + 4),
+                //       )
+                //       .toList(),
+                children: [
+                  _buildIcon(4, CategoryScreen()),
+                  _buildIcon(5, CategoryScreen()),
+                  _buildIcon(6, CategoryScreen()),
+                  _buildIcon(7, CategoriesScreen()),
+                ],
               ),
             ],
           ),
           SizedBox(height: kDefaultPadding),
-          TitleWithMoreBtn(title: "Top Destinations", press: () {}),
-          RecomendsPlants(),
+          TitleWithMoreBtn(
+            title: "Top Destinations",
+            press: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => TopDestinationsScreen()),
+              );
+            },
+          ),
+          TopDestinations(),
           TitleWithMoreBtn(
             title: "Promotions",
             press: () {

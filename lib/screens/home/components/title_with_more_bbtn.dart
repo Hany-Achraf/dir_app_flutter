@@ -16,9 +16,9 @@ class TitleWithMoreBtn extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           TitleWithCustomUnderline(text: title),
-          Spacer(),
           FlatButton(
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),

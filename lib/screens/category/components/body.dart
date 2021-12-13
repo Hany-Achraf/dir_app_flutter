@@ -192,13 +192,17 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  Text _buildRatingStars(int rating) {
-    String stars = '';
-    for (int i = 0; i < rating; i++) {
-      stars += '⭐ ';
+  Row _buildRatingStars(int rating) {
+    List<Icon> ratingStars = [];
+    for (int i = 0; i < 5; i++) {
+      if (i < rating)
+        ratingStars.add(Icon(Icons.star, color: Colors.yellow));
+      else
+        ratingStars.add(Icon(Icons.star, color: Colors.grey.shade300));
     }
-    stars.trim();
-    return Text(stars);
+    return Row(
+      children: ratingStars,
+    );
   }
 
   @override
@@ -211,7 +215,7 @@ class _BodyState extends State<Body> {
             // padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             padding: const EdgeInsets.all(kDefaultPadding),
             child: Text(
-              "Sports",
+              "Fashion",
               style: Theme.of(context)
                   .textTheme
                   .headline5
@@ -239,9 +243,16 @@ class _BodyState extends State<Body> {
                   width: double.infinity,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20.0),
+                    boxShadow: [
+                      BoxShadow(
+                        offset: Offset(0, 5),
+                        blurRadius: 5,
+                        color: kPrimaryColor.withOpacity(0.23),
+                      ),
+                    ],
                   ),
                   child: Card(
-                    elevation: 1.5,
+                    // elevation: 1.5,
                     child: Padding(
                       padding: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 20.0),
                       child: Row(
@@ -295,7 +306,7 @@ class _BodyState extends State<Body> {
                                 children: <Widget>[
                                   Container(
                                     padding: EdgeInsets.all(5.0),
-                                    width: 70.0,
+                                    width: 190.0,
                                     decoration: BoxDecoration(
                                       // color: Theme.of(context).accentColor,
                                       color: kPrimaryColor,
@@ -303,23 +314,24 @@ class _BodyState extends State<Body> {
                                     ),
                                     alignment: Alignment.center,
                                     child: Text(
-                                      activity.startTimes[0],
+                                      // activity.startTimes[0],
+                                      'Sun – Wed (10:00 – 22:00)',
                                     ),
                                   ),
-                                  SizedBox(width: 10.0),
-                                  Container(
-                                    padding: EdgeInsets.all(5.0),
-                                    width: 70.0,
-                                    decoration: BoxDecoration(
-                                      // color: Theme.of(context).accentColor,
-                                      color: kPrimaryColor,
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    alignment: Alignment.center,
-                                    child: Text(
-                                      activity.startTimes[1],
-                                    ),
-                                  ),
+                                  // SizedBox(width: 10.0),
+                                  // Container(
+                                  //   padding: EdgeInsets.all(5.0),
+                                  //   width: 70.0,
+                                  //   decoration: BoxDecoration(
+                                  //     // color: Theme.of(context).accentColor,
+                                  //     color: kPrimaryColor,
+                                  //     borderRadius: BorderRadius.circular(10.0),
+                                  //   ),
+                                  //   alignment: Alignment.center,
+                                  //   child: Text(
+                                  //     activity.startTimes[1],
+                                  //   ),
+                                  // ),
                                 ],
                               )
                             ],

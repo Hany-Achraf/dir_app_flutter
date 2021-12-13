@@ -27,12 +27,16 @@ class CategoryCard extends StatelessWidget {
               // height: 180,
               // width: 160,
               decoration: BoxDecoration(
-                color: product.color,
+                // color: product.color,
+                color: Color(0xFFE7EBEE),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
                 tag: "${product.id}",
-                child: Image.asset(product.image),
+                child: Image.asset(
+                  product.image,
+                  color: kPrimaryColor,
+                ),
               ),
             ),
           ),
