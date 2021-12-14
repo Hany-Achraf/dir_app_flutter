@@ -25,11 +25,17 @@ class ProfileMenu extends StatelessWidget {
         onPressed: press,
         child: Row(
           children: [
-            SvgPicture.asset(
-              icon,
-              color: kPrimaryColor,
-              width: 22,
-            ),
+            icon == 'feedback' // Fix here!!
+                ? Icon(
+                    Icons.feedback_outlined,
+                    color: kPrimaryColor,
+                    size: 22,
+                  )
+                : SvgPicture.asset(
+                    icon,
+                    color: kPrimaryColor,
+                    width: 22,
+                  ),
             SizedBox(width: 20),
             Expanded(child: Text(text)),
             Icon(Icons.arrow_forward_ios),

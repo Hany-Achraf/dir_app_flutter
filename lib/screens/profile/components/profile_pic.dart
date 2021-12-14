@@ -9,14 +9,22 @@ class ProfilePic extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 115,
-      width: 115,
+      height: 130,
+      width: 130,
       child: Stack(
         fit: StackFit.expand,
         overflow: Overflow.visible,
         children: [
-          CircleAvatar(
-            backgroundImage: AssetImage("assets/images/Profile Image.png"),
+          Container(
+            height: 130,
+            width: 130,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(65),
+              child: Image.asset(
+                'assets/images/tarek.jpg',
+                fit: BoxFit.fill,
+              ),
+            ),
           ),
           Positioned(
             right: -16,
@@ -26,7 +34,7 @@ class ProfilePic extends StatelessWidget {
               width: 46,
               child: FlatButton(
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
+                  borderRadius: BorderRadius.circular(65),
                   side: BorderSide(color: Colors.white),
                 ),
                 color: Color(0xFFF5F6F9),
@@ -34,7 +42,7 @@ class ProfilePic extends StatelessWidget {
                 child: SvgPicture.asset("assets/icons/Camera Icon.svg"),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

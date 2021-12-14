@@ -30,13 +30,13 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        // foregroundColor: kTextColor,
         foregroundColor: kPrimaryColor,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.transparent,
+        shadowColor: Colors.transparent,
       ),
-      body: Center(
-        child: ListView(
-          shrinkWrap: true,
-          padding: const EdgeInsets.all(8.0),
+      body: SingleChildScrollView(
+        child: Column(
           children: [
             Center(
               child: Text(

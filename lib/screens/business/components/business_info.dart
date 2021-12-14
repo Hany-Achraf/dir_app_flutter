@@ -77,116 +77,93 @@ class BusinessInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(8),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: Text(
-                    'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 25)),
-              ),
-              IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  alignment: Alignment.topRight,
-                  icon: Icon(Icons.favorite_border,
-                      color: Colors.grey, size: 25)),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: _buildRatingStars(4),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset('assets/icons/instagram.png'),
-              ),
-              IconButton(
-                onPressed: () {},
-                padding: EdgeInsets.zero,
-                icon: FaIcon(
-                  FontAwesomeIcons.facebook,
-                  color: Colors.blue,
-                  size: 35,
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          SizedBox(
-            width: 300,
-            child: ReadMoreText(
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-              style: TextStyle(color: Colors.black),
-              trimLines: 3,
-              colorClickableText: kPrimaryColor,
-              trimMode: TrimMode.Line,
-              trimCollapsedText: 'Show more',
-              trimExpandedText: 'Show less',
-              moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+      child: SingleChildScrollView(
+        child: Column(
+          // padding: EdgeInsets.zero,
+          children: [
+            SizedBox(
+              height: 8,
             ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 4),
-                child: Icon(
-                  Icons.language,
-                  color: kPrimaryColor,
-                  size: 25,
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: Text(
-                  'http://www.al-ikhsan.com',
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          InkWell(
-            onTap: _launchURL,
-            child: Row(
-              // crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Container(
-                    margin: const EdgeInsets.only(right: 4),
-                    child:
-                        Icon(Icons.pin_drop, color: kPrimaryColor, size: 25)),
                 Flexible(
                   flex: 1,
                   fit: FlexFit.loose,
                   child: Text(
-                    'LG-018 (The Mall, Mid Valley Southkey) LG-018 (The Mall, Mid Valley Southkey), LG-018 (The Mall, Mid Valley Southkey)',
+                      'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25)),
+                ),
+                IconButton(
+                    onPressed: () {},
+                    padding: EdgeInsets.zero,
+                    alignment: Alignment.topRight,
+                    icon: Icon(Icons.favorite_border,
+                        color: Colors.grey, size: 25)),
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: _buildRatingStars(4),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Image.asset('assets/icons/instagram.png'),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  padding: EdgeInsets.zero,
+                  icon: FaIcon(
+                    FontAwesomeIcons.facebook,
+                    color: Colors.blue,
+                    size: 35,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            SizedBox(
+              width: 300,
+              child: ReadMoreText(
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                style: TextStyle(color: Colors.black),
+                trimLines: 3,
+                colorClickableText: kPrimaryColor,
+                trimMode: TrimMode.Line,
+                trimCollapsedText: 'Show more',
+                trimExpandedText: 'Show less',
+                moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 4),
+                  child: Icon(
+                    Icons.language,
+                    color: kPrimaryColor,
+                    size: 25,
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: Text(
+                    'http://www.al-ikhsan.com',
                     style: TextStyle(
                       color: kPrimaryColor,
                     ),
@@ -194,85 +171,110 @@ class BusinessInfo extends StatelessWidget {
                 ),
               ],
             ),
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 4),
-                child: Icon(
-                  Icons.watch_later_outlined,
-                  color: kPrimaryColor,
-                  size: 25,
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: Text(
-                  'Sun – Wed (10:00 – 22:00)',
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Row(
-            // crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(right: 4),
-                child: Icon(
-                  Icons.phone,
-                  color: kPrimaryColor,
-                  size: 25,
-                ),
-              ),
-              Flexible(
-                flex: 1,
-                fit: FlexFit.loose,
-                child: Text(
-                  'Call us 019-7066523',
-                  style: TextStyle(
-                    color: kPrimaryColor,
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(
-            height: 8,
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            height: 700,
-            child: WebView(
-              navigationDelegate: (navigation) {
-                _launchURL();
-                return null;
-              },
-              javascriptMode: JavascriptMode.unrestricted,
-              javascriptChannels: <JavascriptChannel>[
-                JavascriptChannel(
-                    name: 'MessageInvoker',
-                    onMessageReceived: (s) {
-                      print(s.message);
-                    }),
-              ].toSet(),
-              onWebViewCreated: (controller) {
-                this.controller = controller;
-                loadLocalHtml();
-              },
+            SizedBox(
+              height: 8,
             ),
-          ),
-        ],
+            InkWell(
+              onTap: _launchURL,
+              child: Row(
+                // crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                      margin: const EdgeInsets.only(right: 4),
+                      child:
+                          Icon(Icons.pin_drop, color: kPrimaryColor, size: 25)),
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.loose,
+                    child: Text(
+                      'LG-018 (The Mall, Mid Valley Southkey) LG-018 (The Mall, Mid Valley Southkey), LG-018 (The Mall, Mid Valley Southkey)',
+                      style: TextStyle(
+                        color: kPrimaryColor,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 4),
+                  child: Icon(
+                    Icons.watch_later_outlined,
+                    color: kPrimaryColor,
+                    size: 25,
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: Text(
+                    'Sun – Wed (10:00 – 22:00)',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Row(
+              // crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(right: 4),
+                  child: Icon(
+                    Icons.phone,
+                    color: kPrimaryColor,
+                    size: 25,
+                  ),
+                ),
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.loose,
+                  child: Text(
+                    'Call us 019-7066523',
+                    style: TextStyle(
+                      color: kPrimaryColor,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 8,
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              height: 700,
+              child: WebView(
+                navigationDelegate: (navigation) {
+                  _launchURL();
+                  return null;
+                },
+                javascriptMode: JavascriptMode.unrestricted,
+                javascriptChannels: <JavascriptChannel>[
+                  JavascriptChannel(
+                      name: 'MessageInvoker',
+                      onMessageReceived: (s) {
+                        print(s.message);
+                      }),
+                ].toSet(),
+                onWebViewCreated: (controller) {
+                  this.controller = controller;
+                  loadLocalHtml();
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

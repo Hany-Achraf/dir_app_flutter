@@ -8,14 +8,13 @@ import 'package:plant_app/constants.dart';
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
-  static String routeName = "/profile";
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Center(
           child: Text(
-            'Profile',
+            'Tarek Hamed',
             style: TextStyle(color: kTextColor),
           ),
         ),

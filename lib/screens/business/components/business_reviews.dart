@@ -24,230 +24,240 @@ class BusinessReviews extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.all(4),
-      child: ListView(
-        padding: EdgeInsets.zero,
-        children: [
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/santorini.png'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('هاني أشرف',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildRatingStars(4),
-                              SizedBox(
-                                width: 90,
-                              ),
-                              Text(
-                                DateFormat('dd MMM yyyy')
-                                    .format(DateTime.now()),
+      child: SingleChildScrollView(
+        child: Column(
+          // padding: EdgeInsets.zero,
+          children: [
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/santorini.png'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('هاني أشرف',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: ReadMoreText(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                              style: TextStyle(color: Colors.black),
-                              trimLines: 2,
-                              colorClickableText: kPrimaryColor,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: 'Show more',
-                              trimExpandedText: 'Show less',
-                              moreStyle: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildRatingStars(4),
+                                SizedBox(
+                                  width: 90,
+                                ),
+                                Text(
+                                  DateFormat('dd MMM yyyy')
+                                      .format(DateTime.now()),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
                             ),
-                          ),
-                        ]),
-                  ),
-                ]),
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/santorini.png'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Omar K. Al Wakeel',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildRatingStars(2),
-                              SizedBox(
-                                width: 90,
+                            SizedBox(
+                              width: 300,
+                              child: ReadMoreText(
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                                style: TextStyle(color: Colors.black),
+                                trimLines: 2,
+                                colorClickableText: kPrimaryColor,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                moreStyle: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                DateFormat('dd MMM yyyy')
-                                    .format(DateTime.now()),
+                            ),
+                          ]),
+                    ),
+                  ]),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/santorini.png'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Omar K. Al Wakeel',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: ReadMoreText(
-                              'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
-                              style: TextStyle(color: Colors.black),
-                              trimLines: 2,
-                              colorClickableText: kPrimaryColor,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: 'Show more',
-                              trimExpandedText: 'Show less',
-                              moreStyle: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildRatingStars(2),
+                                SizedBox(
+                                  width: 90,
+                                ),
+                                Text(
+                                  DateFormat('dd MMM yyyy')
+                                      .format(DateTime.now()),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
                             ),
-                          ),
-                        ]),
-                  ),
-                ]),
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/santorini.png'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('楊仁忠',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildRatingStars(3),
-                              SizedBox(
-                                width: 90,
+                            SizedBox(
+                              width: 300,
+                              child: ReadMoreText(
+                                'Flutter is Google’s mobile UI open source framework to build high-quality native (super fast) interfaces for iOS and Android apps with the unified codebase.',
+                                style: TextStyle(color: Colors.black),
+                                trimLines: 2,
+                                colorClickableText: kPrimaryColor,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                moreStyle: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                DateFormat('dd MMM yyyy')
-                                    .format(DateTime.now()),
+                            ),
+                          ]),
+                    ),
+                  ]),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/santorini.png'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('楊仁忠',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: ReadMoreText(
-                              'Very professional!',
-                              style: TextStyle(color: Colors.black),
-                              trimLines: 2,
-                              colorClickableText: kPrimaryColor,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: 'Show more',
-                              trimExpandedText: 'Show less',
-                              moreStyle: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildRatingStars(3),
+                                SizedBox(
+                                  width: 90,
+                                ),
+                                Text(
+                                  DateFormat('dd MMM yyyy')
+                                      .format(DateTime.now()),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
                             ),
-                          ),
-                        ]),
-                  ),
-                ]),
-          ),
-          Container(
-            margin: EdgeInsets.all(8),
-            child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundImage: AssetImage('assets/images/santorini.png'),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: 8),
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                        color: Colors.grey.shade400,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text('Khaled Qabel',
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              _buildRatingStars(5),
-                              SizedBox(
-                                width: 90,
+                            SizedBox(
+                              width: 300,
+                              child: ReadMoreText(
+                                'Very professional!',
+                                style: TextStyle(color: Colors.black),
+                                trimLines: 2,
+                                colorClickableText: kPrimaryColor,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                moreStyle: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
                               ),
-                              Text(
-                                DateFormat('dd MMM yyyy')
-                                    .format(DateTime.now()),
+                            ),
+                          ]),
+                    ),
+                  ]),
+            ),
+            Container(
+              margin: EdgeInsets.all(8),
+              child: Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundImage:
+                          AssetImage('assets/images/santorini.png'),
+                    ),
+                    Container(
+                      margin: EdgeInsets.only(left: 8),
+                      padding: EdgeInsets.all(8),
+                      decoration: BoxDecoration(
+                          color: Colors.grey.shade400,
+                          borderRadius: BorderRadius.circular(5)),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Khaled Qabel',
                                 style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 15),
-                              ),
-                            ],
-                          ),
-                          SizedBox(
-                            width: 300,
-                            child: ReadMoreText(
-                              'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                              style: TextStyle(color: Colors.black),
-                              trimLines: 2,
-                              colorClickableText: kPrimaryColor,
-                              trimMode: TrimMode.Line,
-                              trimCollapsedText: 'Show more',
-                              trimExpandedText: 'Show less',
-                              moreStyle: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold)),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                _buildRatingStars(5),
+                                SizedBox(
+                                  width: 90,
+                                ),
+                                Text(
+                                  DateFormat('dd MMM yyyy')
+                                      .format(DateTime.now()),
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 15),
+                                ),
+                              ],
                             ),
-                          ),
-                        ]),
-                  ),
-                ]),
-          ),
-        ],
+                            SizedBox(
+                              width: 300,
+                              child: ReadMoreText(
+                                'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
+                                style: TextStyle(color: Colors.black),
+                                trimLines: 2,
+                                colorClickableText: kPrimaryColor,
+                                trimMode: TrimMode.Line,
+                                trimCollapsedText: 'Show more',
+                                trimExpandedText: 'Show less',
+                                moreStyle: TextStyle(
+                                    fontSize: 14, fontWeight: FontWeight.bold),
+                              ),
+                            ),
+                          ]),
+                    ),
+                  ]),
+            ),
+          ],
+        ),
       ),
     );
   }
