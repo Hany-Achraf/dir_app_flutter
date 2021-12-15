@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/models/Product.dart';
+import 'package:plant_app/models/category_model.dart';
 
 import '../../../constants.dart';
 
 class CategoryCard extends StatelessWidget {
-  final Product product;
+  final Category category;
   final Function press;
   const CategoryCard({
     Key key,
-    this.product,
+    this.category,
     this.press,
   }) : super(key: key);
 
@@ -22,19 +22,15 @@ class CategoryCard extends StatelessWidget {
           Expanded(
             child: Container(
               padding: EdgeInsets.all(kDefaultPadding),
-              // For  demo we use fixed height  and width
-              // Now we dont need them
-              // height: 180,
-              // width: 160,
               decoration: BoxDecoration(
                 // color: product.color,
                 color: Color(0xFFE7EBEE),
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Hero(
-                tag: "${product.id}",
+                tag: "${category.id}",
                 child: Image.asset(
-                  product.image,
+                  category.imgUrl,
                   color: kPrimaryColor,
                 ),
               ),
@@ -45,16 +41,11 @@ class CategoryCard extends StatelessWidget {
               padding:
                   const EdgeInsets.symmetric(vertical: kDefaultPadding / 2),
               child: Text(
-                // products is out demo list
-                product.title,
+                category.name,
                 style: TextStyle(color: kTextColor),
               ),
             ),
           ),
-          // Text(
-          //   "\$${product.price}",
-          //   style: TextStyle(fontWeight: FontWeight.bold),
-          // )
         ],
       ),
     );

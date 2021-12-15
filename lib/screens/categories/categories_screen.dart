@@ -23,35 +23,16 @@ class CategoriesScreen extends StatelessWidget {
           "assets/icons/back.svg",
           color: kPrimaryColor,
         ),
-        // icon: Icon(
-        //   Icons.arrow_back,
-        //   color: kTextColor,
-        // ),
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
         IconButton(
           icon: SvgPicture.asset(
             "assets/icons/search.svg",
-            // By default our  icon color is white
-            // color: kTextColor,
             color: kPrimaryColor,
           ),
-
-          // icon: Icon(
-          //   Icons.search,
-          //   color: kTextColor,
-          // ),
           onPressed: () {},
         ),
-        // IconButton(
-        //   icon: SvgPicture.asset(
-        //     "assets/icons/cart.svg",
-        //     // By default our  icon color is white
-        //     color: kTextColor,
-        //   ),
-        //   onPressed: () {},
-        // ),
         SizedBox(width: kDefaultPadding / 2)
       ],
     );

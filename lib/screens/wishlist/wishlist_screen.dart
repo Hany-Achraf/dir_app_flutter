@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
 
 Row _buildRatingStars(int rating) {
@@ -17,7 +18,7 @@ Row _buildRatingStars(int rating) {
 }
 
 class WishlistScreen extends StatelessWidget {
-  const WishlistScreen({Key key}) : super(key: key);
+  final List<Business> _businesses = businesses.sublist(3);
 
   @override
   Widget build(BuildContext context) {
@@ -25,49 +26,11 @@ class WishlistScreen extends StatelessWidget {
       appBar: AppBar(
         title: Text('Wishlist'),
       ),
-      body: ListView(
-        children: [
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-          SavedBusiness(),
-          SizedBox(
-            height: 8,
-          ),
-        ],
+      body: ListView.builder(
+        itemCount: _businesses.length,
+        itemBuilder: (context, index) {
+          return SavedBusiness(business: _businesses[index]);
+        },
       ),
       bottomNavigationBar: MyBottomNavBar(),
     );
@@ -75,8 +38,10 @@ class WishlistScreen extends StatelessWidget {
 }
 
 class SavedBusiness extends StatelessWidget {
+  final Business business;
   const SavedBusiness({
     Key key,
+    this.business,
   }) : super(key: key);
 
   @override
@@ -104,10 +69,12 @@ class SavedBusiness extends StatelessWidget {
                     height: 80,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      child: Image.network(
-                        'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
-                        fit: BoxFit.fill,
-                      ),
+                      // child: Image.network(
+                      //   'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
+                      //   fit: BoxFit.fill,
+                      // ),
+                      child:
+                          Image.asset(business.thumbnailUrl, fit: BoxFit.fill),
                     ),
                   ),
                   Container(
@@ -124,9 +91,7 @@ class SavedBusiness extends StatelessWidget {
                             overflow: TextOverflow.ellipsis,
                             maxLines: 2,
                             text: TextSpan(
-                              text:
-                                  'Everyday Parenting: The ABCs of Child Rearing',
-                              // 'Hany Mohamed',
+                              text: business.name,
                               style: TextStyle(
                                 color: Colors.black,
                                 fontWeight: FontWeight.w500,
@@ -134,7 +99,7 @@ class SavedBusiness extends StatelessWidget {
                             ),
                           ),
                         ),
-                        _buildRatingStars(3),
+                        _buildRatingStars(business.rating),
                         Row(
                           children: [
                             Icon(

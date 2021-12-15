@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/models/Product.dart';
 import 'package:plant_app/models/destination_model.dart';
-import 'package:plant_app/screens/category/category_screen.dart';
-import 'package:plant_app/screens/top_destination/top_destination_screen.dart';
-
-// import 'categories.dart';
-import 'top_destination_card.dart';
+import 'package:plant_app/screens/destination/destination_screen.dart';
+import 'destination_card.dart';
 
 class Body extends StatelessWidget {
+  final Destination destination;
+
+  const Body({
+    this.destination,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -37,20 +39,8 @@ class Body extends StatelessWidget {
                 crossAxisSpacing: kDefaultPadding,
                 childAspectRatio: 0.75,
               ),
-              itemBuilder: (context, index) => TopDestinationCard(
-                image: "assets/images/mid-valley-jb.png",
-                name: "Angelica",
-                // description: "Russia",
-                press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DestinationScreen(
-                        destination: destinations[0],
-                      ),
-                    ),
-                  );
-                },
+              itemBuilder: (context, index) => DestinationCard(
+                destination: destination,
               ),
             ),
           ),

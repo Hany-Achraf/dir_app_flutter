@@ -1,84 +1,46 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/destination_model.dart';
-import 'package:plant_app/screens/top_destination/top_destination_screen.dart';
-import 'package:plant_app/screens/details/details_screen.dart';
+import 'package:plant_app/screens/destination/destination_screen.dart';
 
 import '../../../constants.dart';
 
-class TopDestinations extends StatelessWidget {
-  const TopDestinations({
-    Key key,
-  }) : super(key: key);
+class Destinations extends StatelessWidget {
+  List<Destination> _destinations = [
+    destinations[0],
+    destinations[0],
+    destinations[0]
+  ];
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          TopDestination(
-            image: "assets/images/mid-valley-jb.png",
-            name: "Angelica",
-            // description: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DestinationScreen(
-                    destination: destinations[0],
-                  ),
-                ),
-              );
-            },
-          ),
-          TopDestination(
-            image: "assets/images/mid-valley-jb.png",
-            name: "Angelica",
-            // description: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DestinationScreen(
-                    destination: destinations[0],
-                  ),
-                ),
-              );
-            },
-          ),
-          TopDestination(
-            image: "assets/images/mid-valley-jb.png",
-            name: "Angelica",
-            // description: "Russia",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => DestinationScreen(
-                    destination: destinations[0],
-                  ),
-                ),
-              );
-            },
-          ),
-        ],
+    // return SingleChildScrollView(
+    //   scrollDirection: Axis.horizontal,
+    //   child: Row(
+    //     children: <Widget>[
+    //       DestinationCard(destination: _destinations[0]),
+    //       DestinationCard(destination: _destinations[1]),
+    //       DestinationCard(destination: _destinations[2]),
+    //     ],
+    //   ),
+    // );
+    return SizedBox(
+      height: 220,
+      child: ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 3,
+        itemBuilder: (context, index) {
+          return DestinationCard(destination: _destinations[index]);
+        },
       ),
     );
   }
 }
 
-class TopDestination extends StatelessWidget {
-  const TopDestination({
-    Key key,
-    this.image,
-    this.name,
-    this.description,
-    this.press,
-  }) : super(key: key);
-
-  final String image, name, description;
-  // final int price;
-  final Function press;
+class DestinationCard extends StatelessWidget {
+  final Destination destination;
+  const DestinationCard({
+    this.destination,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +54,14 @@ class TopDestination extends StatelessWidget {
       ),
       width: size.width * 0.4,
       child: GestureDetector(
-        onTap: press,
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => DestinationScreen(destIndex: 0),
+            ),
+          );
+        },
         child: Column(
           children: <Widget>[
             Container(
@@ -104,7 +73,7 @@ class TopDestination extends StatelessWidget {
                   topRight: Radius.circular(10),
                 ),
                 child: Image.asset(
-                  image,
+                  destination.imgUrl,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -133,7 +102,7 @@ class TopDestination extends StatelessWidget {
                       text: TextSpan(
                         children: [
                           TextSpan(
-                              text: "$name\n".toUpperCase(),
+                              text: "${destination.name}\n".toUpperCase(),
                               style: Theme.of(context).textTheme.button),
                           // TextSpan(
                           //   text: "$description".toUpperCase(),

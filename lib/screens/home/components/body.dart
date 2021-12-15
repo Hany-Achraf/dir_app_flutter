@@ -1,18 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/categories/categories_screen.dart';
-import 'package:plant_app/screens/categories/components/category_card.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
+import 'package:plant_app/screens/destinations/destinations_screen.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/home/components/events.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
-import 'package:plant_app/screens/top_destinations/top_destinations_screen.dart';
 
 import 'promotions.dart';
 import 'header_with_seachbox.dart';
-import 'top_destinations.dart';
+import 'destinations.dart';
 import 'title_with_more_bbtn.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class Body extends StatefulWidget {
   @override
@@ -119,12 +117,11 @@ class _BodyState extends State<Body> {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => TopDestinationsScreen()),
+                MaterialPageRoute(builder: (context) => DestinationsScreen()),
               );
             },
           ),
-          TopDestinations(),
+          Destinations(),
           TitleWithMoreBtn(
             title: "Promotions",
             press: () {

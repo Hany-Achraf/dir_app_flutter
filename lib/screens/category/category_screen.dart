@@ -10,9 +10,7 @@ class CategoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(
-        destination: destinations[0],
-      ),
+      body: Body(),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -23,28 +21,17 @@ class CategoryScreen extends StatelessWidget {
       elevation: 1,
       leading: IconButton(
         icon: SvgPicture.asset(
-          "assets/icons/back.svg",
+          'assets/icons/back.svg',
           color: kPrimaryColor,
         ),
-        // icon: Icon(
-        //   Icons.arrow_back,
-        //   color: kTextColor,
-        // ),
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
         IconButton(
           icon: SvgPicture.asset(
-            "assets/icons/search.svg",
-            // By default our  icon color is white
-            // color: kTextColor,
+            'assets/icons/search.svg',
             color: kPrimaryColor,
           ),
-
-          // icon: Icon(
-          //   Icons.search,
-          //   color: kTextColor,
-          // ),
           onPressed: () {},
         ),
         SizedBox(width: kDefaultPadding / 2)

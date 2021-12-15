@@ -1,21 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/models/activity_model.dart';
+import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/destination_model.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
 
 import '../../constants.dart';
 
-class DestinationScreen extends StatefulWidget {
-  final Destination destination;
+class DestinationScreen extends StatelessWidget {
+  final int destIndex;
+  final Destination _destination = destinations[0];
+  final List<Business> _businesses = businesses;
 
-  DestinationScreen({this.destination});
+  DestinationScreen({this.destIndex});
 
-  @override
-  _DestinationScreenState createState() => _DestinationScreenState();
-}
-
-class _DestinationScreenState extends State<DestinationScreen> {
   Row _buildRatingStars(int rating) {
     List<Icon> ratingStars = [];
     for (int i = 0; i < 5; i++) {
@@ -49,11 +45,14 @@ class _DestinationScreenState extends State<DestinationScreen> {
                   ],
                 ),
                 child: Hero(
-                  tag: widget.destination.imageUrl,
+                  tag: _destination.imgUrl,
                   child: ClipRRect(
-                    borderRadius: BorderRadius.circular(30.0),
+                    borderRadius: BorderRadius.only(
+                      bottomRight: Radius.circular(20),
+                      bottomLeft: Radius.circular(20),
+                    ),
                     child: Image.asset(
-                      widget.destination.imageUrl,
+                      _destination.imgUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -90,7 +89,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      widget.destination.name,
+                      _destination.name,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,
@@ -115,9 +114,9 @@ class _DestinationScreenState extends State<DestinationScreen> {
           Expanded(
             child: ListView.builder(
               padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
-              itemCount: widget.destination.activities.length,
+              itemCount: _businesses.length,
               itemBuilder: (BuildContext context, int index) {
-                Activity activity = widget.destination.activities[index];
+                Business business = _businesses[index];
                 return InkWell(
                   onTap: () {
                     Navigator.push(
@@ -152,7 +151,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                               child: ClipRRect(
                                 borderRadius: BorderRadius.circular(20.0),
                                 child: Image.asset(
-                                  activity.imageUrl,
+                                  business.thumbnailUrl,
                                   height: 200,
                                   width: 110.0,
                                   fit: BoxFit.fill,
@@ -171,7 +170,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                     Container(
                                       width: 120.0,
                                       child: Text(
-                                        activity.name,
+                                        business.name,
                                         style: TextStyle(
                                           fontSize: 18.0,
                                           fontWeight: FontWeight.w600,
@@ -182,13 +181,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                     ),
                                   ],
                                 ),
-                                Text(
-                                  activity.type,
-                                  style: TextStyle(
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                                _buildRatingStars(activity.rating),
+                                _buildRatingStars(business.rating),
                                 SizedBox(height: 10.0),
                                 Row(
                                   children: <Widget>[
@@ -196,31 +189,13 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                       padding: EdgeInsets.all(5.0),
                                       width: 190.0,
                                       decoration: BoxDecoration(
-                                        // color: Theme.of(context).accentColor,
                                         color: kPrimaryColor,
                                         borderRadius:
                                             BorderRadius.circular(10.0),
                                       ),
                                       alignment: Alignment.center,
-                                      child: Text(
-                                        // activity.startTimes[0],
-                                        'Sun – Wed (10:00 – 22:00)',
-                                      ),
+                                      child: Text(business.workingTime),
                                     ),
-                                    // SizedBox(width: 10.0),
-                                    // Container(
-                                    //   padding: EdgeInsets.all(5.0),
-                                    //   width: 70.0,
-                                    //   decoration: BoxDecoration(
-                                    //     // color: Theme.of(context).accentColor,
-                                    //     color: kPrimaryColor,
-                                    //     borderRadius: BorderRadius.circular(10.0),
-                                    //   ),
-                                    //   alignment: Alignment.center,
-                                    //   child: Text(
-                                    //     activity.startTimes[1],
-                                    //   ),
-                                    // ),
                                   ],
                                 )
                               ],

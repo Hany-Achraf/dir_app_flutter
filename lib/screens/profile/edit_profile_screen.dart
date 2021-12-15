@@ -100,8 +100,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 // SizedBox(height: height * .1),
                 Column(
                   children: <Widget>[
-                    _entryField("Firstname", _firstnameController),
-                    _entryField("Lastname", _lastnameController),
+                    _entryField("First name", _firstnameController),
+                    _entryField("Last name", _lastnameController),
                   ],
                 ),
                 SizedBox(

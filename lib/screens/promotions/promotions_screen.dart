@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/models/Product.dart';
+import 'package:plant_app/models/category_model.dart';
 
 class PromotionsScreen extends StatefulWidget {
   final bool autoplay;
