@@ -5,10 +5,10 @@ import 'package:plant_app/screens/destination/destination_screen.dart';
 import 'destination_card.dart';
 
 class Body extends StatelessWidget {
-  final Destination destination;
+  final List<Destination> destinations;
 
   const Body({
-    this.destination,
+    this.destinations,
   });
 
   @override
@@ -32,7 +32,7 @@ class Body extends StatelessWidget {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
             child: GridView.builder(
-              itemCount: 6,
+              itemCount: destinations.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
                 // mainAxisSpacing: kDefaultPadding / 2,
@@ -40,7 +40,7 @@ class Body extends StatelessWidget {
                 childAspectRatio: 0.75,
               ),
               itemBuilder: (context, index) => DestinationCard(
-                destination: destination,
+                destination: destinations[index],
               ),
             ),
           ),

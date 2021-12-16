@@ -6,11 +6,9 @@ import 'package:plant_app/screens/business/business_screen.dart';
 import '../../constants.dart';
 
 class DestinationScreen extends StatelessWidget {
-  final int destIndex;
-  final Destination _destination = destinations[0];
-  final List<Business> _businesses = businesses;
+  final int destinationId;
 
-  DestinationScreen({this.destIndex});
+  DestinationScreen({this.destinationId});
 
   Row _buildRatingStars(int rating) {
     List<Icon> ratingStars = [];
@@ -27,6 +25,10 @@ class DestinationScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Destination destination = destinations
+        .firstWhere((destination) => destination.id == destinationId);
+    final List<Business> _businesses = businesses;
+
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -45,14 +47,14 @@ class DestinationScreen extends StatelessWidget {
                   ],
                 ),
                 child: Hero(
-                  tag: _destination.imgUrl,
+                  tag: destination.imgUrl,
                   child: ClipRRect(
                     borderRadius: BorderRadius.only(
                       bottomRight: Radius.circular(20),
                       bottomLeft: Radius.circular(20),
                     ),
                     child: Image.asset(
-                      _destination.imgUrl,
+                      destination.imgUrl,
                       fit: BoxFit.cover,
                     ),
                   ),
@@ -89,7 +91,7 @@ class DestinationScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
-                      _destination.name,
+                      destination.name,
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 20.0,

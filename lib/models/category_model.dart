@@ -7,29 +7,82 @@ class Category {
   final String name;
   final String imgUrl;
   // final Color color;
+  final List<Category> subcategories;
 
   Category({
     this.id,
     this.imgUrl,
     this.name,
     // this.color,
+    this.subcategories,
   });
 }
 
-List<Category> categories = [
+List<Category> fashionSubcategories = [
   Category(
-      id: 1,
-      name: 'Fashion',
-      imgUrl: 'assets/images/shirt.png'), // ,color: HexColor('#ccffe6')),
-  Category(id: 2, name: 'Food & Beverages', imgUrl: 'assets/images/food.png'),
-  Category(id: 3, name: 'Cars', imgUrl: 'assets/images/car.png'),
-  Category(id: 4, name: 'Sports', imgUrl: 'assets/images/sports.png'),
-  Category(id: 5, name: 'Health', imgUrl: 'assets/images/health.png'),
+    id: 1,
+    name: 'All',
+  ),
   Category(
-      id: 6, name: 'Legal Consultation', imgUrl: 'assets/images/lawyer.png'),
-  Category(id: 7, name: 'Beauty', imgUrl: 'assets/images/beauty.png'),
-  Category(id: 8, name: 'School', imgUrl: 'assets/images/school.webp'),
+    id: 2,
+    name: 'Men',
+  ),
+  Category(
+    id: 3,
+    name: 'Woman',
+  ),
+  Category(
+    id: 4,
+    name: 'Jewellery',
+  ),
 ];
 
-String dummyText =
-    "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since. When an unknown printer took a galley.";
+List<Category> foodSubcategories = [
+  Category(
+    id: 1,
+    name: 'All',
+  ),
+  Category(
+    id: 2,
+    name: 'Breakfast',
+  ),
+  Category(
+    id: 3,
+    name: 'Arabian',
+  ),
+  Category(
+    id: 4,
+    name: 'Malay',
+  ),
+  Category(
+    id: 5,
+    name: 'Western',
+  ),
+  Category(
+    id: 6,
+    name: 'Chinese',
+  ),
+];
+
+List<Category> categories = [
+  Category(
+    id: 1,
+    name: 'Fashion',
+    imgUrl: 'assets/images/shirt.png',
+    subcategories: fashionSubcategories,
+  ), // ,color: HexColor('#ccffe6')),
+  Category(
+    id: 2,
+    name: 'Food & Beverages',
+    imgUrl: 'assets/images/food.png',
+    subcategories: foodSubcategories,
+  ),
+  Category(id: 3, name: 'Cars', imgUrl: 'assets/images/car.png'),
+  Category(id: 4, name: 'Health', imgUrl: 'assets/images/health.png'),
+  Category(id: 5, name: 'Hotels', imgUrl: 'assets/images/hotel.png'),
+  Category(id: 6, name: 'Beauty', imgUrl: 'assets/images/beauty.png'),
+  Category(
+      id: 7, name: 'Legal Consultation', imgUrl: 'assets/images/lawyer.png'),
+  Category(id: 8, name: 'Schools', imgUrl: 'assets/images/school.webp'),
+  Category(id: 9, name: 'Sports', imgUrl: 'assets/images/sports.png'),
+];

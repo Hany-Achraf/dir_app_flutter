@@ -67,9 +67,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   spreadRadius: 2)
             ],
             gradient: LinearGradient(
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-                colors: [HexColor("#A46DFF"), HexColor("#9E9E9E")])),
+                begin: Alignment.centerLeft, end: Alignment.centerRight,
+                // colors: [HexColor("#A46DFF"), HexColor("#9E9E9E")])),
+                colors: [HexColor("#52766c"), HexColor("#9E9E9E")])),
         child: Text(
           'Submit',
           style: TextStyle(fontSize: 20, color: Colors.white),

@@ -6,11 +6,17 @@ import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/category/components/body.dart';
 
 class CategoryScreen extends StatelessWidget {
+  final int id;
+
+  CategoryScreen({this.id});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: Body(
+        categoryId: id,
+      ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }

@@ -1,75 +1,61 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
 
 import '../../../constants.dart';
 
-class Promotions extends StatelessWidget {
-  const Promotions({
-    Key key,
-  }) : super(key: key);
+class EventsSlider extends StatelessWidget {
+  Widget buildEventsSlider() {
+    Row eventsSlider = Row(children: []);
+    events.forEach((event) {
+      eventsSlider.children.add(
+        EventCard(
+          event: event,
+        ),
+      );
+    });
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: eventsSlider,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      scrollDirection: Axis.horizontal,
-      child: Row(
-        children: <Widget>[
-          PromotionCard(
-            image: "assets/images/bottom_img_1.png",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PromotionsScreen(
-                    autoplay: false,
-                  ),
-                ),
-              );
-            },
-            text: 'Everyday Parenting: The ABCs of Child Rearing',
-          ),
-          PromotionCard(
-            image: "assets/images/bottom_img_2.png",
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => PromotionsScreen(
-                    autoplay: false,
-                  ),
-                ),
-              );
-            },
-            text: 'Hany Mohamed',
-          ),
-        ],
-      ),
-    );
+    return buildEventsSlider();
   }
 }
 
-class PromotionCard extends StatelessWidget {
-  const PromotionCard({
-    Key key,
-    this.image,
-    this.press,
-    this.text,
-  }) : super(key: key);
-  final String image;
-  final Function press;
-  final String text;
+class EventCard extends StatelessWidget {
+  final Event event;
+
+  EventCard({
+    this.event,
+  });
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return GestureDetector(
-      onTap: press,
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PromotionsScreen(
+              autoplay: false,
+            ),
+          ),
+        );
+      },
       child: Container(
         margin: EdgeInsets.only(
           left: kDefaultPadding,
           top: kDefaultPadding / 2,
-          bottom: kDefaultPadding / 2,
+          bottom: kDefaultPadding,
         ),
         width: size.width * 0.8,
         height: 150,
@@ -95,7 +81,7 @@ class PromotionCard extends StatelessWidget {
                 bottomLeft: Radius.circular(10),
               ),
               child: Image.network(
-                'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
+                event.imgUrl,
                 fit: BoxFit.fill,
                 width: 120,
                 height: 150,
@@ -113,7 +99,7 @@ class PromotionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       text: TextSpan(
-                        text: text,
+                        text: event.name,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w700,
@@ -127,7 +113,7 @@ class PromotionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       text: TextSpan(
-                        text: text,
+                        text: event.organizer,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,
@@ -142,7 +128,8 @@ class PromotionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       text: TextSpan(
-                        text: 'Untill 31 Dec 2021',
+                        text:
+                            'On ${DateFormat("dd MMM yyyy").format(event.date)}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,

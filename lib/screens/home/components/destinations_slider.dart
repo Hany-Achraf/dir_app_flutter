@@ -1,38 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/destination/destination_screen.dart';
-
 import '../../../constants.dart';
 
-class Destinations extends StatelessWidget {
-  List<Destination> _destinations = [
-    destinations[0],
-    destinations[0],
-    destinations[0]
-  ];
+class DestinationsSlider extends StatelessWidget {
+  Widget _destinationCards() {
+    Row x = Row(children: []);
+    destinations.forEach((destination) {
+      x.children.add(
+        DestinationCard(destination: destination),
+      );
+    });
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: x,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    // return SingleChildScrollView(
-    //   scrollDirection: Axis.horizontal,
-    //   child: Row(
-    //     children: <Widget>[
-    //       DestinationCard(destination: _destinations[0]),
-    //       DestinationCard(destination: _destinations[1]),
-    //       DestinationCard(destination: _destinations[2]),
-    //     ],
-    //   ),
-    // );
-    return SizedBox(
-      height: 220,
-      child: ListView.builder(
-        scrollDirection: Axis.horizontal,
-        itemCount: 3,
-        itemBuilder: (context, index) {
-          return DestinationCard(destination: _destinations[index]);
-        },
-      ),
-    );
+    return _destinationCards();
   }
 }
 
@@ -49,7 +36,6 @@ class DestinationCard extends StatelessWidget {
       margin: EdgeInsets.only(
         left: kDefaultPadding,
         top: kDefaultPadding / 2,
-        // bottom: kDefaultPadding * 2.5,
         bottom: kDefaultPadding,
       ),
       width: size.width * 0.4,
@@ -58,15 +44,15 @@ class DestinationCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => DestinationScreen(destIndex: 0),
+              builder: (context) =>
+                  DestinationScreen(destinationId: destination.id),
             ),
           );
         },
         child: Column(
           children: <Widget>[
             Container(
-              height: 150,
-              width: 200,
+              height: 130,
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
@@ -99,17 +85,12 @@ class DestinationCard extends StatelessWidget {
                   Flexible(
                     child: RichText(
                       overflow: TextOverflow.ellipsis,
+                      maxLines: 2,
                       text: TextSpan(
                         children: [
                           TextSpan(
                               text: "${destination.name}\n".toUpperCase(),
                               style: Theme.of(context).textTheme.button),
-                          // TextSpan(
-                          //   text: "$description".toUpperCase(),
-                          //   style: TextStyle(
-                          //     color: kPrimaryColor.withOpacity(0.5),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),

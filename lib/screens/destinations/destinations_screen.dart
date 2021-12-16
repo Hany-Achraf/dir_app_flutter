@@ -6,13 +6,11 @@ import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/destinations/components/body.dart';
 
 class DestinationsScreen extends StatelessWidget {
-  final Destination _destination = destinations[0];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(destination: _destination),
+      body: Body(destinations: destinations),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }

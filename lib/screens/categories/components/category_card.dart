@@ -6,11 +6,11 @@ import '../../../constants.dart';
 class CategoryCard extends StatelessWidget {
   final Category category;
   final Function press;
-  const CategoryCard({
-    Key key,
+
+  CategoryCard({
     this.category,
     this.press,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

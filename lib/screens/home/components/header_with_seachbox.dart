@@ -4,26 +4,13 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../constants.dart';
 
-class HeaderWithSearchBox extends StatefulWidget {
-  const HeaderWithSearchBox({
-    Key key,
-    @required this.size,
-  }) : super(key: key);
-
-  final Size size;
-
-  @override
-  State<HeaderWithSearchBox> createState() => _HeaderWithSearchBoxState();
-}
-
-class _HeaderWithSearchBoxState extends State<HeaderWithSearchBox> {
+class HeaderWithSearchBox extends StatelessWidget {
   Widget _title() {
     return RichText(
       textAlign: TextAlign.center,
       text: TextSpan(
           text: 'Everything',
           style: GoogleFonts.portLligatSans(
-            textStyle: Theme.of(context).textTheme.headline1,
             fontSize: 30,
             fontWeight: FontWeight.w700,
             color: Colors.white,
@@ -43,11 +30,12 @@ class _HeaderWithSearchBoxState extends State<HeaderWithSearchBox> {
 
   @override
   Widget build(BuildContext context) {
+    final size = MediaQuery.of(context).size;
+
     return Container(
-      // margin: EdgeInsets.only(bottom: kDefaultPadding * 2.5),
       margin: EdgeInsets.only(bottom: kDefaultPadding),
       // It will cover 20% of our total height
-      height: widget.size.height * 0.2,
+      height: size.height * 0.19, // placing the search bar vertically
       child: Stack(
         children: <Widget>[
           Container(
@@ -56,7 +44,7 @@ class _HeaderWithSearchBoxState extends State<HeaderWithSearchBox> {
               right: kDefaultPadding,
               bottom: kDefaultPadding,
             ),
-            height: widget.size.height * 0.2 - 27,
+            height: size.height * 0.2 - 24, // placing the title vertically
             decoration: BoxDecoration(
               color: kPrimaryColor,
               borderRadius: BorderRadius.only(
@@ -64,17 +52,6 @@ class _HeaderWithSearchBoxState extends State<HeaderWithSearchBox> {
                 bottomRight: Radius.circular(36),
               ),
             ),
-            // child: Row(
-            //   children: <Widget>[
-            //     Text(
-            //       'Hi Uishopy!',
-            //       style: Theme.of(context).textTheme.headline5.copyWith(
-            //           color: Colors.white, fontWeight: FontWeight.bold),
-            //     ),
-            //     Spacer(),
-            //     Image.asset("assets/images/logo.png")
-            //   ],
-            // ),
             child: Center(child: _title()),
           ),
           Positioned(
@@ -103,7 +80,7 @@ class _HeaderWithSearchBoxState extends State<HeaderWithSearchBox> {
                     child: TextField(
                       onChanged: (value) {},
                       decoration: InputDecoration(
-                        hintText: "Search",
+                        hintText: 'Search',
                         hintStyle: TextStyle(
                           color: kPrimaryColor.withOpacity(0.5),
                         ),

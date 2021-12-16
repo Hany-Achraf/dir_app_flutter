@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
+import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
-import 'package:plant_app/screens/category/components/sub_categories.dart';
+import 'package:plant_app/screens/category/components/sub_categories_slider.dart';
 
 class Body extends StatelessWidget {
+  final int categoryId;
   final List<Business> _businesses = businesses;
+
+  Body({this.categoryId});
 
   Row _buildRatingStars(int rating) {
     List<Icon> ratingStars = [];
@@ -22,15 +26,17 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Category category =
+        categories.firstWhere((category) => category.id == categoryId);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Center(
           child: Padding(
-            // padding: const EdgeInsets.symmetric(horizontal: kDefaultPadding),
-            padding: const EdgeInsets.all(kDefaultPadding),
+            padding: const EdgeInsets.all(kDefaultPadding / 2),
             child: Text(
-              "Fashion",
+              category.name,
               style: Theme.of(context)
                   .textTheme
                   .headline5
@@ -38,7 +44,9 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
-        SubCategories(),
+        category.subcategories == null
+            ? Container()
+            : SubcategoriesSlider(category.subcategories),
         Expanded(
           child: ListView.builder(
             padding: EdgeInsets.only(bottom: 15.0),
@@ -124,20 +132,6 @@ class Body extends StatelessWidget {
                                     alignment: Alignment.center,
                                     child: Text(business.workingTime),
                                   ),
-                                  // SizedBox(width: 10.0),
-                                  // Container(
-                                  //   padding: EdgeInsets.all(5.0),
-                                  //   width: 70.0,
-                                  //   decoration: BoxDecoration(
-                                  //     // color: Theme.of(context).accentColor,
-                                  //     color: kPrimaryColor,
-                                  //     borderRadius: BorderRadius.circular(10.0),
-                                  //   ),
-                                  //   alignment: Alignment.center,
-                                  //   child: Text(
-                                  //     activity.startTimes[1],
-                                  //   ),
-                                  // ),
                                 ],
                               )
                             ],
@@ -148,19 +142,6 @@ class Body extends StatelessWidget {
                   ),
                 ),
               );
-              // Positioned(
-              //   left: 20.0,
-              //   top: 15.0,
-              //   bottom: 15.0,
-              // child: ClipRRect(
-              //   borderRadius: BorderRadius.circular(20.0),
-              //   child: Image.asset(
-              //     activity.imageUrl,
-              //     width: 110.0,
-              //     fit: BoxFit.fill,
-              //   ),
-              // ),
-              // ),
             },
           ),
         ),
