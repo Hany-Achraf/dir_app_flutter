@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/models/promotion_model.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
+import 'package:plant_app/screens/promotion/promotion_screen.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
 
 import '../../../constants.dart';
@@ -25,42 +26,6 @@ class PromotionsSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // return SingleChildScrollView(
-    //   scrollDirection: Axis.horizontal,
-    //   child: Row(
-    //     children: <Widget>[
-    //       PromotionCard(
-    //         image: "assets/images/bottom_img_1.png",
-    //         press: () {
-    //           Navigator.push(
-    //             context,
-    //             MaterialPageRoute(
-    //               builder: (context) => PromotionsScreen(
-    //                 autoplay: false,
-    //               ),
-    //             ),
-    //           );
-    //         },
-    //         text: 'Everyday Parenting: The ABCs of Child Rearing',
-    //       ),
-    //       // PromotionCard(
-    //       //   image: "assets/images/bottom_img_2.png",
-    //       //   press: () {
-    //       //     Navigator.push(
-    //       //       context,
-    //       //       MaterialPageRoute(
-    //       //         builder: (context) => PromotionsScreen(
-    //       //           autoplay: false,
-    //       //         ),
-    //       //       ),
-    //       //     );
-    //       //   },
-    //       //   text: 'Hany Mohamed',
-    //       // ),
-    //     ],
-    //   ),
-    // );
-
     return buildPromotionsSlider();
   }
 }
@@ -81,8 +46,8 @@ class PromotionCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PromotionsScreen(
-              autoplay: false,
+            builder: (context) => PromotionScreen(
+              promotion: promotion,
             ),
           ),
         );

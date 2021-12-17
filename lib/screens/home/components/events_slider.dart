@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/models/event_model.dart';
+import 'package:plant_app/screens/event/event_screen.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
 
@@ -45,8 +46,8 @@ class EventCard extends StatelessWidget {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => PromotionsScreen(
-              autoplay: false,
+            builder: (context) => EventScreen(
+              event: event,
             ),
           ),
         );
@@ -129,7 +130,7 @@ class EventCard extends StatelessWidget {
                       maxLines: 2,
                       text: TextSpan(
                         text:
-                            'On ${DateFormat("dd MMM yyyy").format(event.date)}',
+                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.date)}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,

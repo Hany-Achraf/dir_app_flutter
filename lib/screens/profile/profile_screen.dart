@@ -12,14 +12,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(
-          child: Text(
-            'Tarek Hamed',
-            style: TextStyle(color: kTextColor),
-          ),
+        centerTitle: true,
+        title: Text(
+          'Tarek Hamed',
+          style: TextStyle(color: Colors.white),
         ),
-        backgroundColor: Colors.white,
-        elevation: 1,
+        backgroundColor: kPrimaryColor,
+        elevation: 1.5,
       ),
       body: Body(),
       // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.profile),

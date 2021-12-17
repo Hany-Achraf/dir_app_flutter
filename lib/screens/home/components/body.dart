@@ -41,8 +41,7 @@ class _BodyState extends State<Body> {
             press: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => PromotionsScreen(autoplay: true)),
+                MaterialPageRoute(builder: (context) => PromotionsScreen()),
               );
             },
           ),
@@ -53,7 +52,8 @@ class _BodyState extends State<Body> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (context) => EventsScreen(autoplay: true)),
+                  builder: (context) => EventsScreen(),
+                ),
               );
             },
           ),

@@ -83,14 +83,31 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: AppBar(
-        foregroundColor: kPrimaryColor,
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
+        centerTitle: true,
+        title: Text(
+          'Edit Profile',
+          style: TextStyle(color: Colors.white),
+        ),
+        backgroundColor: kPrimaryColor,
+        elevation: 1.5,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: Colors.white,
+            size: 30.0,
+          ),
+          onPressed: () {
+            Navigator.maybePop(context);
+          },
+        ),
       ),
       body: Form(
         key: _formKey,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
+          padding: EdgeInsets.symmetric(
+            horizontal: 30,
+            vertical: 30,
+          ),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -85,6 +85,7 @@ class BusinessInfo extends StatelessWidget {
               height: 8,
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Flexible(

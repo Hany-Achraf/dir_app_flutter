@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
+import 'package:plant_app/models/event_model.dart';
+import 'package:plant_app/screens/event/event_screen.dart';
 
 class EventsScreen extends StatefulWidget {
-  final bool autoplay;
-  const EventsScreen({Key key, this.autoplay}) : super(key: key);
+  const EventsScreen({Key key}) : super(key: key);
 
   @override
   _EventsScreenState createState() => _EventsScreenState();
@@ -14,19 +16,11 @@ class EventsScreen extends StatefulWidget {
 class _EventsScreenState extends State<EventsScreen> {
   CarouselController buttonCarouselController = CarouselController();
   int _current = 0;
-  List imgList = [
-    'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
-    'https://images.unsplash.com/photo-1502117859338-fd9daa518a9a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1554321586-92083ba0a115?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1536679545597-c2e5e1946495?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1543922596-b3bbaba80649?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=800&q=60',
-    'https://images.unsplash.com/photo-1502943693086-33b5b1cfdf2f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=668&q=80'
-  ];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
     for (var i = 0; i < list.length; i++) {
-      result.add(handler(i, list[i]));
+      result.add(handler(i));
     }
     return result;
   }
@@ -37,6 +31,15 @@ class _EventsScreenState extends State<EventsScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Events'),
+        leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios,
+              color: Colors.white,
+              size: 30.0,
+            ),
+            onPressed: () {
+              Navigator.maybeOf(context).pop();
+            }),
       ),
       body: Container(
         margin: EdgeInsets.only(top: 12.0),
@@ -51,12 +54,11 @@ class _EventsScreenState extends State<EventsScreen> {
                   height: 507.0,
                   initialPage: 0,
                   enlargeCenterPage: true,
-                  autoPlay: widget.autoplay,
+                  autoPlay: true,
                   reverse: false,
                   enableInfiniteScroll: true,
                   autoPlayInterval: Duration(seconds: 4),
                   autoPlayAnimationDuration: Duration(milliseconds: 2000),
-                  pauseAutoPlayOnTouch: true,
                   scrollDirection: Axis.horizontal,
                   onPageChanged: (index, reason) {
                     setState(() {
@@ -64,106 +66,121 @@ class _EventsScreenState extends State<EventsScreen> {
                     });
                   },
                 ),
-                items: map<Widget>(imgList, (index, imgUrl) {
+                items: map<Widget>(events, (index) {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
                         width: MediaQuery.of(context).size.width,
                         margin: EdgeInsets.symmetric(horizontal: 10.0),
                         child: _current == index
-                            ? Column(
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    height: 390,
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0),
-                                        color: kTextLightColor,
-                                      ),
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.only(
-                                          topLeft: Radius.circular(10),
-                                          topRight: Radius.circular(10),
-                                        ),
-                                        child: Image.network(
-                                          imgUrl,
-                                          fit: BoxFit.fill,
-                                        ),
+                            ? GestureDetector(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => EventScreen(
+                                        event: events[index],
                                       ),
                                     ),
-                                  ),
-                                  Container(
-                                    padding:
-                                        EdgeInsets.all(kDefaultPadding / 2),
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.only(
-                                        bottomLeft: Radius.circular(10),
-                                        bottomRight: Radius.circular(10),
-                                      ),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          offset: Offset(0, 5),
-                                          blurRadius: 5,
-                                          color:
-                                              kPrimaryColor.withOpacity(0.23),
+                                  );
+                                },
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 390,
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0),
+                                          color: kTextLightColor,
                                         ),
-                                      ],
-                                    ),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        RichText(
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 3,
-                                          text: TextSpan(
-                                            // text: 'Promotion Title',
-                                            text: dummyText,
-                                            style: TextStyle(
-                                              color: kTextColor,
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16,
-                                            ),
+                                        child: ClipRRect(
+                                          borderRadius: BorderRadius.only(
+                                            topLeft: Radius.circular(10),
+                                            topRight: Radius.circular(10),
+                                          ),
+                                          child: Image.network(
+                                            events[index].imgUrl,
+                                            fit: BoxFit.fill,
                                           ),
                                         ),
-                                        SizedBox(
-                                          height: 4,
+                                      ),
+                                    ),
+                                    Container(
+                                      padding:
+                                          EdgeInsets.all(kDefaultPadding / 2),
+                                      decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius: BorderRadius.only(
+                                          bottomLeft: Radius.circular(10),
+                                          bottomRight: Radius.circular(10),
                                         ),
-                                        Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            Container(
-                                              width: 185,
-                                              child: RichText(
-                                                overflow: TextOverflow.ellipsis,
-                                                text: TextSpan(
-                                                  text: 'Business/Shop Name',
-                                                  // text: dummyText,
-                                                  style: TextStyle(
-                                                    color: kTextColor,
-                                                    fontSize: 14,
+                                        boxShadow: [
+                                          BoxShadow(
+                                            offset: Offset(0, 5),
+                                            blurRadius: 5,
+                                            color:
+                                                kPrimaryColor.withOpacity(0.23),
+                                          ),
+                                        ],
+                                      ),
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          RichText(
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 3,
+                                            text: TextSpan(
+                                              // text: 'Promotion Name',
+                                              text: events[index].name,
+                                              style: TextStyle(
+                                                color: kTextColor,
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 4,
+                                          ),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Container(
+                                                width: 120,
+                                                child: RichText(
+                                                  overflow:
+                                                      TextOverflow.ellipsis,
+                                                  text: TextSpan(
+                                                    // text: 'Organzier',
+                                                    text:
+                                                        events[index].organizer,
+                                                    style: TextStyle(
+                                                      color: kTextColor,
+                                                      fontSize: 14,
+                                                    ),
                                                   ),
                                                 ),
                                               ),
-                                            ),
-                                            Text(
-                                              'Untill 31 Dec 2021',
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                color: Colors.grey,
-                                                fontWeight: FontWeight.bold,
+                                              Text(
+                                                // 'On 31 Dec 2021',
+                                                'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(events[index].date)}',
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  color: Colors.grey,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                               ),
-                                            ),
-                                          ],
-                                        ),
-                                      ],
+                                            ],
+                                          ),
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               )
                             : Container(
                                 decoration: BoxDecoration(
@@ -178,7 +195,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                     bottomRight: Radius.circular(10),
                                   ),
                                   child: Image.network(
-                                    imgUrl,
+                                    events[index].imgUrl,
                                     fit: BoxFit.fill,
                                   ),
                                 ),
@@ -189,20 +206,6 @@ class _EventsScreenState extends State<EventsScreen> {
                 }).toList(),
               ),
             ),
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children: map<Widget>(imgList, (index, url) {
-            //     return Container(
-            //       width: 10.0,
-            //       height: 10.0,
-            //       margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-            //       decoration: BoxDecoration(
-            //         shape: BoxShape.circle,
-            //         color: _current == index ? kPrimaryColor : kTextLightColor,
-            //       ),
-            //     );
-            //   }),
-            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[

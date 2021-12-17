@@ -40,7 +40,7 @@ class BusinessSliverAppBar extends StatelessWidget {
           Positioned.fill(
             child: Image.network(
                 'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
-                fit: BoxFit.cover),
+                fit: BoxFit.fill),
           ),
           Positioned(
             top: 0,
