@@ -126,7 +126,8 @@ SliverAppBar customAppBar(BuildContext context, {String imgUrl}) {
         ),
       ),
     ],
-    expandedHeight: 400,
+    // expandedHeight: 400,
+    expandedHeight: MediaQuery.of(context).size.height / 1.5,
     flexibleSpace: FlexibleSpaceBar(
       background: Stack(children: [
         Positioned.fill(

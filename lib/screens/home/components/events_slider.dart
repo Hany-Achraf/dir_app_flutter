@@ -130,7 +130,7 @@ class EventCard extends StatelessWidget {
                       maxLines: 2,
                       text: TextSpan(
                         text:
-                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.date)}',
+                            '${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.date)}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,

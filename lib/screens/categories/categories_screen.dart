@@ -19,17 +19,27 @@ class CategoriesScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       elevation: 1,
       leading: IconButton(
-        icon: SvgPicture.asset(
-          "assets/icons/back.svg",
+        // icon: SvgPicture.asset(
+        //   "assets/icons/back.svg",
+        //   color: kPrimaryColor,
+        // ),
+        icon: Icon(
+          Icons.arrow_back_ios,
           color: kPrimaryColor,
+          size: 30.0,
         ),
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
         IconButton(
-          icon: SvgPicture.asset(
-            "assets/icons/search.svg",
+          // icon: SvgPicture.asset(
+          //   "assets/icons/search.svg",
+          //   color: kPrimaryColor,
+          // ),
+          icon: Icon(
+            Icons.search,
             color: kPrimaryColor,
+            size: 30.0,
           ),
           onPressed: () {},
         ),

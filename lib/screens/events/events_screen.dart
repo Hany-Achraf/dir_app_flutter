@@ -28,6 +28,7 @@ class _EventsScreenState extends State<EventsScreen> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Events'),
@@ -51,7 +52,8 @@ class _EventsScreenState extends State<EventsScreen> {
               child: CarouselSlider(
                 carouselController: buttonCarouselController,
                 options: CarouselOptions(
-                  height: 507.0,
+                  // height: 507.0,
+                  height: MediaQuery.of(context).size.height / 1.3,
                   initialPage: 0,
                   enlargeCenterPage: true,
                   autoPlay: true,
@@ -70,7 +72,7 @@ class _EventsScreenState extends State<EventsScreen> {
                   return Builder(
                     builder: (BuildContext context) {
                       return Container(
-                        width: MediaQuery.of(context).size.width,
+                        // width: size.width,
                         margin: EdgeInsets.symmetric(horizontal: 10.0),
                         child: _current == index
                             ? GestureDetector(
@@ -87,8 +89,12 @@ class _EventsScreenState extends State<EventsScreen> {
                                 child: Column(
                                   children: [
                                     Container(
+                                      // width: size.width,
                                       width: MediaQuery.of(context).size.width,
-                                      height: 390,
+                                      // height: 390,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              1.6,
                                       child: Container(
                                         decoration: BoxDecoration(
                                           borderRadius:
@@ -108,6 +114,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                       ),
                                     ),
                                     Container(
+                                      width: MediaQuery.of(context).size.width,
                                       padding:
                                           EdgeInsets.all(kDefaultPadding / 2),
                                       decoration: BoxDecoration(
@@ -131,7 +138,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                         children: [
                                           RichText(
                                             overflow: TextOverflow.ellipsis,
-                                            maxLines: 3,
+                                            maxLines: 2,
                                             text: TextSpan(
                                               // text: 'Promotion Name',
                                               text: events[index].name,
@@ -145,37 +152,41 @@ class _EventsScreenState extends State<EventsScreen> {
                                           SizedBox(
                                             height: 4,
                                           ),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Container(
-                                                width: 120,
-                                                child: RichText(
-                                                  overflow:
-                                                      TextOverflow.ellipsis,
-                                                  text: TextSpan(
-                                                    // text: 'Organzier',
-                                                    text:
-                                                        events[index].organizer,
-                                                    style: TextStyle(
-                                                      color: kTextColor,
-                                                      fontSize: 14,
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                              Text(
-                                                // 'On 31 Dec 2021',
-                                                'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(events[index].date)}',
-                                                style: TextStyle(
-                                                  fontSize: 12,
-                                                  color: Colors.grey,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
+                                          // Row(
+                                          //   mainAxisAlignment:
+                                          //       MainAxisAlignment.spaceBetween,
+                                          //   children: [
+                                          //     Container(
+                                          //       decoration: BoxDecoration(
+                                          //         color: Colors.orange,
+                                          //       ),
+                                          //       width: size.width * 0.2,
+                                          //       child: RichText(
+                                          //         overflow:
+                                          //             TextOverflow.ellipsis,
+                                          //         maxLines: 2,
+                                          //         text: TextSpan(
+                                          //           // text: 'Organzier',
+                                          //           text:
+                                          //               events[index].organizer,
+                                          //           style: TextStyle(
+                                          //             color: kTextColor,
+                                          //             fontSize: 14,
+                                          //           ),
+                                          //         ),
+                                          //       ),
+                                          //     ),
+                                          Text(
+                                            // 'On 31 Dec 2021',
+                                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(events[index].date)}',
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              color: Colors.grey,
+                                              fontWeight: FontWeight.bold,
+                                            ),
                                           ),
+                                          //   ],
+                                          // ),
                                         ],
                                       ),
                                     ),

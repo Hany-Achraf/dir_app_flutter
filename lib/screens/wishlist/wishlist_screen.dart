@@ -46,10 +46,13 @@ class SavedBusiness extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
+
     return Container(
       margin: const EdgeInsets.all(8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Flexible(
             flex: 1,
@@ -65,23 +68,21 @@ class SavedBusiness extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                    width: 120,
+                    // width: 120,
+                    width: size.width * 0.3,
                     height: 80,
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
-                      // child: Image.network(
-                      //   'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
-                      //   fit: BoxFit.fill,
-                      // ),
                       child:
                           Image.asset(business.thumbnailUrl, fit: BoxFit.fill),
                     ),
                   ),
                   Container(
-                    margin: const EdgeInsets.only(
+                    margin: EdgeInsets.only(
                       left: 8,
                     ),
-                    width: 200,
+                    // width: 200,
+                    width: size.width * 0.5,
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
