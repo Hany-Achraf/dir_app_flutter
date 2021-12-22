@@ -4,7 +4,6 @@ class Destination {
   int id;
   String name;
   String imgUrl;
-  List<Business> businesses = [];
 
   Destination({
     this.id,

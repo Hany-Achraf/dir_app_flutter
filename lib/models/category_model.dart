@@ -6,14 +6,12 @@ class Category {
   final int id;
   final String name;
   final String imgUrl;
-  // final Color color;
   final List<Category> subcategories;
 
   Category({
     this.id,
     this.imgUrl,
     this.name,
-    // this.color,
     this.subcategories,
   });
 }
@@ -68,9 +66,9 @@ List<Category> categories = [
   Category(
     id: 1,
     name: 'Fashion',
-    imgUrl: 'assets/images/shirt.png',
+    imgUrl: 'assets/images/fashion.png',
     subcategories: fashionSubcategories,
-  ), // ,color: HexColor('#ccffe6')),
+  ),
   Category(
     id: 2,
     name: 'Food & Beverages',
@@ -83,6 +81,6 @@ List<Category> categories = [
   Category(id: 6, name: 'Beauty', imgUrl: 'assets/images/beauty.png'),
   Category(
       id: 7, name: 'Legal Consultation', imgUrl: 'assets/images/lawyer.png'),
-  Category(id: 8, name: 'Schools', imgUrl: 'assets/images/school.webp'),
+  Category(id: 8, name: 'Schools', imgUrl: 'assets/images/school.png'),
   Category(id: 9, name: 'Sports', imgUrl: 'assets/images/sports.png'),
 ];

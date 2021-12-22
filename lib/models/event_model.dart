@@ -6,13 +6,14 @@ class Event {
   final String description;
   final DateTime date;
 
-  Event(
-      {this.id,
-      this.name,
-      this.imgUrl,
-      this.organizer,
-      this.description,
-      this.date});
+  Event({
+    this.id,
+    this.name,
+    this.imgUrl,
+    this.organizer,
+    this.description,
+    this.date,
+  });
 }
 
 List<Event> events = [

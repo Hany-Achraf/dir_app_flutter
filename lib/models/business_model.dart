@@ -1,9 +1,22 @@
+import 'package:plant_app/models/review_model.dart';
+
 class Business {
   int id;
+  int rating;
   String name;
   String thumbnailUrl;
+  String coverImgUrl;
+  String description;
+  String instragramUrl;
+  String facebookUrl;
+  String websiteUrl;
+  String address;
   String workingTime;
-  int rating;
+  String phoneNo;
+  String locationWebFrame;
+
+  List<String> imgUrls = [];
+  List<Review> reviews = [];
 
   Business({
     this.id,
@@ -20,7 +33,7 @@ List<Business> businesses = [
     name: 'Al-Ikhsan Sports',
     thumbnailUrl: 'assets/images/al-ikhsan.png',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 5,
+    rating: 3,
   ),
   Business(
     id: 2,
