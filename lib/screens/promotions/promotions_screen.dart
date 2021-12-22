@@ -283,3 +283,11 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
         duration: Duration(milliseconds: 300), curve: Curves.decelerate);
   }
 }
+
+
+
+/**
+ * 
+ * If _current == the last index in the list of promotions => load more
+ * 
+ */
