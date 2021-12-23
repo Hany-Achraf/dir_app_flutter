@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/category_model.dart';
+import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
 import 'package:plant_app/screens/category/components/sub_categories_slider.dart';
+import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
   final int categoryId;
@@ -55,9 +57,14 @@ class Body extends StatelessWidget {
               Business business = _businesses[index];
               return InkWell(
                 onTap: () {
+                  Provider.of<BusinessProvider>(context, listen: false)
+                      .setBusiness(business: _businesses[index]);
+
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => BusinessScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => BusinessScreen(),
+                    ),
                   );
                 },
                 child: Container(

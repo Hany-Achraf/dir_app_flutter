@@ -1,15 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/business_model.dart';
+import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/screens/business/components/add_review_screen.dart';
 import 'package:plant_app/screens/business/components/business_info.dart';
 import 'package:plant_app/screens/business/components/business_reviews.dart';
 import 'package:plant_app/screens/business/components/business_sliver_app_bar.dart';
 import 'package:plant_app/screens/business/components/business_photos.dart';
 import 'package:plant_app/screens/business/delegates/sliver_persistent_header_delegate_impl.dart';
+import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessScreen extends StatefulWidget {
-  BusinessScreen({Key key}) : super(key: key);
+  // Business businessId;
+  // BusinessScreen({this.businessId});
 
   @override
   _BusinessScreenState createState() => _BusinessScreenState();
@@ -17,6 +21,8 @@ class BusinessScreen extends StatefulWidget {
 
 class _BusinessScreenState extends State<BusinessScreen>
     with SingleTickerProviderStateMixin {
+  // BusinessProvider businessProvider;
+
   final List<Tuple3> _pages = [
     Tuple3('Info', BusinessInfo(), null),
     Tuple3('Photos', BusinessPhotos(), null),
@@ -40,10 +46,14 @@ class _BusinessScreenState extends State<BusinessScreen>
   ];
 
   TabController _tabController;
-
+  Business business = null;
   @override
   void initState() {
     super.initState();
+    business = Provider.of<BusinessProvider>(context, listen: false).business;
+    Provider.of<BusinessProvider>(context, listen: false)
+        .loadBusinsessReviews();
+
     _tabController = TabController(length: _pages.length, vsync: this);
     _tabController.addListener(() => setState(() {}));
   }
@@ -61,8 +71,9 @@ class _BusinessScreenState extends State<BusinessScreen>
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             BusinessSliverAppBar(
-                'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                // 'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
                 // 'Business Name',
+                business.name,
                 _tabController),
             // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
             SliverPersistentHeader(
