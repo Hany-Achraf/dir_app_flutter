@@ -4,13 +4,25 @@ import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/screens/event/event_screen.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
+import 'package:plant_app/services/dio.dart';
 
 import '../../../constants.dart';
 
 class EventsSlider extends StatelessWidget {
+  final List<Event> events2 = [];
+
+  final dynamic eventsJson;
+  EventsSlider({@required this.eventsJson});
+
+  void setEvents() {
+    eventsJson.forEach((i) {
+      events2.add(Event.fromJson(i));
+    });
+  }
+
   Widget buildEventsSlider() {
     Row eventsSlider = Row(children: []);
-    events.forEach((event) {
+    events2.forEach((event) {
       eventsSlider.children.add(
         EventCard(
           event: event,
@@ -26,6 +38,7 @@ class EventsSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setEvents();
     return buildEventsSlider();
   }
 }
@@ -81,8 +94,14 @@ class EventCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
+              // child: Image.network(
+              //   event.imgUrl,
+              //   fit: BoxFit.fill,
+              //   width: 120,
+              //   height: 150,
+              // ),
               child: Image.network(
-                event.imgUrl,
+                '${dio().options.baseUrl}${event.imgPath}',
                 fit: BoxFit.fill,
                 width: 120,
                 height: 150,
@@ -130,7 +149,7 @@ class EventCard extends StatelessWidget {
                       maxLines: 2,
                       text: TextSpan(
                         text:
-                            '${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.date)}',
+                            '${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.dateTime)}',
                         style: TextStyle(
                           fontSize: 12,
                           color: Colors.grey,

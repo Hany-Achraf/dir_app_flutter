@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/event_model.dart';
+import 'package:plant_app/services/dio.dart';
 import 'package:readmore/readmore.dart';
 
 class EventScreen extends StatelessWidget {
@@ -14,7 +15,7 @@ class EventScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          customAppBar(context, imgUrl: event.imgUrl),
+          customAppBar(context, imgPath: event.imgPath),
           SliverList(
             delegate: SliverChildListDelegate(
               [
@@ -65,7 +66,7 @@ class EventScreen extends StatelessWidget {
                           Text(
                             // 'On 24 Dec 2021',
                             // 'On ${DateFormat("dd MMM yyyy").format(event.date)}',
-                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.date)}',
+                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.dateTime)}',
                             style: TextStyle(
                               color: Colors.grey,
                               fontWeight: FontWeight.bold,
@@ -106,7 +107,7 @@ class EventScreen extends StatelessWidget {
   }
 }
 
-SliverAppBar customAppBar(BuildContext context, {String imgUrl}) {
+SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
   return SliverAppBar(
     leading: IconButton(
       icon: Icon(
@@ -135,7 +136,7 @@ SliverAppBar customAppBar(BuildContext context, {String imgUrl}) {
       background: Stack(children: [
         Positioned.fill(
           child: Image.network(
-            imgUrl,
+            '${dio().options.baseUrl}$imgPath',
             fit: BoxFit.fill,
           ),
         ),

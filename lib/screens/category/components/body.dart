@@ -46,7 +46,7 @@ class Body extends StatelessWidget {
             ),
           ),
         ),
-        category.subcategories == null
+        category.subcategories.isEmpty
             ? Container()
             : SubcategoriesSlider(category.subcategories),
         Expanded(
@@ -57,13 +57,12 @@ class Body extends StatelessWidget {
               Business business = _businesses[index];
               return InkWell(
                 onTap: () {
-                  Provider.of<BusinessProvider>(context, listen: false)
-                      .setBusiness(business: _businesses[index]);
-
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => BusinessScreen(),
+                      builder: (context) => BusinessScreen(
+                        businessId: 1,
+                      ),
                     ),
                   );
                 },
@@ -94,7 +93,7 @@ class Body extends StatelessWidget {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(20.0),
                               child: Image.asset(
-                                business.thumbnailUrl,
+                                business.iconImgPath,
                                 height: 200,
                                 width: 110.0,
                                 fit: BoxFit.fill,

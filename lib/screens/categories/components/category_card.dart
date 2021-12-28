@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/category_model.dart';
+import 'package:plant_app/services/dio.dart';
 
 import '../../../constants.dart';
 
@@ -29,8 +30,12 @@ class CategoryCard extends StatelessWidget {
               ),
               child: Hero(
                 tag: "${category.id}",
-                child: Image.asset(
-                  category.imgUrl,
+                // child: Image.asset(
+                //   category.imgPath,
+                //   color: kPrimaryColor,
+                // ),
+                child: Image.network(
+                  '${dio().options.baseUrl}${category.imgPath}',
                   color: kPrimaryColor,
                 ),
               ),

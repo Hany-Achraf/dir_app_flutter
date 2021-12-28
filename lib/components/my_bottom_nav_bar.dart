@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/profile/profile_screen.dart';
@@ -34,14 +35,11 @@ class MyBottomNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            // icon: SvgPicture.asset("assets/icons/flower.svg",
-            //     color: kPrimaryColor),
             icon: Icon(Icons.home, color: kPrimaryColor),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
+              Navigator.popUntil(
                 context,
-                MaterialPageRoute(builder: (context) => HomeScreen()),
-                (Route<dynamic> route) => false,
+                (route) => route.isFirst,
               );
             },
           ),
@@ -49,10 +47,9 @@ class MyBottomNavBar extends StatelessWidget {
             icon: SvgPicture.asset("assets/icons/heart-icon.svg",
                 color: kPrimaryColor),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => WishlistScreen()),
-                (Route<dynamic> route) => false,
               );
             },
           ),
@@ -60,10 +57,9 @@ class MyBottomNavBar extends StatelessWidget {
             icon: SvgPicture.asset("assets/icons/user-icon.svg",
                 color: kPrimaryColor),
             onPressed: () {
-              Navigator.pushAndRemoveUntil(
+              Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ProfileScreen()),
-                (Route<dynamic> route) => false,
               );
             },
           ),

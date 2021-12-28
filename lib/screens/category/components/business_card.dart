@@ -30,7 +30,7 @@ class BusinessCard extends StatelessWidget {
               //   tag: "${product.id}",
               //   child: Image.asset(product.image),
               // ),
-              child: Image.asset(category.imgUrl),
+              child: Image.asset(category.imgPath),
             ),
           ),
           Center(

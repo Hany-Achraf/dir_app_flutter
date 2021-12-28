@@ -3,8 +3,20 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/screens/categories/categories_screen.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
+import 'package:plant_app/services/dio.dart';
 
 class CategoriesNavigator extends StatelessWidget {
+  final List<Category> categories = [];
+
+  final dynamic categoriesJson;
+  CategoriesNavigator({@required this.categoriesJson});
+
+  void setCategories() {
+    categoriesJson.forEach((i) {
+      categories.add(Category.fromJson(i));
+    });
+  }
+
   Widget categoryIcon(BuildContext context, {Category category}) {
     return GestureDetector(
       onTap: () {
@@ -25,20 +37,20 @@ class CategoriesNavigator extends StatelessWidget {
           borderRadius: BorderRadius.circular(27.5),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(9.0),
-          child: Image.asset(
-            category == null
-                ? 'assets/images/more_horiz.webp'
-                : category.imgUrl,
-            color: kPrimaryColor,
-          ),
-        ),
+            padding: const EdgeInsets.all(9.0),
+            child: category == null
+                ? Image.asset('assets/images/more_horiz.png',
+                    color: kPrimaryColor)
+                : Image.network('${dio().options.baseUrl}${category.imgPath}',
+                    color: kPrimaryColor)),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    setCategories();
+
     return Column(
       children: [
         Row(

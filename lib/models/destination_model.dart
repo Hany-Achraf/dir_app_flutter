@@ -1,41 +1,49 @@
-import 'business_model.dart';
+import 'package:flutter/material.dart';
 
 class Destination {
   int id;
   String name;
-  String imgUrl;
+  String imgPath;
 
   Destination({
-    this.id,
-    this.name,
-    this.imgUrl,
+    @required this.id,
+    @required this.name,
+    @required this.imgPath,
   });
+
+  factory Destination.fromJson(Map<String, dynamic> parsedJson) {
+    return Destination(
+      id: parsedJson['id'],
+      name: parsedJson['name'],
+      imgPath: parsedJson['img_path'],
+    );
+  }
 }
 
 List<Destination> destinations = [
   Destination(
     id: 1,
     name: 'The Mall Mid Valley SouthKey',
-    imgUrl: 'assets/images/mid-valley-jb.png',
+    imgPath: 'assets/images/mid-valley-jb.png',
   ),
   Destination(
     id: 2,
     name: 'New York',
-    imgUrl: 'assets/images/newyork.png',
+    imgPath: 'assets/images/newyork.png',
   ),
   Destination(
     id: 3,
     name: 'Paris',
-    imgUrl: 'assets/images/paris.png',
+    imgPath: 'assets/images/paris.png',
   ),
   Destination(
     id: 4,
     name: 'Santorini',
-    imgUrl: 'assets/images/santorini.png',
+    imgPath: 'assets/images/santorini.png',
   ),
   Destination(
     id: 5,
     name: 'Saopaulo',
-    imgUrl: 'assets/images/saopaulo.png',
+    imgPath: 'assets/images/saopaulo.png',
   ),
 ];

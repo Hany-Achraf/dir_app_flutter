@@ -107,7 +107,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                             topRight: Radius.circular(10),
                                           ),
                                           child: Image.network(
-                                            events[index].imgUrl,
+                                            events[index].imgPath,
                                             fit: BoxFit.fill,
                                           ),
                                         ),
@@ -178,7 +178,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                           //     ),
                                           Text(
                                             // 'On 31 Dec 2021',
-                                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(events[index].date)}',
+                                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(events[index].dateTime)}',
                                             style: TextStyle(
                                               fontSize: 12,
                                               color: Colors.grey,
@@ -206,7 +206,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                     bottomRight: Radius.circular(10),
                                   ),
                                   child: Image.network(
-                                    events[index].imgUrl,
+                                    events[index].imgPath,
                                     fit: BoxFit.fill,
                                   ),
                                 ),

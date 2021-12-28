@@ -24,6 +24,7 @@ class WishlistScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: Container(),
         title: Text('Wishlist'),
       ),
       body: ListView.builder(
@@ -74,7 +75,7 @@ class SavedBusiness extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(8),
                       child:
-                          Image.asset(business.thumbnailUrl, fit: BoxFit.fill),
+                          Image.asset(business.iconImgPath, fit: BoxFit.fill),
                     ),
                   ),
                   Container(

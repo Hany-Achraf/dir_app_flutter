@@ -12,8 +12,8 @@ import 'package:provider/provider.dart';
 import 'package:tuple/tuple.dart';
 
 class BusinessScreen extends StatefulWidget {
-  // Business businessId;
-  // BusinessScreen({this.businessId});
+  int businessId;
+  BusinessScreen({@required this.businessId});
 
   @override
   _BusinessScreenState createState() => _BusinessScreenState();
@@ -21,7 +21,7 @@ class BusinessScreen extends StatefulWidget {
 
 class _BusinessScreenState extends State<BusinessScreen>
     with SingleTickerProviderStateMixin {
-  // BusinessProvider businessProvider;
+  Future<Business> business;
 
   final List<Tuple3> _pages = [
     Tuple3('Info', BusinessInfo(), null),
@@ -46,13 +46,16 @@ class _BusinessScreenState extends State<BusinessScreen>
   ];
 
   TabController _tabController;
-  Business business = null;
+
   @override
   void initState() {
     super.initState();
-    business = Provider.of<BusinessProvider>(context, listen: false).business;
-    Provider.of<BusinessProvider>(context, listen: false)
-        .loadBusinsessReviews();
+
+    business = Provider.of<BusinessProvider>(context, listen: false)
+        .fetchBusiness(businessId: widget.businessId);
+
+    // Provider.of<BusinessProvider>(context, listen: false)
+    //     .loadBusinsessReviews();
 
     _tabController = TabController(length: _pages.length, vsync: this);
     _tabController.addListener(() => setState(() {}));
@@ -67,35 +70,50 @@ class _BusinessScreenState extends State<BusinessScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return <Widget>[
-            BusinessSliverAppBar(
-                // 'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
-                // 'Business Name',
-                business.name,
-                _tabController),
-            // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: SliverPersistentHeaderDelegateImpl(
-                tabBar: TabBar(
-                  labelColor: Colors.black,
-                  indicatorColor: Colors.black,
+      body: FutureBuilder(
+          future: business,
+          builder: (context, AsyncSnapshot<Business> snapshot) {
+            if (snapshot.hasData) {
+              print(snapshot.data.address);
+
+              return NestedScrollView(
+                headerSliverBuilder:
+                    (BuildContext context, bool innerBoxIsScrolled) {
+                  return <Widget>[
+                    BusinessSliverAppBar(
+                        // 'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
+                        // 'Business Name',
+                        snapshot.data.name,
+                        _tabController),
+                    // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: SliverPersistentHeaderDelegateImpl(
+                        tabBar: TabBar(
+                          labelColor: Colors.black,
+                          indicatorColor: Colors.black,
+                          controller: _tabController,
+                          tabs: _pages
+                              .map<Tab>((Tuple3 page) => Tab(text: page.item1))
+                              .toList(),
+                        ),
+                      ),
+                    ),
+                  ];
+                },
+                body: TabBarView(
                   controller: _tabController,
-                  tabs: _pages
-                      .map<Tab>((Tuple3 page) => Tab(text: page.item1))
-                      .toList(),
+                  children:
+                      _pages.map<Widget>((Tuple3 page) => page.item2).toList(),
                 ),
-              ),
-            ),
-          ];
-        },
-        body: TabBarView(
-          controller: _tabController,
-          children: _pages.map<Widget>((Tuple3 page) => page.item2).toList(),
-        ),
-      ),
+              );
+            }
+
+            return Center(
+                child: CircularProgressIndicator(
+              color: kPrimaryColor,
+            ));
+          }),
       floatingActionButton: _pages[_tabController.index].item3 == null
           ? null
           : _pages[_tabController.index].item3(context),

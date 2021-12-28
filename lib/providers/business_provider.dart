@@ -1,12 +1,19 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/review_model.dart';
+import 'package:plant_app/services/dio.dart';
 
 class BusinessProvider extends ChangeNotifier {
   Business business = null;
 
-  void setBusiness({@required Business business}) {
-    this.business = business;
+  Future<Business> fetchBusiness({@required int businessId}) async {
+    try {
+      Response response = await dio().get('/api/businesses/${businessId}');
+      return Business.fromJson(response.data[0]);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   void loadBusinsessImgs() {}

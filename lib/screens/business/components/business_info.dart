@@ -14,8 +14,12 @@ class BusinessInfo extends StatelessWidget {
   WebViewController controller;
 
   void loadLocalHtml() async {
+    // final String html =
+    //     '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5975.931690340572!2d103.77683331960978!3d1.4973431654680631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6d76753d4f45%3A0xcce3bb22675ad2d6!2sRarry%20%26%20Branding%20Sdn.%20Bhd.!5e0!3m2!1sen!2smy!4v1638765801893!5m2!1sen!2smy" width="960" height="700" style="border:0;" allowfullscreen="" loading="lazy"></iframe>';
+
     final String html =
-        '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5975.931690340572!2d103.77683331960978!3d1.4973431654680631!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6d76753d4f45%3A0xcce3bb22675ad2d6!2sRarry%20%26%20Branding%20Sdn.%20Bhd.!5e0!3m2!1sen!2smy!4v1638765801893!5m2!1sen!2smy" width="960" height="700" style="border:0;" allowfullscreen="" loading="lazy"></iframe>';
+        '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.4493622302275!2d103.77518911439397!3d1.500958098905396!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da6ce180efcfb5%3A0x4cfa3e126a713ab5!2sThe%20Mall%2C%20Mid%20Valley%20Southkey!5e0!3m2!1sen!2smy!4v1640680339530!5m2!1sen!2smy" width="960" height="700" style="border:0;" allowfullscreen="" loading="lazy"></iframe>';
+
     final url = Uri.dataFromString(
       html,
       mimeType: 'text/html',
@@ -219,7 +223,7 @@ class BusinessInfo extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.all(8),
-              height: 700,
+              height: 280,
               child: WebView(
                 navigationDelegate: (navigation) {
                   _launchURL();

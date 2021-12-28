@@ -15,7 +15,13 @@ class SubcategoriesSlider extends StatefulWidget {
 }
 
 class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
-  int selectedSubcategoryId = 1;
+  int selectedSubcategoryId;
+
+  @override
+  void initState() {
+    selectedSubcategoryId = widget.subcategories[0].id;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

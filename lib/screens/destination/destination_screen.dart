@@ -220,7 +220,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             customAppBar(context,
-                imgUrl: destination.imgUrl, destinationName: destination.name),
+                imgUrl: destination.imgPath, destinationName: destination.name),
           ];
         },
         body: ListView.builder(
@@ -260,7 +260,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(20.0),
                             child: Image.asset(
-                              business.thumbnailUrl,
+                              business.iconImgPath,
                               height: 200,
                               // width: 110.0,
                               width: MediaQuery.of(context).size.width * 0.25,

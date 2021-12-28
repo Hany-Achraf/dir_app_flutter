@@ -1,9 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/destination/destination_screen.dart';
+import 'package:plant_app/services/dio.dart';
 import '../../../constants.dart';
 
 class DestinationsSlider extends StatelessWidget {
+  final List<Destination> destinations = [];
+
+  final dynamic destinationsJson;
+  DestinationsSlider({@required this.destinationsJson});
+
+  void setDestinations() {
+    destinationsJson.forEach((i) {
+      destinations.add(Destination.fromJson(i));
+    });
+  }
+
   Widget _destinationCards() {
     Row x = Row(children: []);
     destinations.forEach((destination) {
@@ -19,6 +31,7 @@ class DestinationsSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setDestinations();
     return _destinationCards();
   }
 }
@@ -58,8 +71,8 @@ class DestinationCard extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: Image.asset(
-                  destination.imgUrl,
+                child: Image.network(
+                  '${dio().options.baseUrl}${destination.imgPath}',
                   fit: BoxFit.cover,
                 ),
               ),

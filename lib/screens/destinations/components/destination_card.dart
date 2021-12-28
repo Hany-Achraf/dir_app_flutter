@@ -38,7 +38,7 @@ class DestinationCard extends StatelessWidget {
                   topRight: Radius.circular(10),
                 ),
                 child: Image.asset(
-                  destination.imgUrl,
+                  destination.imgPath,
                   fit: BoxFit.cover,
                 ),
               ),
