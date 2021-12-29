@@ -21,8 +21,6 @@ class BusinessScreen extends StatefulWidget {
 
 class _BusinessScreenState extends State<BusinessScreen>
     with SingleTickerProviderStateMixin {
-  Future<Business> business;
-
   final List<Tuple3> _pages = [
     Tuple3('Info', BusinessInfo(), null),
     Tuple3('Photos', BusinessPhotos(), null),
@@ -45,20 +43,21 @@ class _BusinessScreenState extends State<BusinessScreen>
     ),
   ];
 
+  Future<Business> business;
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
 
-    business = Provider.of<BusinessProvider>(context, listen: false)
-        .fetchBusiness(businessId: widget.businessId);
-
-    // Provider.of<BusinessProvider>(context, listen: false)
-    //     .loadBusinsessReviews();
-
     _tabController = TabController(length: _pages.length, vsync: this);
     _tabController.addListener(() => setState(() {}));
+
+    business = Provider.of<BusinessProvider>(context, listen: false)
+        .fetchBusiness(businessId: widget.businessId);
+    Provider.of<BusinessProvider>(context, listen: false).fetchBusinessPhotos();
+    Provider.of<BusinessProvider>(context, listen: false)
+        .fetchBusinessReviews();
   }
 
   @override
@@ -72,25 +71,25 @@ class _BusinessScreenState extends State<BusinessScreen>
     return Scaffold(
       body: FutureBuilder(
           future: business,
-          builder: (context, AsyncSnapshot<Business> snapshot) {
+          builder: (context, snapshot) {
             if (snapshot.hasData) {
-              print(snapshot.data.address);
+              Business business = snapshot.data;
 
               return NestedScrollView(
                 headerSliverBuilder:
                     (BuildContext context, bool innerBoxIsScrolled) {
                   return <Widget>[
                     BusinessSliverAppBar(
-                        // 'Lorem ipsum dolor sit amet, ptate velit esse cillum dolore eu fugiat nulla pariatur.',
-                        // 'Business Name',
-                        snapshot.data.name,
-                        _tabController),
+                      name: business.name,
+                      coverImgPath: business.coverImgPath,
+                      // _tabController,
+                    ),
                     // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: SliverPersistentHeaderDelegateImpl(
                         tabBar: TabBar(
-                          labelColor: Colors.black,
+                          labelColor: Colors.white,
                           indicatorColor: Colors.black,
                           controller: _tabController,
                           tabs: _pages

@@ -3,6 +3,7 @@ import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/review_model.dart';
 import 'package:plant_app/providers/business_provider.dart';
+import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
@@ -40,7 +41,9 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             CircleAvatar(
-              backgroundImage: AssetImage(review.reviewerImgPath),
+              backgroundColor: kPrimaryColor,
+              backgroundImage: NetworkImage(
+                  '${dio().options.baseUrl}${review.reviewerAvatarImgPath}'),
             ),
             Container(
               margin: EdgeInsets.only(left: 8),
@@ -101,7 +104,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
   @override
   Widget build(BuildContext context) {
     List<Review> reviews =
-        Provider.of<BusinessProvider>(context).business.reviews;
+        Provider.of<BusinessProvider>(context, listen: true).business.reviews;
 
     return Container(
       margin: EdgeInsets.all(4),

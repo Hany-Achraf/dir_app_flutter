@@ -16,7 +16,7 @@ class Business {
   String facebookLink;
   String instagramLink;
 
-  List<String> imgUrls = [];
+  List<String> photos = [];
   List<Review> reviews = [];
 
   Business({

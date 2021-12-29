@@ -10,20 +10,36 @@ class BusinessProvider extends ChangeNotifier {
   Future<Business> fetchBusiness({@required int businessId}) async {
     try {
       Response response = await dio().get('/api/businesses/${businessId}');
-      return Business.fromJson(response.data[0]);
+      return business = Business.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
   }
 
-  void loadBusinsessImgs() {}
+  void fetchBusinessPhotos() async {
+    try {
+      Response response =
+          await dio().get('/api/businesses/${business.id}/photos');
+      List list = response.data;
+      list.forEach((element) {
+        business.photos.add(element['path']);
+      });
+    } catch (e) {
+      rethrow;
+    }
+  }
 
-  void loadBusinsessReviews() {
-    if (business.id == 1)
-      business.reviews = reviews1;
-    else if (business.id == 2)
-      business.reviews = reviews2;
-    else if (business.id == 3) business.reviews = reviews3;
+  void fetchBusinessReviews() async {
+    try {
+      Response response =
+          await dio().get('/api/businesses/${business.id}/reviews');
+      List list = response.data;
+      list.forEach((element) {
+        business.reviews.add(Review.fromJson(element));
+      });
+    } catch (e) {
+      rethrow;
+    }
     // notifyListeners();
   }
 

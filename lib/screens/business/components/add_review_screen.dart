@@ -30,12 +30,16 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        // foregroundColor: kTextColor,
-        foregroundColor: kPrimaryColor,
-        backgroundColor: Colors.transparent,
-        shadowColor: Colors.transparent,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 30.0,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
       ),
       body: SingleChildScrollView(
+        padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
         child: Column(
           children: [
             Center(

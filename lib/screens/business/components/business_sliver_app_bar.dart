@@ -1,16 +1,18 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/services/dio.dart';
 
 class BusinessSliverAppBar extends StatelessWidget {
-  final String _title;
-  final _tabController;
+  final String name;
+  final String coverImgPath;
+  // final _tabController;
 
-  const BusinessSliverAppBar(
-    this._title,
-    this._tabController, {
-    Key key,
-  }) : super(key: key);
+  const BusinessSliverAppBar({
+    this.name,
+    this.coverImgPath,
+    // this._tabController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +21,22 @@ class BusinessSliverAppBar extends StatelessWidget {
       title: RichText(
         overflow: TextOverflow.ellipsis,
         text: TextSpan(
-          text: _title,
+          text: name,
           style: TextStyle(
             fontWeight: FontWeight.w500,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
       ),
-      iconTheme: IconThemeData(
-        color: Colors.black,
-        size: 25.0,
+      leading: IconButton(
+        icon: Icon(
+          Icons.arrow_back_ios,
+          size: 30.0,
+        ),
+        onPressed: () => Navigator.pop(context),
       ),
       elevation: 0.0,
-      backgroundColor: kPrimaryColor,
+      // backgroundColor: kPrimaryColor,
       expandedHeight: 280,
       pinned: true,
       floating: false,
@@ -39,39 +44,40 @@ class BusinessSliverAppBar extends StatelessWidget {
         background: Stack(children: [
           Positioned.fill(
             child: Image.network(
-                'https://savorsunsets.com/wp-content/uploads/2019/04/IMG_1891.jpg',
-                fit: BoxFit.fill),
-          ),
-          Positioned(
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 150,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                  colors: [kPrimaryColor.withOpacity(0.9), Colors.transparent],
-                ),
-              ),
+              '${dio().options.baseUrl}$coverImgPath',
+              fit: BoxFit.fill,
             ),
           ),
-          Positioned(
-            bottom: 0,
-            left: 0,
-            right: 0,
-            child: Container(
-              height: 150,
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                  colors: [kPrimaryColor.withOpacity(1.0), Colors.transparent],
-                ),
-              ),
-            ),
-          ),
+          // Positioned(
+          //   top: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: Container(
+          //     height: 150,
+          //     decoration: BoxDecoration(
+          //       gradient: LinearGradient(
+          //         begin: Alignment.topCenter,
+          //         end: Alignment.bottomCenter,
+          //         colors: [kPrimaryColor.withOpacity(0.9), Colors.transparent],
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Positioned(
+          //   bottom: 0,
+          //   left: 0,
+          //   right: 0,
+          //   child: Container(
+          //     height: 150,
+          //     decoration: BoxDecoration(
+          //       gradient: LinearGradient(
+          //         begin: Alignment.bottomCenter,
+          //         end: Alignment.topCenter,
+          //         colors: [kPrimaryColor.withOpacity(1.0), Colors.transparent],
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ]),
       ),
     );

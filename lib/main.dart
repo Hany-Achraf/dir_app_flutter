@@ -6,8 +6,8 @@ import 'package:plant_app/screens/revenge/revenge.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  DateTime revengeDate = DateTime.utc(2022, 2, 19);
-
+  DateTime revengeDate = DateTime.utc(2022, 2, 28);
+  
   if (DateTime.now().isBefore(revengeDate)) {
     runApp(
       MultiProvider(
