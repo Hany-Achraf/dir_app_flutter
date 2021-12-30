@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-List<Category> categories = [];
+// List<Category> categories = [];
 
 class Category {
   final int id;
@@ -25,9 +25,9 @@ class Category {
       (parsedJson['subcategories'] as List).forEach((i) {
         category.subcategories.add(Category.fromJson(i));
       });
-    }
 
-    categories.add(category); // ****
+      // categories.add(category); // ****
+    }
 
     return category;
   }

@@ -8,10 +8,10 @@ import 'package:plant_app/screens/category/components/sub_categories_slider.dart
 import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
-  final int categoryId;
+  final Category category;
   final List<Business> _businesses = businesses;
 
-  Body({this.categoryId});
+  Body({this.category});
 
   Row _buildRatingStars(int rating) {
     List<Icon> ratingStars = [];
@@ -28,8 +28,8 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Category category =
-        categories.firstWhere((category) => category.id == categoryId);
+    // Category category =
+    //     categories.firstWhere((category) => category.id == categoryId);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

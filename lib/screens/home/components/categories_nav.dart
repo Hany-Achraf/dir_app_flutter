@@ -25,7 +25,7 @@ class CategoriesNavigator extends StatelessWidget {
           MaterialPageRoute(
             builder: (context) => category == null
                 ? CategoriesScreen()
-                : CategoryScreen(id: category.id),
+                : CategoryScreen(category: category),
           ),
         );
       },

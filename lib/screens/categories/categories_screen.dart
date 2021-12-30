@@ -1,15 +1,44 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/category_model.dart';
+import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/screens/categories/components/body.dart';
+import 'package:provider/provider.dart';
 
-class CategoriesScreen extends StatelessWidget {
+class CategoriesScreen extends StatefulWidget {
+  @override
+  State<CategoriesScreen> createState() => _CategoriesScreenState();
+}
+
+class _CategoriesScreenState extends State<CategoriesScreen> {
+  Future<bool> initialCategoriesLoaded;
+
+  @override
+  void initState() {
+    initialCategoriesLoaded =
+        Provider.of<CategoriesProvider>(context, listen: false)
+            .loadInitialCategories();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(),
+      body: FutureBuilder(
+        future: initialCategoriesLoaded,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Body();
+          }
+          return Center(
+              child: CircularProgressIndicator(
+            color: kPrimaryColor,
+          ));
+        },
+      ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }

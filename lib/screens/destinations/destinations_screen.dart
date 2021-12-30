@@ -2,15 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/models/destination_model.dart';
+import 'package:plant_app/providers/destinations_provider.dart';
 import 'package:plant_app/screens/destinations/components/body.dart';
+import 'package:provider/provider.dart';
 
-class DestinationsScreen extends StatelessWidget {
+class DestinationsScreen extends StatefulWidget {
+  @override
+  State<DestinationsScreen> createState() => _DestinationsScreenState();
+}
+
+class _DestinationsScreenState extends State<DestinationsScreen> {
+  Future<bool> initialDestinationsLoaded;
+
+  @override
+  void initState() {
+    initialDestinationsLoaded =
+        Provider.of<DestinationsProvider>(context, listen: false)
+            .loadInitialDestinations();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: Body(destinations: destinations),
+      body: FutureBuilder(
+        future: initialDestinationsLoaded,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return Body();
+          }
+          return Center(
+            child: CircularProgressIndicator(
+              color: kPrimaryColor,
+            ),
+          );
+        },
+      ),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }
@@ -20,17 +48,27 @@ class DestinationsScreen extends StatelessWidget {
       backgroundColor: Colors.white,
       elevation: 1,
       leading: IconButton(
-        icon: SvgPicture.asset(
-          "assets/icons/back.svg",
+        // icon: SvgPicture.asset(
+        //   "assets/icons/back.svg",
+        //   color: kPrimaryColor,
+        // ),
+        icon: Icon(
+          Icons.arrow_back_ios,
           color: kPrimaryColor,
+          size: 30.0,
         ),
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
         IconButton(
-          icon: SvgPicture.asset(
-            "assets/icons/search.svg",
+          // icon: SvgPicture.asset(
+          //   "assets/icons/search.svg",
+          //   color: kPrimaryColor,
+          // ),
+          icon: Icon(
+            Icons.search,
             color: kPrimaryColor,
+            size: 30.0,
           ),
           onPressed: () {},
         ),

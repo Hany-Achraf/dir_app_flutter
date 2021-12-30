@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/business_provider.dart';
+import 'package:plant_app/providers/categories_provider.dart';
+import 'package:plant_app/providers/destinations_provider.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/revenge/revenge.dart';
 import 'package:provider/provider.dart';
 
 void main() {
   DateTime revengeDate = DateTime.utc(2022, 2, 28);
-  
+
   if (DateTime.now().isBefore(revengeDate)) {
     runApp(
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => BusinessProvider()),
+          ChangeNotifierProvider(create: (_) => CategoriesProvider()),
+          ChangeNotifierProvider(create: (_) => DestinationsProvider()),
         ],
         child: MyApp(),
       ),

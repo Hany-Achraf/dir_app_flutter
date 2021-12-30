@@ -5,13 +5,20 @@ import 'package:plant_app/models/review_model.dart';
 import 'package:plant_app/services/dio.dart';
 
 class BusinessProvider extends ChangeNotifier {
-  Business business = null;
+  Business _business;
+
+  Business get business => _business;
 
   Future<Business> fetchBusiness({@required int businessId}) async {
     try {
       Response response = await dio().get('/api/businesses/${businessId}');
-      return business = Business.fromJson(response.data);
-    } catch (e) {
+      if (response.statusCode == 200) {
+        _business = Business.fromJson(response.data);
+        fetchBusinessPhotos();
+        fetchBusinessReviews();
+        return _business;
+      }
+    } catch (ex) {
       rethrow;
     }
   }

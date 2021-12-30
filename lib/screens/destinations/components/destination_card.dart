@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/destination/destination_screen.dart';
+import 'package:plant_app/services/dio.dart';
 import '../../../constants.dart';
 
 class DestinationCard extends StatelessWidget {
@@ -37,8 +38,12 @@ class DestinationCard extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: Image.asset(
-                  destination.imgPath,
+                // child: Image.asset(
+                //   destination.imgPath,
+                //   fit: BoxFit.cover,
+                // ),
+                child: Image.network(
+                  '${dio().options.baseUrl}${destination.imgPath}',
                   fit: BoxFit.cover,
                 ),
               ),

@@ -55,9 +55,9 @@ class _BusinessScreenState extends State<BusinessScreen>
 
     business = Provider.of<BusinessProvider>(context, listen: false)
         .fetchBusiness(businessId: widget.businessId);
-    Provider.of<BusinessProvider>(context, listen: false).fetchBusinessPhotos();
-    Provider.of<BusinessProvider>(context, listen: false)
-        .fetchBusinessReviews();
+    // Provider.of<BusinessProvider>(context, listen: false).fetchBusinessPhotos();
+    // Provider.of<BusinessProvider>(context, listen: false)
+    //     .fetchBusinessReviews();
   }
 
   @override

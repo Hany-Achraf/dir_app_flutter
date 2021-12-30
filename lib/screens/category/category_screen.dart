@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/category/components/body.dart';
 
 class CategoryScreen extends StatelessWidget {
-  final int id;
+  final Category category;
 
-  CategoryScreen({this.id});
+  CategoryScreen({this.category});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(
-        categoryId: id,
+        category: category,
       ),
       bottomNavigationBar: MyBottomNavBar(),
     );
