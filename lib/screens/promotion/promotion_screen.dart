@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
+import 'package:plant_app/services/dio.dart';
 import 'package:readmore/readmore.dart';
 
 class PromotionScreen extends StatelessWidget {
@@ -14,38 +15,47 @@ class PromotionScreen extends StatelessWidget {
     return Scaffold(
       body: CustomScrollView(
         slivers: <Widget>[
-          customAppBar(context, imgUrl: promotion.imgUrl),
+          customAppBar(context, imgPath: promotion.imgPath),
           SliverList(
             delegate: SliverChildListDelegate(
               [
                 Container(
                   margin: EdgeInsets.all(8),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.loose,
-                            child: Text(
-                              // 'Promotion Name',
-                              promotion.name,
-                              style: TextStyle(
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 25),
-                            ),
-                          ),
-                          IconButton(
-                              onPressed: () {},
-                              padding: EdgeInsets.zero,
-                              alignment: Alignment.topRight,
-                              icon: Icon(Icons.favorite_border,
-                                  color: Colors.grey, size: 25)),
-                        ],
+                      Text(
+                        promotion.name,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
                       ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Flexible(
+                      //       flex: 1,
+                      //       fit: FlexFit.loose,
+                      //       child: Text(
+                      //         // 'Promotion Name',
+                      //         promotion.name,
+                      //         style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontWeight: FontWeight.bold,
+                      //             fontSize: 25),
+                      //       ),
+                      //     ),
+                      //     IconButton(
+                      //       onPressed: () {},
+                      //       padding: EdgeInsets.zero,
+                      //       alignment: Alignment.topRight,
+                      //       icon: Icon(Icons.favorite_border,
+                      //           color: Colors.grey, size: 25),
+                      //     ),
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 8,
                       ),
@@ -56,8 +66,7 @@ class PromotionScreen extends StatelessWidget {
                             flex: 1,
                             fit: FlexFit.loose,
                             child: Text(
-                              // 'Business/Provider Name',
-                              promotion.promotionProvider,
+                              promotion.provider.name,
                               style: TextStyle(
                                 color: kPrimaryColor,
                               ),
@@ -103,7 +112,7 @@ class PromotionScreen extends StatelessWidget {
   }
 }
 
-SliverAppBar customAppBar(BuildContext context, {String imgUrl}) {
+SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
   return SliverAppBar(
     leading: IconButton(
       icon: Icon(
@@ -132,7 +141,7 @@ SliverAppBar customAppBar(BuildContext context, {String imgUrl}) {
       background: Stack(children: [
         Positioned.fill(
           child: Image.network(
-            imgUrl,
+            '${dio().options.baseUrl}${imgPath}',
             fit: BoxFit.fill,
           ),
         ),

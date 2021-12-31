@@ -73,7 +73,7 @@ class _BodyState extends State<Body> {
                     );
                   },
                 ),
-                PromotionsSlider(),
+                PromotionsSlider(promotionsJson: snapshot.data['promotions']),
                 TitleWithMoreBtn(
                   title: "Events",
                   press: () {

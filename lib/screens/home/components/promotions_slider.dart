@@ -4,10 +4,22 @@ import 'package:plant_app/models/promotion_model.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/promotion/promotion_screen.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
+import 'package:plant_app/services/dio.dart';
 
 import '../../../constants.dart';
 
 class PromotionsSlider extends StatelessWidget {
+  final List<Promotion> promotions = [];
+
+  final dynamic promotionsJson;
+  PromotionsSlider({@required this.promotionsJson});
+
+  void setPromotions() {
+    promotionsJson.forEach((i) {
+      promotions.add(Promotion.fromJson(i));
+    });
+  }
+
   Widget buildPromotionsSlider() {
     Row promotionsSlider = Row(children: []);
     promotions.forEach((promotion) {
@@ -26,6 +38,7 @@ class PromotionsSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    setPromotions();
     return buildPromotionsSlider();
   }
 }
@@ -82,7 +95,7 @@ class PromotionCard extends StatelessWidget {
                 bottomLeft: Radius.circular(10),
               ),
               child: Image.network(
-                promotion.imgUrl,
+                '${dio().options.baseUrl}${promotion.imgPath}',
                 fit: BoxFit.fill,
                 width: 120,
                 height: 150,
@@ -114,7 +127,7 @@ class PromotionCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       maxLines: 2,
                       text: TextSpan(
-                        text: promotion.promotionProvider,
+                        text: promotion.provider.name,
                         style: TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.w400,

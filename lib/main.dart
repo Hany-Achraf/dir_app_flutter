@@ -3,6 +3,8 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/providers/destinations_provider.dart';
+import 'package:plant_app/providers/events_provider.dart';
+import 'package:plant_app/providers/promotions_provider.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/revenge/revenge.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +19,8 @@ void main() {
           ChangeNotifierProvider(create: (_) => BusinessProvider()),
           ChangeNotifierProvider(create: (_) => CategoriesProvider()),
           ChangeNotifierProvider(create: (_) => DestinationsProvider()),
+          ChangeNotifierProvider(create: (_) => PromotionsProvider()),
+          ChangeNotifierProvider(create: (_) => EventsProvider()),
         ],
         child: MyApp(),
       ),

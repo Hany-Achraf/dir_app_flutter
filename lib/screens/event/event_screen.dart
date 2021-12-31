@@ -22,30 +22,38 @@ class EventScreen extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.all(8),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.loose,
-                            child: Text(
-                                // 'Event Name',
-                                event.name,
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 25)),
-                          ),
-                          IconButton(
-                              onPressed: () {},
-                              padding: EdgeInsets.zero,
-                              alignment: Alignment.topRight,
-                              icon: Icon(Icons.favorite_border,
-                                  color: Colors.grey, size: 25)),
-                        ],
+                      Text(
+                        event.name,
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25),
                       ),
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      //   crossAxisAlignment: CrossAxisAlignment.start,
+                      //   children: [
+                      //     Flexible(
+                      //       flex: 1,
+                      //       fit: FlexFit.loose,
+                      //       child: Text(
+                      //         event.name,
+                      //         style: TextStyle(
+                      //             color: Colors.black,
+                      //             fontWeight: FontWeight.bold,
+                      //             fontSize: 25),
+                      //       ),
+                      //     ),
+                      //     IconButton(
+                      //         onPressed: () {},
+                      //         padding: EdgeInsets.zero,
+                      //         alignment: Alignment.topRight,
+                      //         icon: Icon(Icons.favorite_border,
+                      //             color: Colors.grey, size: 25)),
+                      //   ],
+                      // ),
                       SizedBox(
                         height: 8,
                       ),

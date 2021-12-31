@@ -9,20 +9,20 @@ import 'package:plant_app/services/dio.dart';
 import '../../../constants.dart';
 
 class EventsSlider extends StatelessWidget {
-  final List<Event> events2 = [];
+  final List<Event> events = [];
 
   final dynamic eventsJson;
   EventsSlider({@required this.eventsJson});
 
   void setEvents() {
     eventsJson.forEach((i) {
-      events2.add(Event.fromJson(i));
+      events.add(Event.fromJson(i));
     });
   }
 
   Widget buildEventsSlider() {
     Row eventsSlider = Row(children: []);
-    events2.forEach((event) {
+    events.forEach((event) {
       eventsSlider.children.add(
         EventCard(
           event: event,
