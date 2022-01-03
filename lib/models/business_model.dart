@@ -4,7 +4,7 @@ import 'package:plant_app/models/review_model.dart';
 class Business {
   int id;
   String name;
-  int rating;
+  int avgRate;
   String iconImgPath;
   String coverImgPath;
   String description;
@@ -22,7 +22,7 @@ class Business {
   Business({
     this.id,
     this.name,
-    this.rating,
+    this.avgRate,
     this.iconImgPath,
     this.coverImgPath,
     this.description,
@@ -39,7 +39,7 @@ class Business {
     Business business = Business(
       id: parsedJson['id'],
       name: parsedJson['name'],
-      rating: parsedJson['rating'],
+      avgRate: parsedJson['avg_rate'],
       iconImgPath: parsedJson['icon_img_path'],
       coverImgPath: parsedJson['cover_img_path'],
       description: parsedJson['description'],
@@ -61,21 +61,21 @@ List<Business> businesses = [
     name: 'Al-Ikhsan Sports',
     iconImgPath: 'assets/images/al-ikhsan.png',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 3,
+    avgRate: 3,
   ),
   Business(
     id: 2,
     name: 'Sogo',
     iconImgPath: 'assets/images/sogo.png',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 4,
+    avgRate: 4,
   ),
   Business(
     id: 3,
     name: 'Mr D.I.Y',
     iconImgPath: 'assets/images/MRDIY.png',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 3,
+    avgRate: 3,
   ),
   // ///////////
   Business(
@@ -83,69 +83,69 @@ List<Business> businesses = [
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 4,
+    avgRate: 4,
   ),
   Business(
     id: 5,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 5,
+    avgRate: 5,
   ),
   Business(
     id: 6,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 1,
+    avgRate: 1,
   ),
   Business(
     id: 7,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 3,
+    avgRate: 3,
   ),
   Business(
     id: 8,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 2,
+    avgRate: 2,
   ),
   Business(
     id: 9,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 4,
+    avgRate: 4,
   ),
   Business(
     id: 10,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 4,
+    avgRate: 4,
   ),
   Business(
     id: 11,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 3,
+    avgRate: 3,
   ),
   Business(
     id: 12,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 5,
+    avgRate: 5,
   ),
   Business(
     id: 13,
     name: 'Everyday Parenting: The ABCs of Child Rearing',
     iconImgPath: 'assets/images/sunset.jpg',
     workingTime: 'Sun – Wed (10:00 – 22:00)',
-    rating: 4,
+    avgRate: 4,
   ),
 ];

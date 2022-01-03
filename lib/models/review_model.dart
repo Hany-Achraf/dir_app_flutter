@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class Review {
   int id;
-  int rating;
+  int rate;
   String comment;
   int reviewerId;
   String reviewerName;
@@ -11,7 +11,7 @@ class Review {
 
   Review({
     @required this.id,
-    @required this.rating,
+    @required this.rate,
     @required this.comment,
     @required this.reviewerId,
     @required this.reviewerName,
@@ -22,7 +22,7 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> parsedJson) {
     Review review = Review(
       id: parsedJson['id'],
-      rating: parsedJson['rating'],
+      rate: parsedJson['rate'],
       comment: parsedJson['comment'],
       reviewerId: parsedJson['user']['id'],
       reviewerName: parsedJson['user']['name'],

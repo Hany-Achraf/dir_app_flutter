@@ -11,7 +11,8 @@ class BusinessProvider extends ChangeNotifier {
 
   Future<Business> fetchBusiness({@required int businessId}) async {
     try {
-      Response response = await dio().get('/api/businesses/${businessId}');
+      Response response =
+          await dio().get('/api/businesses/${businessId}?user_id=1');
       if (response.statusCode == 200) {
         _business = Business.fromJson(response.data);
         fetchBusinessPhotos();

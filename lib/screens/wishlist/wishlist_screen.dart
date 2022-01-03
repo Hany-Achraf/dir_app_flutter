@@ -101,7 +101,7 @@ class SavedBusiness extends StatelessWidget {
                             ),
                           ),
                         ),
-                        _buildRatingStars(business.rating),
+                        _buildRatingStars(business.avgRate),
                         Row(
                           children: [
                             Icon(

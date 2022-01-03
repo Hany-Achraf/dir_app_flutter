@@ -92,71 +92,87 @@ class BusinessInfo extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   fit: FlexFit.loose,
-                  child: _buildRatingStars(business.rating),
+                  child: _buildRatingStars(business.avgRate),
                 ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset('assets/icons/instagram.png'),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  padding: EdgeInsets.zero,
-                  icon: FaIcon(
-                    FontAwesomeIcons.facebook,
-                    color: Colors.blue,
-                    size: 35,
-                  ),
-                ),
+                business.instagramLink != null
+                    ? IconButton(
+                        onPressed: () async {
+                          await launch(business.instagramLink);
+                        },
+                        icon: Image.asset('assets/icons/instagram.png'),
+                      )
+                    : Container(),
+                business.facebookLink != null
+                    ? IconButton(
+                        onPressed: () async {
+                          await launch(business.facebookLink);
+                        },
+                        padding: EdgeInsets.zero,
+                        icon: FaIcon(
+                          FontAwesomeIcons.facebook,
+                          color: Colors.blue,
+                          size: 35,
+                        ),
+                      )
+                    : Container(),
               ],
             ),
             SizedBox(
               height: 8,
             ),
-            SizedBox(
-              // width: 300,
-              child: ReadMoreText(
-                business.description,
-                style: TextStyle(color: Colors.black),
-                trimLines: 3,
-                colorClickableText: kPrimaryColor,
-                trimMode: TrimMode.Line,
-                trimCollapsedText: 'Show more',
-                trimExpandedText: 'Show less',
-                moreStyle: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-              ),
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 4),
-                  child: Icon(
-                    Icons.language,
-                    color: kPrimaryColor,
-                    size: 25,
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.loose,
-                  child: Text(
-                    business.websiteLink,
-                    style: TextStyle(
-                      color: kPrimaryColor,
+            business.description != null
+                ? SizedBox(
+                    child: ReadMoreText(
+                      business.description,
+                      style: TextStyle(color: Colors.black),
+                      trimLines: 3,
+                      colorClickableText: kPrimaryColor,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: 'Show more',
+                      trimExpandedText: 'Show less',
+                      moreStyle:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                ),
-              ],
+                  )
+                : Container(),
+            SizedBox(
+              height: 8,
             ),
+            business.websiteLink != null
+                ? InkWell(
+                    onTap: () async {
+                      await launch(business.websiteLink);
+                    },
+                    child: Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 4),
+                          child: Icon(
+                            Icons.language,
+                            color: kPrimaryColor,
+                            size: 25,
+                          ),
+                        ),
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.loose,
+                          child: Text(
+                            business.websiteLink,
+                            style: TextStyle(
+                              color: kPrimaryColor,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(),
             SizedBox(
               height: 8,
             ),
             InkWell(
               onTap: _launchURL,
               child: Row(
-                // crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
                       margin: const EdgeInsets.only(right: 4),

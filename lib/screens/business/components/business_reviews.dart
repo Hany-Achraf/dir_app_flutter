@@ -60,7 +60,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _buildRatingStars(review.rating),
+                        _buildRatingStars(review.rate),
                         SizedBox(
                           width: 90,
                         ),

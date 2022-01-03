@@ -34,187 +34,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
         .firstWhere((destination) => destination.id == widget.destinationId);
     final List<Business> _businesses = businesses;
 
-    // return Scaffold(
-    //   body: Column(
-    //     children: <Widget>[
-    //       Stack(
-    //         children: <Widget>[
-    //           Container(
-    //             height: size.width,
-    //             decoration: BoxDecoration(
-    //               borderRadius: BorderRadius.circular(30.0),
-    //               boxShadow: [
-    //                 BoxShadow(
-    //                   color: Colors.black26,
-    //                   offset: Offset(0.0, 2.0),
-    //                   blurRadius: 6.0,
-    //                 ),
-    //               ],
-    //             ),
-    //             child: ClipRRect(
-    //               borderRadius: BorderRadius.only(
-    //                 bottomRight: Radius.circular(20),
-    //                 bottomLeft: Radius.circular(20),
-    //               ),
-    //               child: Image.asset(
-    //                 destination.imgUrl,
-    //                 fit: BoxFit.cover,
-    //               ),
-    //             ),
-    //           ),
-    //           Padding(
-    //             padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
-    //             child: Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: <Widget>[
-    //                 IconButton(
-    //                   icon: Icon(Icons.arrow_back),
-    //                   iconSize: 35.0,
-    //                   color: Colors.black,
-    //                   onPressed: () => Navigator.pop(context),
-    //                 ),
-    //                 Row(
-    //                   children: <Widget>[
-    //                     IconButton(
-    //                       icon: Icon(Icons.search),
-    //                       iconSize: 35.0,
-    //                       color: Colors.black,
-    //                       onPressed: () => Navigator.pop(context),
-    //                     ),
-    //                   ],
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           Positioned(
-    //             left: 20.0,
-    //             bottom: 20.0,
-    //             child: Column(
-    //               crossAxisAlignment: CrossAxisAlignment.start,
-    //               children: <Widget>[
-    //                 Text(
-    //                   destination.name,
-    //                   style: TextStyle(
-    //                     color: Colors.white,
-    //                     fontSize: 20.0,
-    //                     fontWeight: FontWeight.w600,
-    //                     letterSpacing: 1.2,
-    //                   ),
-    //                 ),
-    //               ],
-    //             ),
-    //           ),
-    //           Positioned(
-    //             right: 20.0,
-    //             bottom: 20.0,
-    //             child: Icon(
-    //               Icons.location_on,
-    //               color: Colors.white70,
-    //               size: 25.0,
-    //             ),
-    //           ),
-    //         ],
-    //       ),
-    //       Expanded(
-    //         child: ListView.builder(
-    //           padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
-    //           itemCount: _businesses.length,
-    //           itemBuilder: (BuildContext context, int index) {
-    //             Business business = _businesses[index];
-    //             return InkWell(
-    //               onTap: () {
-    //                 Navigator.push(
-    //                   context,
-    //                   MaterialPageRoute(builder: (context) => BusinessScreen()),
-    //                 );
-    //               },
-    //               child: Container(
-    //                 margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
-    //                 height: 170.0,
-    //                 // width: double.infinity,
-    //                 decoration: BoxDecoration(
-    //                   borderRadius: BorderRadius.circular(20.0),
-    //                 ),
-    //                 child: Card(
-    //                   elevation: 1.5,
-    //                   child: Padding(
-    //                     // padding: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 20.0),
-    //                     padding: EdgeInsets.all(0),
-    //                     child: Row(
-    //                       // crossAxisAlignment: CrossAxisAlignment.end,
-    //                       children: [
-    //                         Container(
-    //                           decoration: BoxDecoration(
-    //                             color: Colors.orange,
-    //                           ),
-    //                           padding: EdgeInsets.only(left: 8.0, right: 8.0),
-    //                           // width: size.width * 0.25,
-    //                           child: ClipRRect(
-    //                             borderRadius: BorderRadius.circular(20.0),
-    //                             child: Image.asset(
-    //                               business.thumbnailUrl,
-    //                               height: 200,
-    //                               // width: 110.0,
-    //                               width: size.width * 0.25,
-    //                               fit: BoxFit.fill,
-    //                             ),
-    //                           ),
-    //                         ),
-    //                         Column(
-    //                           mainAxisAlignment: MainAxisAlignment.center,
-    //                           crossAxisAlignment: CrossAxisAlignment.start,
-    //                           children: <Widget>[
-    //                             Row(
-    //                               mainAxisAlignment:
-    //                                   MainAxisAlignment.spaceBetween,
-    //                               crossAxisAlignment: CrossAxisAlignment.start,
-    //                               children: <Widget>[
-    //                                 Container(
-    //                                   // width: 120.0,
-    //                                   child: Text(
-    //                                     business.name,
-    //                                     style: TextStyle(
-    //                                       fontSize: 18.0,
-    //                                       fontWeight: FontWeight.w600,
-    //                                     ),
-    //                                     overflow: TextOverflow.ellipsis,
-    //                                     maxLines: 2,
-    //                                   ),
-    //                                 ),
-    //                               ],
-    //                             ),
-    //                             _buildRatingStars(business.rating),
-    //                             SizedBox(height: 10.0),
-    //                             Row(
-    //                               children: <Widget>[
-    //                                 Container(
-    //                                   padding: EdgeInsets.all(5.0),
-    //                                   width: 190.0,
-    //                                   decoration: BoxDecoration(
-    //                                     color: kPrimaryColor,
-    //                                     borderRadius:
-    //                                         BorderRadius.circular(10.0),
-    //                                   ),
-    //                                   alignment: Alignment.center,
-    //                                   child: Text(business.workingTime),
-    //                                 ),
-    //                               ],
-    //                             )
-    //                           ],
-    //                         ),
-    //                       ],
-    //                     ),
-    //                   ),
-    //                 ),
-    //               ),
-    //             );
-    //           },
-    //         ),
-    //       ),
-    //     ],
-    //   ),
-    // );
-
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
@@ -233,84 +52,96 @@ class _DestinationScreenState extends State<DestinationScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BusinessScreen()),
+                  MaterialPageRoute(builder: (context) => BusinessScreen(businessId: 1,)),
                 );
               },
               child: Container(
-                margin: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 5.0),
-                height: 170.0,
-                // width: double.infinity,
+                margin: EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                // height: 150,
+                height: MediaQuery.of(context).size.height * 0.2,
                 decoration: BoxDecoration(
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20.0),
-                ),
-                child: Card(
-                  elevation: 1.5,
-                  child: Padding(
-                    // padding: EdgeInsets.fromLTRB(10.0, 20.0, 20.0, 20.0),
-                    padding: EdgeInsets.all(0),
-                    child: Row(
-                      // crossAxisAlignment: CrossAxisAlignment.end,
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            color: Colors.orange,
-                          ),
-                          padding: EdgeInsets.only(left: 8.0, right: 8.0),
-                          // width: size.width * 0.25,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20.0),
-                            child: Image.asset(
-                              business.iconImgPath,
-                              height: 200,
-                              // width: 110.0,
-                              width: MediaQuery.of(context).size.width * 0.25,
-                              fit: BoxFit.fill,
-                            ),
-                          ),
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Container(
-                                  // width: 120.0,
-                                  child: Text(
-                                    business.name,
-                                    style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.w600,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 2,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            _buildRatingStars(business.rating),
-                            SizedBox(height: 10.0),
-                            Row(
-                              children: <Widget>[
-                                Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  width: 190.0,
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(business.workingTime),
-                                ),
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 5),
+                      blurRadius: 5,
+                      color: kPrimaryColor.withOpacity(0.23),
                     ),
-                  ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      // height: 100,
+                      // width: 100,
+                      height: MediaQuery.of(context).size.height * 0.14,
+                      width: MediaQuery.of(context).size.height * 0.14,
+                      margin: EdgeInsets.only(left: 8.0, right: 8.0),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            width: 2,
+                            color: Colors.grey,
+                          ),
+                          // borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height * 0.14 / 2),
+                        ),
+                        child: ClipRRect(
+                          // borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(
+                              MediaQuery.of(context).size.height * 0.14 / 2),
+                          child: Image.asset(
+                            business.iconImgPath,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      // width: 255,
+                      width: MediaQuery.of(context).size.width * 0.63,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          topRight: Radius.circular(20),
+                          bottomRight: Radius.circular(20),
+                        ),
+                      ),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Text(
+                            business.name,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          _buildRatingStars(business.avgRate),
+                          SizedBox(height: 10.0),
+                          Container(
+                            padding: EdgeInsets.all(5.0),
+                            width: 190.0,
+                            decoration: BoxDecoration(
+                              color: kPrimaryColor,
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            alignment: Alignment.center,
+                            child: Text(
+                              business.workingTime,
+                              style: TextStyle(
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
                 ),
               ),
             );
@@ -349,7 +180,7 @@ SliverAppBar customAppBar(BuildContext context,
       ),
     ],
     // expandedHeight: 400,
-    expandedHeight: MediaQuery.of(context).size.height / 1.8,
+    expandedHeight: MediaQuery.of(context).size.height / 1.9,
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
         decoration: BoxDecoration(
