@@ -3,7 +3,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
-import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/category/components/body.dart';
 
 class CategoryScreen extends StatelessWidget {

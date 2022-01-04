@@ -23,8 +23,7 @@ class DestinationCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  DestinationScreen(destinationId: destination.id),
+              builder: (context) => DestinationScreen(destination: destination),
             ),
           );
         },
@@ -38,10 +37,6 @@ class DestinationCard extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                // child: Image.asset(
-                //   destination.imgPath,
-                //   fit: BoxFit.cover,
-                // ),
                 child: Image.network(
                   '${dio().options.baseUrl}${destination.imgPath}',
                   fit: BoxFit.cover,

@@ -57,8 +57,7 @@ class DestinationCard extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) =>
-                  DestinationScreen(destinationId: destination.id),
+              builder: (context) => DestinationScreen(destination: destination),
             ),
           );
         },

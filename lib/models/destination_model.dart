@@ -20,30 +20,30 @@ class Destination {
   }
 }
 
-List<Destination> destinations = [
-  Destination(
-    id: 1,
-    name: 'The Mall Mid Valley SouthKey',
-    imgPath: 'assets/images/mid-valley-jb.png',
-  ),
-  Destination(
-    id: 2,
-    name: 'New York',
-    imgPath: 'assets/images/newyork.png',
-  ),
-  Destination(
-    id: 3,
-    name: 'Paris',
-    imgPath: 'assets/images/paris.png',
-  ),
-  Destination(
-    id: 4,
-    name: 'Santorini',
-    imgPath: 'assets/images/santorini.png',
-  ),
-  Destination(
-    id: 5,
-    name: 'Saopaulo',
-    imgPath: 'assets/images/saopaulo.png',
-  ),
-];
+// List<Destination> destinations = [
+//   Destination(
+//     id: 1,
+//     name: 'The Mall Mid Valley SouthKey',
+//     imgPath: 'assets/images/mid-valley-jb.png',
+//   ),
+//   Destination(
+//     id: 2,
+//     name: 'New York',
+//     imgPath: 'assets/images/newyork.png',
+//   ),
+//   Destination(
+//     id: 3,
+//     name: 'Paris',
+//     imgPath: 'assets/images/paris.png',
+//   ),
+//   Destination(
+//     id: 4,
+//     name: 'Santorini',
+//     imgPath: 'assets/images/santorini.png',
+//   ),
+//   Destination(
+//     id: 5,
+//     name: 'Saopaulo',
+//     imgPath: 'assets/images/saopaulo.png',
+//   ),
+// ];

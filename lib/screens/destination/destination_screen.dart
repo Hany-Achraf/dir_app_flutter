@@ -2,13 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
+import 'package:plant_app/services/dio.dart';
 
 import '../../constants.dart';
 
 class DestinationScreen extends StatefulWidget {
-  final int destinationId;
+  final Destination destination;
 
-  DestinationScreen({this.destinationId});
+  DestinationScreen({@required this.destination});
 
   @override
   State<DestinationScreen> createState() => _DestinationScreenState();
@@ -30,8 +31,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final Destination destination = destinations
-        .firstWhere((destination) => destination.id == widget.destinationId);
     final List<Business> _businesses = businesses;
 
     return Scaffold(
@@ -39,7 +38,8 @@ class _DestinationScreenState extends State<DestinationScreen> {
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
             customAppBar(context,
-                imgUrl: destination.imgPath, destinationName: destination.name),
+                imgPath: widget.destination.imgPath,
+                destinationName: widget.destination.name),
           ];
         },
         body: ListView.builder(
@@ -52,7 +52,10 @@ class _DestinationScreenState extends State<DestinationScreen> {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BusinessScreen(businessId: 1,)),
+                  MaterialPageRoute(
+                      builder: (context) => BusinessScreen(
+                            businessId: 1,
+                          )),
                 );
               },
               child: Container(
@@ -153,7 +156,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
 }
 
 SliverAppBar customAppBar(BuildContext context,
-    {String imgUrl, String destinationName}) {
+    {String imgPath, String destinationName}) {
   return SliverAppBar(
     title: Text(
       destinationName,
@@ -191,9 +194,13 @@ SliverAppBar customAppBar(BuildContext context,
             bottomRight: Radius.circular(20),
             bottomLeft: Radius.circular(20),
           ),
-          child: Image.asset(
-            imgUrl,
-            fit: BoxFit.fill,
+          // child: Image.asset(
+          //   imgUrl,
+          //   fit: BoxFit.fill,
+          // ),
+          child: Image.network(
+            '${dio().options.baseUrl}${imgPath}',
+            fit: BoxFit.cover,
           ),
         ),
       ),
