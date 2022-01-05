@@ -31,7 +31,9 @@ class BusinessPhotos extends StatelessWidget {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => GalleryScreen()),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              GalleryScreen(currentIndex: index)),
                     );
                   },
                   child: Container(

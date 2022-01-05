@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:plant_app/models/category_model.dart';
+import 'package:plant_app/providers/businesses_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../../constants.dart';
 
@@ -55,8 +57,11 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
 
     return GestureDetector(
       onTap: () {
+        // print('Subcategory Id: ${subcategory.id}');
+        Provider.of<BusinessesProvider>(context, listen: false)
+            .loadInitialBusinesses(categoryId: subcategory.id);
         setState(() {
-          selectedSubcategoryId = subcategoryId;
+          selectedSubcategoryId = subcategory.id;
         });
       },
       child: Padding(

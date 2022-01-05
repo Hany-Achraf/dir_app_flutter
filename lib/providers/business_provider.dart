@@ -6,13 +6,13 @@ import 'package:plant_app/services/dio.dart';
 
 class BusinessProvider extends ChangeNotifier {
   Business _business;
-
   Business get business => _business;
 
-  Future<Business> fetchBusiness({@required int businessId}) async {
+  Future<Business> fetchBusiness(
+      {@required int businessId, @required int userId}) async {
     try {
       Response response =
-          await dio().get('/api/businesses/${businessId}?user_id=1');
+          await dio().get('/api/businesses/$businessId?user_id=$userId');
       if (response.statusCode == 200) {
         _business = Business.fromJson(response.data);
         fetchBusinessPhotos();
@@ -49,6 +49,25 @@ class BusinessProvider extends ChangeNotifier {
       rethrow;
     }
     // notifyListeners();
+  }
+
+  void handleFavoriteIconButtonClick({@required int userId}) async {
+    Map<String, int> requestData = {
+      'business_id': business.id,
+      'user_id': userId,
+    };
+
+    Response response;
+
+    if (!business.onUserWishlist)
+      response = await dio().post('/api/wishlist/create', data: requestData);
+    else
+      response = await dio().delete('/api/wishlist/destroy', data: requestData);
+
+    if (response.statusCode == 200)
+      business.onUserWishlist = !business.onUserWishlist;
+
+    notifyListeners();
   }
 
   void addReview(Review review) {

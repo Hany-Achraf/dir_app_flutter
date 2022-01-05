@@ -54,10 +54,7 @@ class _BusinessScreenState extends State<BusinessScreen>
     _tabController.addListener(() => setState(() {}));
 
     business = Provider.of<BusinessProvider>(context, listen: false)
-        .fetchBusiness(businessId: widget.businessId);
-    // Provider.of<BusinessProvider>(context, listen: false).fetchBusinessPhotos();
-    // Provider.of<BusinessProvider>(context, listen: false)
-    //     .fetchBusinessReviews();
+        .fetchBusiness(businessId: widget.businessId, userId: 1);
   }
 
   @override
@@ -84,7 +81,6 @@ class _BusinessScreenState extends State<BusinessScreen>
                       coverImgPath: business.coverImgPath,
                       // _tabController,
                     ),
-                    // BusinessSliverAppBar('Lorem ipsum dolor sit amet, consectetur adipiscing elit', _tabController),
                     SliverPersistentHeader(
                       pinned: true,
                       delegate: SliverPersistentHeaderDelegateImpl(

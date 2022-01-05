@@ -5,8 +5,8 @@ Dio dio() {
   //ios
   //dio.options.baseUrl = "http://localhost:8000/api";
   //android
-  dio.options.baseUrl = "http://192.168.1.124:80/"; // Company
-  // dio.options.baseUrl = "http://192.168.43.105:80/"; // Home
+  dio.options.baseUrl = "http://192.168.1.124:80/"; // Office
+  // dio.options.baseUrl = "http://192.168.43.105:80/"; // Hotspot
   // dio.options.baseUrl = "http://192.168.1.30:80/"; // Mohamed's Home
   dio.options.headers['accept'] = 'Application/Json';
   // dio.options.headers['Connection'] = 'Keep-Alive';

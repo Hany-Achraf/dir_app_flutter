@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_app/providers/my_bottom_nav_provider.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/profile/profile_screen.dart';
 import 'package:plant_app/screens/wishlist/wishlist_screen.dart';
+import 'package:provider/provider.dart';
 
 import '../constants.dart';
 
@@ -14,6 +16,8 @@ class MyBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int index = Provider.of<BottomNavigatorProvider>(context).index;
+
     return Container(
       padding: EdgeInsets.only(
         left: kDefaultPadding * 2,
@@ -35,8 +39,11 @@ class MyBottomNavBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           IconButton(
-            icon: Icon(Icons.home, color: kPrimaryColor),
+            icon: Icon(Icons.home,
+                color: index == 0 ? kPrimaryColor : Colors.grey),
             onPressed: () {
+              Provider.of<BottomNavigatorProvider>(context, listen: false)
+                  .changeIndex(index: 0);
               Navigator.popUntil(
                 context,
                 (route) => route.isFirst,
@@ -44,9 +51,11 @@ class MyBottomNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: SvgPicture.asset("assets/icons/heart-icon.svg",
-                color: kPrimaryColor),
+            icon: Icon(Icons.favorite,
+                color: index == 1 ? kPrimaryColor : Colors.grey),
             onPressed: () {
+              Provider.of<BottomNavigatorProvider>(context, listen: false)
+                  .changeIndex(index: 1);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => WishlistScreen()),
@@ -54,9 +63,13 @@ class MyBottomNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            icon: SvgPicture.asset("assets/icons/user-icon.svg",
-                color: kPrimaryColor),
+            // icon: SvgPicture.asset("assets/icons/user-icon.svg",
+            //     color: kPrimaryColor),
+            icon: Icon(Icons.person,
+                color: index == 2 ? kPrimaryColor : Colors.grey),
             onPressed: () {
+              Provider.of<BottomNavigatorProvider>(context, listen: false)
+                  .changeIndex(index: 2);
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => ProfileScreen()),

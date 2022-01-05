@@ -159,7 +159,7 @@ class _FeedbackScreenState extends State<FeedbackScreen> {
                         builder: (BuildContext context) {
                           return AlertDialog(
                             title: Text(
-                              'Inavlid input',
+                              'Invalid input',
                               style: TextStyle(color: kTextColor),
                             ),
                             actions: <Widget>[

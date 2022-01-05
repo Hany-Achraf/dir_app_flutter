@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
+import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
+import 'package:plant_app/services/dio.dart';
+import 'package:provider/provider.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 Row _buildRatingStars(int rating) {
   List<Icon> ratingStars = [];
@@ -17,20 +21,43 @@ Row _buildRatingStars(int rating) {
   );
 }
 
-class WishlistScreen extends StatelessWidget {
-  final List<Business> _businesses = businesses.sublist(3);
+class WishlistScreen extends StatefulWidget {
+  @override
+  State<WishlistScreen> createState() => _WishlistScreenState();
+}
+
+class _WishlistScreenState extends State<WishlistScreen> {
+  Future<bool> initialBusinessesLoaded;
+  @override
+  void initState() {
+    super.initState();
+    initialBusinessesLoaded =
+        Provider.of<BusinessesProvider>(context, listen: false)
+            .loadInitialBusinesses(userId: 1);
+  }
 
   @override
   Widget build(BuildContext context) {
+    final List<Business> businesses =
+        Provider.of<BusinessesProvider>(context, listen: true).businesses;
+
     return Scaffold(
       appBar: AppBar(
         leading: Container(),
         title: Text('Wishlist'),
       ),
-      body: ListView.builder(
-        itemCount: _businesses.length,
-        itemBuilder: (context, index) {
-          return SavedBusiness(business: _businesses[index]);
+      body: FutureBuilder(
+        future: initialBusinessesLoaded,
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return ListView.builder(
+              itemCount: businesses.length,
+              itemBuilder: (context, index) {
+                return SavedBusiness(business: businesses[index]);
+              },
+            );
+          }
+          return Center(child: CircularProgressIndicator(color: kPrimaryColor));
         },
       ),
       bottomNavigationBar: MyBottomNavBar(),
@@ -62,7 +89,11 @@ class SavedBusiness extends StatelessWidget {
               onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => BusinessScreen()),
+                  MaterialPageRoute(
+                    builder: (context) => BusinessScreen(
+                      businessId: business.id,
+                    ),
+                  ),
                 );
               },
               child: Row(
@@ -72,10 +103,19 @@ class SavedBusiness extends StatelessWidget {
                     // width: 120,
                     width: size.width * 0.3,
                     height: 80,
-                    child: ClipRRect(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        width: 1,
+                        color: Colors.grey,
+                      ),
                       borderRadius: BorderRadius.circular(8),
-                      child:
-                          Image.asset(business.iconImgPath, fit: BoxFit.fill),
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(6),
+                      child: Image.network(
+                        '${dio().options.baseUrl}${business.iconImgPath}',
+                        fit: BoxFit.fill,
+                      ),
                     ),
                   ),
                   Container(
@@ -115,7 +155,8 @@ class SavedBusiness extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                                 maxLines: 2,
                                 text: TextSpan(
-                                  text: 'Added 6d ago',
+                                  text:
+                                      'Added ${timeago.format(business.addedToWishlistDateTime, locale: 'en_short')} ago',
                                   style: TextStyle(
                                     fontSize: 12,
                                     color: Colors.grey,
@@ -138,6 +179,11 @@ class SavedBusiness extends StatelessWidget {
             ),
             itemBuilder: (BuildContext context) => [
               PopupMenuItem(
+                onTap: () {
+                  Provider.of<BusinessesProvider>(context, listen: false)
+                      .removeBusinessFromWishlist(
+                          businessId: business.id, userId: 1);
+                },
                 child: Row(
                   children: [
                     Icon(Icons.remove_circle_outline_rounded),

@@ -49,7 +49,7 @@ class BusinessInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Business business =
-        Provider.of<BusinessProvider>(context, listen: false).business;
+        Provider.of<BusinessProvider>(context, listen: true).business;
 
     return Container(
       margin: EdgeInsets.all(8),
@@ -77,11 +77,24 @@ class BusinessInfo extends StatelessWidget {
                   ),
                 ),
                 IconButton(
-                    onPressed: () {},
-                    padding: EdgeInsets.zero,
-                    alignment: Alignment.topRight,
-                    icon: Icon(Icons.favorite_border,
-                        color: Colors.grey, size: 25)),
+                  onPressed: () {
+                    Provider.of<BusinessProvider>(context, listen: false)
+                        .handleFavoriteIconButtonClick(userId: 1);
+                  },
+                  padding: EdgeInsets.zero,
+                  alignment: Alignment.topCenter,
+                  icon: business.onUserWishlist
+                      ? Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                          size: 25,
+                        )
+                      : Icon(
+                          Icons.favorite_border,
+                          color: Colors.grey,
+                          size: 25,
+                        ),
+                ),
               ],
             ),
             SizedBox(
