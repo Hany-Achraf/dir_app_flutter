@@ -11,15 +11,18 @@ class DestinationsProvider extends ChangeNotifier {
   int currentPageNumber = 1;
 
   Future<bool> loadInitialDestinations() async {
-    if (_destinations.isEmpty) {
-      Response response = await dio().get('/api/destinations');
-      if (response.statusCode == 200) {
-        gotNextPage = response.data['next_page_url'] != null ? true : false;
-        List destinationsJson = response.data['data'];
-        destinationsJson.forEach((i) {
-          _destinations.add(Destination.fromJson(i));
-        });
-      }
+    if (_destinations.isNotEmpty) {
+      _destinations = [];
+      currentPageNumber = 1;
+    }
+
+    Response response = await dio().get('/api/destinations');
+    if (response.statusCode == 200) {
+      gotNextPage = response.data['next_page_url'] != null ? true : false;
+      List destinationsJson = response.data['data'];
+      destinationsJson.forEach((i) {
+        _destinations.add(Destination.fromJson(i));
+      });
     }
     return true;
   }
