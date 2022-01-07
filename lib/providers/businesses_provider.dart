@@ -17,10 +17,10 @@ class BusinessesProvider extends ChangeNotifier {
     }
 
     String route = (categoryId != null)
-        ? '/api/categories/$categoryId'
+        ? 'api/categories/$categoryId'
         : (destinationId != null)
-            ? '/api/destinations/$destinationId'
-            : '/api/wishlist/$userId';
+            ? 'api/destinations/$destinationId'
+            : 'api/wishlist/$userId';
 
     Response response = await dio().get(route);
     if (response.statusCode == 200) {
@@ -44,7 +44,7 @@ class BusinessesProvider extends ChangeNotifier {
       'user_id': userId,
     };
     Response response =
-        await dio().delete('/api/wishlist/destroy', data: requestData);
+        await dio().delete('api/wishlist/destroy', data: requestData);
     if (response.statusCode == 200) {
       _businesses.removeWhere((business) => business.id == businessId);
       notifyListeners();

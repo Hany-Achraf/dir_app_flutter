@@ -24,7 +24,7 @@ class _BodyState extends State<Body> {
   Future homeJson;
   Future fetchHomeContent() async {
     try {
-      Response response = await dio().get('/api/');
+      Response response = await dio().get('api/');
       return response.data;
     } catch (e) {
       rethrow;

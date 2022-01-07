@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/profile/edit_profile_screen.dart';
 import 'package:plant_app/screens/profile/feedback_screen.dart';
+import 'package:plant_app/services/auth.dart';
+import 'package:provider/provider.dart';
 
 import 'profile_menu.dart';
 import 'profile_pic.dart';
@@ -58,7 +60,9 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: 'Log Out',
             icon: "assets/icons/Log out.svg",
-            press: () {},
+            press: () {
+              Provider.of<Auth>(context, listen: false).logout();
+            },
           ),
         ],
       ),

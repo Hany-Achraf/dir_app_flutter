@@ -90,9 +90,8 @@ class SavedBusiness extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => BusinessScreen(
-                      businessId: business.id,
-                    ),
+                    builder: (context) =>
+                        BusinessScreen(businessId: business.id),
                   ),
                 );
               },

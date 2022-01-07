@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
+String api = 'http://192.168.1.124:80/api'; // Office
+// String api = 'http://192.168.1.30:80/api'; // Mohamed
+// String api = 'http://192.168.43.105:80/api'; // Mobile hotspot
+// String api = 'http://localhost:8000/api'; // ios
+
 // Colors that we use in our app
 const kTextColor = Color(0xFF3C4046);
 
