@@ -13,6 +13,7 @@ class Body extends StatelessWidget {
     final refreshController = RefreshController();
     final destinations =
         Provider.of<DestinationsProvider>(context, listen: true).destinations;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[

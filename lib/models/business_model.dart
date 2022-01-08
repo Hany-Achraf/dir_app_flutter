@@ -16,6 +16,7 @@ class Business {
   String facebookLink;
   String instagramLink;
   bool onUserWishlist;
+  bool reviewedByUser;
   DateTime addedToWishlistDateTime;
 
   List<String> photos = [];
@@ -36,6 +37,7 @@ class Business {
     this.facebookLink,
     this.instagramLink,
     this.onUserWishlist,
+    this.reviewedByUser,
     this.addedToWishlistDateTime,
   });
 
@@ -56,6 +58,7 @@ class Business {
       facebookLink: parsedJson['facebook_link'],
       instagramLink: parsedJson['instagram_link'],
       onUserWishlist: parsedJson['on_user_wishlist'],
+      reviewedByUser: parsedJson['reviewed_by_user'],
     );
 
     if (wishlistBusiness) {
