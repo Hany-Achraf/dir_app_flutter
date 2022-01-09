@@ -58,7 +58,7 @@ class _BusinessScreenState extends State<BusinessScreen>
     User user = Provider.of<Auth>(context, listen: false).user;
 
     Provider.of<BusinessProvider>(context, listen: false)
-        .fetchBusiness(businessId: widget.businessId, userId: 1);
+        .fetchBusiness(businessId: widget.businessId, userId: user.id);
   }
 
   @override

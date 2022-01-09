@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:plant_app/delegates/custom_search_delegate.dart';
 
 import '../../../constants.dart';
 
@@ -55,48 +56,44 @@ class HeaderWithSearchBox extends StatelessWidget {
             child: Center(child: _title()),
           ),
           Positioned(
+            height: MediaQuery.of(context).size.height * 0.07,
             bottom: 0,
             left: 0,
             right: 0,
-            child: Container(
-              alignment: Alignment.center,
-              margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
-              height: 54,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 10),
-                    blurRadius: 50,
-                    color: kPrimaryColor.withOpacity(0.23),
-                  ),
-                ],
-              ),
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: TextField(
-                      onChanged: (value) {},
-                      decoration: InputDecoration(
-                        hintText: 'Search',
-                        hintStyle: TextStyle(
-                          color: kPrimaryColor.withOpacity(0.5),
-                        ),
-                        enabledBorder: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        // surffix isn't working properly  with SVG
-                        // thats why we use row
-                        // suffixIcon: SvgPicture.asset("assets/icons/search.svg"),
-                      ),
+            child: InkWell(
+              onTap: () {
+                showSearch(context: context, delegate: CustomSearchDelegate());
+              },
+              child: Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                padding: EdgeInsets.symmetric(horizontal: kDefaultPadding),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 10),
+                      blurRadius: 50,
+                      color: kPrimaryColor.withOpacity(0.23),
                     ),
-                  ),
-                  SvgPicture.asset(
-                    "assets/icons/search.svg",
-                    color: kPrimaryColor,
-                  ),
-                ],
+                  ],
+                ),
+                child: Row(
+                  children: <Widget>[
+                    Expanded(
+                      child: Text('Search...',
+                          style: TextStyle(
+                            color: kPrimaryColor.withOpacity(0.5),
+                            fontSize: 20,
+                          )),
+                    ),
+                    SvgPicture.asset(
+                      "assets/icons/search.svg",
+                      color: kPrimaryColor,
+                    ),
+                  ],
+                ),
               ),
             ),
           ),

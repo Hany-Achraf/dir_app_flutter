@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/delegates/custom_search_delegate.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
@@ -202,10 +203,15 @@ SliverAppBar customAppBar(BuildContext context,
     actions: [
       Padding(
         padding: const EdgeInsets.only(right: 8.0),
-        child: Icon(
-          Icons.search,
-          color: Colors.white,
-          size: 30.0,
+        child: IconButton(
+          icon: Icon(
+            Icons.search,
+            color: Colors.white,
+            size: 30.0,
+          ),
+          onPressed: () {
+            showSearch(context: context, delegate: CustomSearchDelegate());
+          },
         ),
       ),
     ],

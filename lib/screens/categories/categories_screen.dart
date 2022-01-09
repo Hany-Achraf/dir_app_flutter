@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/delegates/custom_search_delegate.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/screens/categories/components/body.dart';
@@ -48,10 +49,6 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       backgroundColor: Colors.white,
       elevation: 1,
       leading: IconButton(
-        // icon: SvgPicture.asset(
-        //   "assets/icons/back.svg",
-        //   color: kPrimaryColor,
-        // ),
         icon: Icon(
           Icons.arrow_back_ios,
           color: kPrimaryColor,
@@ -61,16 +58,14 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
       ),
       actions: <Widget>[
         IconButton(
-          // icon: SvgPicture.asset(
-          //   "assets/icons/search.svg",
-          //   color: kPrimaryColor,
-          // ),
           icon: Icon(
             Icons.search,
             color: kPrimaryColor,
             size: 30.0,
           ),
-          onPressed: () {},
+          onPressed: () {
+            showSearch(context: context, delegate: CustomSearchDelegate());
+          },
         ),
         SizedBox(width: kDefaultPadding / 2)
       ],

@@ -43,6 +43,13 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           leading: Icon(Icons.delete),
           title: Text('delete'),
           onTap: () {
+            int userId = 2, businessId = 2;
+            Map<String, dynamic> requestJson = {
+              'user_id': '$userId',
+              'business_id': '$businessId',
+            };
+            Provider.of<BusinessProvider>(context, listen: false)
+                .deleteReview(requestJson);
             Navigator.of(context).pop();
           },
         ),
@@ -97,7 +104,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
               },
               onLongPress: () {
                 User user = Provider.of<Auth>(context, listen: false).user;
-                if (review.reviewerId != 1) return;
+                if (review.reviewerId != 2) return;
                 _showBottomMenu();
               },
               child: Container(

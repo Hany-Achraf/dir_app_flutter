@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/providers/business_provider.dart';
+import 'package:provider/provider.dart';
 
 class AddReviewScreen extends StatefulWidget {
   const AddReviewScreen({Key key}) : super(key: key);
@@ -9,18 +11,20 @@ class AddReviewScreen extends StatefulWidget {
 }
 
 class _AddReviewScreenState extends State<AddReviewScreen> {
-  int rating = -1;
+  int rate = -1;
+
+  TextEditingController _commentController = TextEditingController();
 
   Widget Star(int index) {
     return InkWell(
       onTap: () {
         this.setState(() {
-          rating = index;
+          rate = index;
         });
       },
       child: Icon(
         Icons.star,
-        color: rating < index ? Colors.grey.shade300 : Colors.yellow,
+        color: rate < index ? Colors.grey.shade300 : Colors.yellow,
         size: 60,
       ),
     );
@@ -76,6 +80,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   color: Colors.white,
                 ),
                 child: TextField(
+                  controller: _commentController,
                   minLines: 3,
                   maxLines: null,
                   keyboardType: TextInputType.multiline,
@@ -100,7 +105,18 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
             ),
             Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  int userId = 2, businessId = 2;
+                  Map<String, dynamic> requestJson = {
+                    'rate': '$rate',
+                    'comment': _commentController.text,
+                    'user_id': '$userId',
+                    'business_id': '$businessId',
+                  };
+                  Provider.of<BusinessProvider>(context, listen: false)
+                      .addReview(requestJson);
+                  Navigator.of(context).pop();
+                },
                 child: Container(
                   padding: EdgeInsets.all(8),
                   width: 350,
