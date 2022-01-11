@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-String api = 'http://192.168.1.124:80/api'; // Office
+String url = 'http://192.168.1.124:80';
+String api = '$url/api'; // Office
 // String api = 'http://192.168.1.22:80/api'; // Mohamed
 // String api = 'http://192.168.43.105:80/api'; // Mobile hotspot
 // String api = 'http://localhost:8000/api'; // ios

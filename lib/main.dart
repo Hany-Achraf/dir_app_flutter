@@ -8,6 +8,7 @@ import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/providers/destinations_provider.dart';
 import 'package:plant_app/providers/events_provider.dart';
 import 'package:plant_app/providers/promotions_provider.dart';
+import 'package:plant_app/providers/search_provider.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/revenge/revenge.dart';
 import 'package:plant_app/services/auth.dart';
@@ -20,6 +21,8 @@ void main() {
     runApp(
       MultiProvider(
         providers: [
+          ChangeNotifierProvider(create: (context) => Auth()),
+          ChangeNotifierProvider(create: (_) => SearchProvider()),
           ChangeNotifierProvider(create: (_) => CategoriesProvider()),
           ChangeNotifierProvider(create: (_) => DestinationsProvider()),
           ChangeNotifierProvider(create: (_) => BusinessesProvider()),
@@ -27,7 +30,6 @@ void main() {
           ChangeNotifierProvider(create: (_) => PromotionsProvider()),
           ChangeNotifierProvider(create: (_) => EventsProvider()),
           ChangeNotifierProvider(create: (_) => BottomNavigatorProvider()),
-          ChangeNotifierProvider(create: (context) => Auth()),
         ],
         child: MyApp(),
       ),
