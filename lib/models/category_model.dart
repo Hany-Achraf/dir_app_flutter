@@ -10,8 +10,8 @@ class Category {
 
   Category({
     @required this.id,
-    @required this.imgPath,
     @required this.name,
+    this.imgPath,
   });
 
   factory Category.fromJson(Map<String, dynamic> parsedJson) {
@@ -22,6 +22,7 @@ class Category {
     );
 
     if (parsedJson['subcategories'] != null) {
+      category.subcategories.add(Category(id: category.id, name: 'All'));
       (parsedJson['subcategories'] as List).forEach((i) {
         category.subcategories.add(Category.fromJson(i));
       });

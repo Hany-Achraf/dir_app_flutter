@@ -65,8 +65,9 @@ class Business {
     );
 
     if (wishlistBusiness) {
-      business.addedToWishlistDateTime =
-          DateTime.parse(parsedJson['wishlist']['created_at']);
+      // business.addedToWishlistDateTime =
+      //     DateTime.parse(parsedJson['wishlist']['created_at']);
+      business.addedToWishlistDateTime = DateTime.now();
     }
 
     return business;

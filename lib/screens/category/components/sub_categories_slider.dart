@@ -13,7 +13,6 @@ class SubcategoriesSlider extends StatefulWidget {
   final List<Category> subcategories;
   SubcategoriesSlider(
       {@required this.parentCategoryId, @required this.subcategories});
-
   @override
   _SubcategoriesSliderState createState() => _SubcategoriesSliderState();
 }
@@ -40,12 +39,12 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
   Widget buildSubcategoriesSlider() {
     Row subcategoriesSlider = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [buildSubcategory(subcategoryId: widget.parentCategoryId)],
+      children: [],
     );
 
     widget.subcategories.forEach((subcategory) {
       subcategoriesSlider.children
-          .add(buildSubcategory(subcategoryId: subcategory.id));
+          .add(buildSubcategory(subcategory: subcategory));
     });
 
     return SingleChildScrollView(
@@ -54,10 +53,7 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
     );
   }
 
-  Widget buildSubcategory({@required int subcategoryId}) {
-    Category subcategory = widget.subcategories
-        .firstWhere((subcategory) => subcategory.id == subcategoryId);
-
+  Widget buildSubcategory({@required Category subcategory}) {
     return GestureDetector(
       onTap: () {
         Provider.of<BusinessesProvider>(context, listen: false)
@@ -72,12 +68,10 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              subcategoryId == widget.parentCategoryId
-                  ? 'All'
-                  : subcategory.name,
+              subcategory.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
-                color: selectedSubcategoryId == subcategoryId
+                color: selectedSubcategoryId == subcategory.id
                     ? kTextColor
                     : kTextLightColor,
               ),
@@ -85,7 +79,7 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
             Container(
               margin: EdgeInsets.only(top: kDefaultPadding / 4), //top padding 5
               height: 2,
-              color: selectedSubcategoryId == subcategoryId
+              color: selectedSubcategoryId == subcategory.id
                   ? kTextColor
                   : Colors.transparent,
               child: Text('_' * subcategory.name.length),

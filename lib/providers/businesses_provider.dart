@@ -45,9 +45,9 @@ class BusinessesProvider extends ChangeNotifier {
 
   void removeBusinessFromWishlist(
       {@required int businessId, @required int userId}) async {
-    Map<String, int> requestData = {
-      'business_id': businessId,
-      'user_id': userId,
+    Map<String, dynamic> requestData = {
+      'business_id': '$businessId',
+      'user_id': '$userId',
     };
     var response = await http.delete(
       Uri.parse('$api/wishlist/destroy'),

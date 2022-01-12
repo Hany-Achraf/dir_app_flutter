@@ -49,7 +49,6 @@ class Auth extends ChangeNotifier {
     try {
       _loading = true;
       notifyListeners();
-      // Response response = await dio().post('/login', data: creds);
       http.Response response = await http.post(
         Uri.parse('$api/login'),
         body: creds,
@@ -58,8 +57,6 @@ class Auth extends ChangeNotifier {
         },
       );
       var responseJson = jsonDecode(response.body);
-
-      print(responseJson);
 
       String token = responseJson['token'].toString();
 
