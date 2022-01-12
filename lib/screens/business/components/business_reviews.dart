@@ -5,7 +5,6 @@ import 'package:plant_app/models/review_model.dart';
 import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/services/auth.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
@@ -43,7 +42,11 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           leading: Icon(Icons.delete),
           title: Text('delete'),
           onTap: () {
-            int userId = 2, businessId = 2;
+            int userId = Provider.of<Auth>(context, listen: true).user.id;
+            int businessId =
+                Provider.of<BusinessProvider>(context, listen: true)
+                    .business
+                    .id;
             Map<String, dynamic> requestJson = {
               'user_id': '$userId',
               'business_id': '$businessId',
@@ -91,8 +94,8 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           children: [
             CircleAvatar(
               backgroundColor: kPrimaryColor,
-              backgroundImage: NetworkImage(
-                  '${dio().options.baseUrl}${review.reviewerAvatarImgPath}'),
+              backgroundImage:
+                  NetworkImage('$url/${review.reviewer.avatarImgPath}'),
             ),
             InkWell(
               onTap: () {
@@ -104,7 +107,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
               },
               onLongPress: () {
                 User user = Provider.of<Auth>(context, listen: false).user;
-                if (review.reviewerId != 2) return;
+                if (review.reviewerId != user.id) return;
                 _showBottomMenu();
               },
               child: Container(
@@ -116,7 +119,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(review.reviewerName,
+                      Text(review.reviewer.getFullName(),
                           style: TextStyle(
                               color: Colors.black,
                               fontWeight: FontWeight.bold)),

@@ -1,13 +1,11 @@
 import 'dart:convert';
-
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/destinations/destinations_screen.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/home/components/events_slider.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
-import 'package:plant_app/services/dio.dart';
+import 'package:http/http.dart' as http;
 
 import 'categories_nav.dart';
 import 'promotions_slider.dart';
@@ -24,8 +22,11 @@ class _BodyState extends State<Body> {
   Future homeJson;
   Future fetchHomeContent() async {
     try {
-      Response response = await dio().get('api/');
-      return response.data;
+      var response = await http.get(
+        Uri.parse('$api'),
+        headers: {'Accept': 'appllication/json'},
+      );
+      return json.decode(response.body);
     } catch (e) {
       rethrow;
     }

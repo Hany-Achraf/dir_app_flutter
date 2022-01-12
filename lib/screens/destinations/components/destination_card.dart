@@ -1,7 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_app/custom/custom_cache_manager.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/destination/destination_screen.dart';
-import 'package:plant_app/services/dio.dart';
 import '../../../constants.dart';
 
 class DestinationCard extends StatelessWidget {
@@ -37,9 +38,14 @@ class DestinationCard extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: Image.network(
-                  '${dio().options.baseUrl}${destination.imgPath}',
+                child: CachedNetworkImage(
+                  imageUrl: '${url}/${destination.imgPath}',
                   fit: BoxFit.cover,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      CircularProgressIndicator(
+                          value: downloadProgress.progress),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  cacheManager: CustomCacheManager.instance,
                 ),
               ),
             ),

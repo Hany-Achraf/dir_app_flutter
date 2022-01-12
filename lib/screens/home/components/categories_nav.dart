@@ -1,9 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/screens/categories/categories_screen.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
-import 'package:plant_app/services/dio.dart';
 
 class CategoriesNavigator extends StatelessWidget {
   final List<Category> categories = [];
@@ -37,12 +37,17 @@ class CategoriesNavigator extends StatelessWidget {
           borderRadius: BorderRadius.circular(27.5),
         ),
         child: Padding(
-            padding: const EdgeInsets.all(9.0),
-            child: category == null
-                ? Image.asset('assets/images/more_horiz.png',
-                    color: kPrimaryColor)
-                : Image.network('${dio().options.baseUrl}${category.imgPath}',
-                    color: kPrimaryColor)),
+          padding: const EdgeInsets.all(9.0),
+          child: category == null
+              ? Image.asset('assets/images/more_horiz.png',
+                  color: kPrimaryColor)
+              : CachedNetworkImage(
+                  imageUrl: '${url}/${category.imgPath}',
+                  color: kPrimaryColor,
+                  progressIndicatorBuilder: (context, url, downloadProgress) =>
+                      Center(child: CircularProgressIndicator(color: kPrimaryColor,)),
+                  errorWidget: (context, url, error) => Icon(Icons.error)),
+        ),
       ),
     );
   }

@@ -184,7 +184,9 @@ class BusinessInfo extends StatelessWidget {
               height: 8,
             ),
             InkWell(
-              onTap: _launchURL,
+              onTap: () {
+                launch(business.linkOnGoogleMaps);
+              },
               child: Row(
                 children: [
                   Container(
@@ -266,7 +268,7 @@ class BusinessInfo extends StatelessWidget {
               height: 280,
               child: WebView(
                 navigationDelegate: (navigation) {
-                  _launchURL();
+                  launch(business.linkOnGoogleMaps);
                   return null;
                 },
                 javascriptMode: JavascriptMode.unrestricted,
@@ -279,7 +281,7 @@ class BusinessInfo extends StatelessWidget {
                 ].toSet(),
                 onWebViewCreated: (controller) {
                   this.controller = controller;
-                  loadLocalHtml(locationOnMap: business.locationOnMap);
+                  loadLocalHtml(locationOnMap: business.iframeOnGoogleMaps);
                 },
               ),
             ),
@@ -287,10 +289,5 @@ class BusinessInfo extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _launchURL() async {
-    if (!await launch('https://goo.gl/maps/BuaAqhUQkf37qkrb7'))
-      throw 'Could not launch https://goo.gl/maps/BuaAqhUQkf37qkrb7';
   }
 }

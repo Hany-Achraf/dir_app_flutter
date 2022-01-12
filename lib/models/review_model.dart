@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/models/user_model.dart';
 
 class Review {
   int id;
   int rate;
   String comment;
   int reviewerId;
-  String reviewerName;
-  String reviewerAvatarImgPath;
+  // String reviewerName;
+  // String reviewerAvatarImgPath;
+  User reviewer;
   DateTime date;
 
   Review({
@@ -14,9 +16,10 @@ class Review {
     @required this.rate,
     @required this.comment,
     @required this.reviewerId,
-    @required this.reviewerName,
-    @required this.reviewerAvatarImgPath,
-    @required this.date,
+    // @required this.reviewerName,
+    // @required this.reviewerAvatarImgPath,
+    @required this.reviewer,
+    @required @required this.date,
   });
 
   factory Review.fromJson(Map<String, dynamic> parsedJson) {
@@ -25,8 +28,9 @@ class Review {
       rate: parsedJson['rate'],
       comment: parsedJson['comment'],
       reviewerId: parsedJson['user']['id'],
-      reviewerName: parsedJson['user']['name'],
-      reviewerAvatarImgPath: parsedJson['user']['avatar_img_path'],
+      // reviewerName: parsedJson['user']['name'],
+      // reviewerAvatarImgPath: parsedJson['user']['avatar_img_path'],
+      reviewer: User.fromJson(parsedJson['user']),
       date: DateTime.parse(parsedJson['created_at']),
     );
     return review;

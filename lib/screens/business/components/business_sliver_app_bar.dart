@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/services/dio.dart';
 
 class BusinessSliverAppBar extends StatelessWidget {
   final String name;
@@ -44,7 +43,7 @@ class BusinessSliverAppBar extends StatelessWidget {
         background: Stack(children: [
           Positioned.fill(
             child: Image.network(
-              '${dio().options.baseUrl}$coverImgPath',
+              '$url/$coverImgPath',
               fit: BoxFit.fill,
             ),
           ),

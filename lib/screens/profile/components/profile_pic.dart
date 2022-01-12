@@ -1,5 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:plant_app/constants.dart';
+import 'package:plant_app/custom/custom_cache_manager.dart';
+import 'package:plant_app/models/user_model.dart';
+import 'package:plant_app/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePic extends StatelessWidget {
   const ProfilePic({
@@ -8,6 +14,8 @@ class ProfilePic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    User user = Provider.of<Auth>(context, listen: true).user;
+
     return SizedBox(
       height: 130,
       width: 130,
@@ -20,10 +28,26 @@ class ProfilePic extends StatelessWidget {
             width: 130,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(65),
-              child: Image.asset(
-                'assets/images/tarek.jpg',
-                fit: BoxFit.fill,
-              ),
+              // child: Image.asset(
+              //   'assets/images/tarek.jpg',
+              //   fit: BoxFit.fill,
+              // ),
+              child: user.avatarImgPath != null
+                  ? CachedNetworkImage(
+                      imageUrl: '${url}/${user.avatarImgPath}',
+                      color: kPrimaryColor,
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) => Center(
+                              child: CircularProgressIndicator(
+                                  color: kPrimaryColor)),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                      cacheManager: CustomCacheManager.instance,
+                    )
+                  : Image.asset(
+                      'assets/images/avatar.png',
+                      color: kPrimaryColor,
+                      // fit: BoxFit.fill,
+                    ),
             ),
           ),
           Positioned(

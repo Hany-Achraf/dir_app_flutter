@@ -1,12 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/custom/custom_cache_manager.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/category_model.dart';
-import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
 import 'package:plant_app/screens/category/components/sub_categories_slider.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 
 class Body extends StatelessWidget {
@@ -54,7 +54,9 @@ class Body extends StatelessWidget {
         ),
         category.subcategories.isEmpty
             ? Container()
-            : SubcategoriesSlider(category.subcategories),
+            : SubcategoriesSlider(
+                parentCategoryId: category.id,
+                subcategories: category.subcategories),
         businesses.length == 0
             ? Expanded(
                 child: Center(
@@ -120,9 +122,18 @@ class Body extends StatelessWidget {
                                       MediaQuery.of(context).size.height *
                                           0.14 /
                                           2),
-                                  child: Image.network(
-                                    '${dio().options.baseUrl}${business.iconImgPath}',
+                                  child: CachedNetworkImage(
+                                    imageUrl: '${url}/${business.iconImgPath}',
                                     fit: BoxFit.contain,
+                                    progressIndicatorBuilder: (context, url,
+                                            downloadProgress) =>
+                                        Center(
+                                            child: CircularProgressIndicator(
+                                      color: kPrimaryColor,
+                                    )),
+                                    errorWidget: (context, url, error) =>
+                                        Icon(Icons.error),
+                                    cacheManager: CustomCacheManager.instance,
                                   ),
                                 ),
                               ),

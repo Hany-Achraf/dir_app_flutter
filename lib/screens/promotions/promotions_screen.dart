@@ -5,7 +5,6 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
 import 'package:plant_app/providers/promotions_provider.dart';
 import 'package:plant_app/screens/promotion/promotion_screen.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 
 class PromotionsScreen extends StatefulWidget {
@@ -129,7 +128,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
                                                   topRight: Radius.circular(10),
                                                 ),
                                                 child: Image.network(
-                                                  '${dio().options.baseUrl}${promotions[index].imgPath}',
+                                                  '${url}/${promotions[index].imgPath}',
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -234,7 +233,7 @@ class _PromotionsScreenState extends State<PromotionsScreen> {
                                           bottomRight: Radius.circular(10),
                                         ),
                                         child: Image.network(
-                                          '${dio().options.baseUrl}${promotions[index].imgPath}',
+                                          '${url}/${promotions[index].imgPath}',
                                           fit: BoxFit.fill,
                                         ),
                                       ),

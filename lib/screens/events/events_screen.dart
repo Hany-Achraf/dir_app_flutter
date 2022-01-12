@@ -5,7 +5,6 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/providers/events_provider.dart';
 import 'package:plant_app/screens/event/event_screen.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 
 class EventsScreen extends StatefulWidget {
@@ -127,7 +126,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                                   topRight: Radius.circular(10),
                                                 ),
                                                 child: Image.network(
-                                                  '${dio().options.baseUrl}${events[index].imgPath}',
+                                                  '${url}/${events[index].imgPath}',
                                                   fit: BoxFit.fill,
                                                 ),
                                               ),
@@ -222,7 +221,7 @@ class _EventsScreenState extends State<EventsScreen> {
                                           bottomRight: Radius.circular(10),
                                         ),
                                         child: Image.network(
-                                          '${dio().options.baseUrl}${events[index].imgPath}',
+                                          '${url}/${events[index].imgPath}',
                                           fit: BoxFit.fill,
                                         ),
                                       ),

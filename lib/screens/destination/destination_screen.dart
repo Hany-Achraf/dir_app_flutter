@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/delegates/custom_search_delegate.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 
 import '../../constants.dart';
@@ -114,13 +114,15 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                     MediaQuery.of(context).size.height *
                                         0.14 /
                                         2),
-                                // child: Image.asset(
-                                //   business.iconImgPath,
-                                //   fit: BoxFit.fill,
-                                // ),
-                                child: Image.network(
-                                  '${dio().options.baseUrl}${business.iconImgPath}',
+                                child: CachedNetworkImage(
+                                  imageUrl: '${url}/${business.iconImgPath}',
                                   fit: BoxFit.fill,
+                                  progressIndicatorBuilder:
+                                      (context, url, downloadProgress) =>
+                                          CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                  errorWidget: (context, url, error) =>
+                                      Icon(Icons.error),
                                 ),
                               ),
                             ),
@@ -232,7 +234,7 @@ SliverAppBar customAppBar(BuildContext context,
           //   fit: BoxFit.fill,
           // ),
           child: Image.network(
-            '${dio().options.baseUrl}${imgPath}',
+            '${url}/${imgPath}',
             fit: BoxFit.cover,
           ),
         ),

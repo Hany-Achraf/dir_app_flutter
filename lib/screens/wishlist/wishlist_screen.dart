@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
+import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
-import 'package:plant_app/services/dio.dart';
+import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
@@ -30,10 +31,13 @@ class _WishlistScreenState extends State<WishlistScreen> {
   Future<bool> initialBusinessesLoaded;
   @override
   void initState() {
-    super.initState();
+    User user = Provider.of<Auth>(context, listen: false).user;
+
     initialBusinessesLoaded =
         Provider.of<BusinessesProvider>(context, listen: false)
-            .loadInitialBusinesses(userId: 1);
+            .loadInitialBusinesses(userId: user.id);
+
+    super.initState();
   }
 
   @override
@@ -112,7 +116,7 @@ class SavedBusiness extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(6),
                       child: Image.network(
-                        '${dio().options.baseUrl}${business.iconImgPath}',
+                        '${url}/${business.iconImgPath}',
                         fit: BoxFit.fill,
                       ),
                     ),

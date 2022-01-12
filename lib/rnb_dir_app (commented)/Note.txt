@@ -1,3 +1,0 @@
-andriod/app/build.gradle
-
-minSdkVersion 18 (Must be 18)

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/event_model.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:readmore/readmore.dart';
 
 class EventScreen extends StatelessWidget {
@@ -144,7 +143,7 @@ SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
       background: Stack(children: [
         Positioned.fill(
           child: Image.network(
-            '${dio().options.baseUrl}$imgPath',
+            '${url}/$imgPath',
             fit: BoxFit.fill,
           ),
         ),

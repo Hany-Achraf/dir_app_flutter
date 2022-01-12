@@ -1,9 +1,8 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/review_model.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:http/http.dart' as http;
 
 class BusinessProvider extends ChangeNotifier {
@@ -12,10 +11,15 @@ class BusinessProvider extends ChangeNotifier {
 
   void fetchBusiness({@required int businessId, @required int userId}) async {
     try {
-      Response response =
-          await dio().get('/api/businesses/$businessId?user_id=$userId');
+      var response = await http.get(
+        Uri.parse('$api/businesses/$businessId?user_id=$userId'),
+        headers: {
+          'Accept': 'application/json',
+        },
+      );
       if (response.statusCode == 200) {
-        _business = Business.fromJson(response.data);
+        var responseJson = json.decode(response.body);
+        _business = Business.fromJson(responseJson);
         fetchBusinessPhotos();
         fetchBusinessReviews();
       }
@@ -26,12 +30,19 @@ class BusinessProvider extends ChangeNotifier {
 
   void fetchBusinessPhotos() async {
     try {
-      Response response =
-          await dio().get('/api/businesses/${business.id}/photos');
-      List list = response.data;
-      list.forEach((element) {
-        _business.photos.add(element['path']);
-      });
+      var response = await http.get(
+        Uri.parse('$api/businesses/${business.id}/photos'),
+        headers: {
+          'Accept': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 200) {
+        var photosJson = json.decode(response.body);
+        photosJson.forEach((photoJson) {
+          _business.photos.add(photoJson['path']);
+        });
+      }
     } catch (e) {
       rethrow;
     }
@@ -39,14 +50,19 @@ class BusinessProvider extends ChangeNotifier {
 
   void fetchBusinessReviews() async {
     try {
-      Response response =
-          await dio().get('/api/businesses/${_business.id}/reviews');
-      List reviewsJson = response.data;
+      var response = await http.get(
+        Uri.parse('$api/businesses/${business.id}/reviews'),
+        headers: {
+          'Accept': 'application/json',
+        },
+      );
 
-      _business.reviews.clear();
-      reviewsJson.forEach((reviewJson) {
-        _business.reviews.add(Review.fromJson(reviewJson));
-      });
+      if (response.statusCode == 200) {
+        var reviewsJson = json.decode(response.body);
+        reviewsJson.forEach((reviewJson) {
+          _business.reviews.add(Review.fromJson(reviewJson));
+        });
+      }
     } catch (e) {
       rethrow;
     }
@@ -59,12 +75,25 @@ class BusinessProvider extends ChangeNotifier {
       'user_id': userId,
     };
 
-    Response response;
+    var response;
 
-    if (!business.onUserWishlist)
-      response = await dio().post('/api/wishlist/create', data: requestData);
-    else
-      response = await dio().delete('/api/wishlist/destroy', data: requestData);
+    if (!business.onUserWishlist) {
+      response = await http.post(
+        Uri.parse('$api/wishlist/create'),
+        body: requestData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      );
+    } else {
+      response = await http.post(
+        Uri.parse('$api/wishlist/destroy'),
+        body: requestData,
+        headers: {
+          'Accept': 'application/json',
+        },
+      );
+    }
 
     if (response.statusCode == 200)
       _business.onUserWishlist = !_business.onUserWishlist;

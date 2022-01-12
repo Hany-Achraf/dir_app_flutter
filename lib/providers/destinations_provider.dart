@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/destination_model.dart';
-import 'package:plant_app/services/dio.dart';
+import 'package:http/http.dart' as http;
 
 class DestinationsProvider extends ChangeNotifier {
   List<Destination> _destinations = [];
@@ -16,12 +17,19 @@ class DestinationsProvider extends ChangeNotifier {
       currentPageNumber = 1;
     }
 
-    Response response = await dio().get('/api/destinations');
+    var response = await http.get(
+      Uri.parse('$api/destinations'),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+
     if (response.statusCode == 200) {
-      gotNextPage = response.data['next_page_url'] != null ? true : false;
-      List destinationsJson = response.data['data'];
-      destinationsJson.forEach((i) {
-        _destinations.add(Destination.fromJson(i));
+      var responseJson = json.decode(response.body);
+      gotNextPage = responseJson['next_page_url'] != null ? true : false;
+      List destinationsJson = responseJson['data'];
+      destinationsJson.forEach((destinationJson) {
+        _destinations.add(Destination.fromJson(destinationJson));
       });
     }
     return true;
@@ -30,14 +38,19 @@ class DestinationsProvider extends ChangeNotifier {
   Future<bool> loadMoreDestinations() async {
     if (!gotNextPage) return false;
 
-    Response response =
-        await dio().get('/api/destinations?page=${++currentPageNumber}');
+    var response = await http.get(
+      Uri.parse('$api/destinations?page=${++currentPageNumber}'),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
 
     if (response.statusCode == 200) {
-      gotNextPage = response.data['next_page_url'] != null ? true : false;
-      List destinationsJson = response.data['data'];
-      destinationsJson.forEach((i) {
-        _destinations.add(Destination.fromJson(i));
+      var responseJson = json.decode(response.body);
+      gotNextPage = responseJson['next_page_url'] != null ? true : false;
+      List destinationsJson = responseJson['data'];
+      destinationsJson.forEach((destinationJson) {
+        _destinations.add(Destination.fromJson(destinationJson));
       });
       notifyListeners();
     }

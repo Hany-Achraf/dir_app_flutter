@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-String url = 'http://192.168.1.124:80';
-String api = '$url/api'; // Office
-// String api = 'http://192.168.1.22:80/api'; // Mohamed
-// String api = 'http://192.168.43.105:80/api'; // Mobile hotspot
-// String api = 'http://localhost:8000/api'; // ios
+String url = 'http://192.168.1.124:80'; // Office
+// String url = 'http://192.168.1.22:80'; // Mohamed
+// String url = 'http://192.168.43.105:80'; // Mobile hotspot
+// String url = 'http://localhost:8000'; // ios
+String api = '$url/api';
 
 // Colors that we use in our app
 const kTextColor = Color(0xFF3C4046);

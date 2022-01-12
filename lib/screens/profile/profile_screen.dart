@@ -28,7 +28,7 @@ class ProfileScreen extends StatelessWidget {
           leading: Container(),
           centerTitle: true,
           title: Text(
-            'Tarek Hamed',
+            '${auth.user.getFullName()}',
             style: TextStyle(color: Colors.white),
           ),
           backgroundColor: kPrimaryColor,

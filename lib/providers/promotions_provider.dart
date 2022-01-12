@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
-import 'package:plant_app/services/dio.dart';
+import 'package:http/http.dart' as http;
 
 class PromotionsProvider extends ChangeNotifier {
   List<Promotion> _promotions = [];
@@ -12,12 +13,19 @@ class PromotionsProvider extends ChangeNotifier {
 
   Future<bool> loadInitialPromotions() async {
     if (_promotions.isEmpty) {
-      Response response = await dio().get('/api/promotions');
+      var response = await http.get(
+        Uri.parse('$api/promotions'),
+        headers: {
+          'Accept': 'application/json',
+        },
+      );
+
       if (response.statusCode == 200) {
-        gotNextPage = response.data['next_page_url'] != null ? true : false;
-        List promotionsJson = response.data['data'];
-        promotionsJson.forEach((i) {
-          _promotions.add(Promotion.fromJson(i));
+        var responseJson = json.decode(response.body);
+        gotNextPage = responseJson['next_page_url'] != null ? true : false;
+        List promotionsJson = responseJson['data'];
+        promotionsJson.forEach((promotionJson) {
+          _promotions.add(Promotion.fromJson(promotionJson));
         });
       }
     }
@@ -27,14 +35,19 @@ class PromotionsProvider extends ChangeNotifier {
   Future<bool> loadMorePromotions() async {
     if (!gotNextPage) return false;
 
-    Response response =
-        await dio().get('/api/promotions?page=${++currentPageNumber}');
+    var response = await http.get(
+      Uri.parse('$api/promotions?page=${++currentPageNumber}'),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
 
     if (response.statusCode == 200) {
-      gotNextPage = response.data['next_page_url'] != null ? true : false;
-      List promotionsJson = response.data['data'];
-      promotionsJson.forEach((i) {
-        _promotions.add(Promotion.fromJson(i));
+      var responseJson = json.decode(response.body);
+      gotNextPage = responseJson['next_page_url'] != null ? true : false;
+      List promotionsJson = responseJson['data'];
+      promotionsJson.forEach((promotionJson) {
+        _promotions.add(Promotion.fromJson(promotionJson));
       });
       notifyListeners();
     }

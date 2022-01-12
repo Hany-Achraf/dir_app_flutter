@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/screens/business/components/gallery_screen.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 
 class BusinessPhotos extends StatelessWidget {
@@ -40,8 +40,7 @@ class BusinessPhotos extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(2),
                       image: DecorationImage(
-                        image: NetworkImage(
-                            '${dio().options.baseUrl}${photos[index]}'),
+                        image: NetworkImage('$url/${photos[index]}'),
                         fit: BoxFit.cover,
                       ),
                     ),

@@ -1,6 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_app/custom/custom_cache_manager.dart';
 import 'package:plant_app/models/category_model.dart';
-import 'package:plant_app/services/dio.dart';
 
 import '../../../constants.dart';
 
@@ -28,16 +29,14 @@ class CategoryCard extends StatelessWidget {
                 color: Color(0xFFE7EBEE),
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: Hero(
-                tag: "${category.id}",
-                // child: Image.asset(
-                //   category.imgPath,
-                //   color: kPrimaryColor,
-                // ),
-                child: Image.network(
-                  '${dio().options.baseUrl}${category.imgPath}',
-                  color: kPrimaryColor,
-                ),
+              child: CachedNetworkImage(
+                imageUrl: '${url}/${category.imgPath}',
+                color: kPrimaryColor,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                        child: CircularProgressIndicator(color: kPrimaryColor)),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+                cacheManager: CustomCacheManager.instance,
               ),
             ),
           ),

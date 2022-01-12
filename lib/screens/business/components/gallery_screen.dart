@@ -3,7 +3,6 @@ import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/business_provider.dart';
-import 'package:plant_app/services/dio.dart';
 import 'package:provider/provider.dart';
 
 class GalleryScreen extends StatefulWidget {
@@ -52,8 +51,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
         },
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-              imageProvider: NetworkImage(
-                  '${dio().options.baseUrl}${businessPhotos[index]}'),
+              imageProvider: NetworkImage('$url/${businessPhotos[index]}'),
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: PhotoViewComputedScale.covered * 2);
         },

@@ -1,10 +1,10 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/screens/event/event_screen.dart';
 import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
-import 'package:plant_app/services/dio.dart';
 
 import '../../../constants.dart';
 
@@ -94,17 +94,14 @@ class EventCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              // child: Image.network(
-              //   event.imgUrl,
-              //   fit: BoxFit.fill,
-              //   width: 120,
-              //   height: 150,
-              // ),
-              child: Image.network(
-                '${dio().options.baseUrl}${event.imgPath}',
-                fit: BoxFit.fill,
+              child: CachedNetworkImage(
+                imageUrl: '${url}/${event.imgPath}',
                 width: 120,
                 height: 150,
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    Center(
+                        child: CircularProgressIndicator(color: kPrimaryColor)),
+                errorWidget: (context, url, error) => Icon(Icons.error),
               ),
             ),
             Container(

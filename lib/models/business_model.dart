@@ -8,9 +8,10 @@ class Business {
   String iconImgPath;
   String coverImgPath;
   String description;
-  String address;
   String phoneNo;
-  String locationOnMap;
+  String address;
+  String iframeOnGoogleMaps;
+  String linkOnGoogleMaps;
   String workingTime;
   String websiteLink;
   String facebookLink;
@@ -31,7 +32,8 @@ class Business {
     this.description,
     this.phoneNo,
     this.address,
-    this.locationOnMap,
+    this.iframeOnGoogleMaps,
+    this.linkOnGoogleMaps,
     this.workingTime,
     this.websiteLink,
     this.facebookLink,
@@ -52,7 +54,8 @@ class Business {
       description: parsedJson['description'],
       phoneNo: parsedJson['phone_no'],
       address: parsedJson['address'],
-      locationOnMap: parsedJson['location_on_map'],
+      iframeOnGoogleMaps: parsedJson['iframe_on_google_maps'],
+      linkOnGoogleMaps: parsedJson['link_on_google_maps'],
       workingTime: parsedJson['working_time'],
       websiteLink: parsedJson['website_link'],
       facebookLink: parsedJson['facebook_link'],
@@ -69,98 +72,3 @@ class Business {
     return business;
   }
 }
-
-// List<Business> businesses = [
-//   Business(
-//     id: 1,
-//     name: 'Al-Ikhsan Sports',
-//     iconImgPath: 'assets/images/al-ikhsan.png',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 3,
-//   ),
-//   Business(
-//     id: 2,
-//     name: 'Sogo',
-//     iconImgPath: 'assets/images/sogo.png',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 4,
-//   ),
-//   Business(
-//     id: 3,
-//     name: 'Mr D.I.Y',
-//     iconImgPath: 'assets/images/MRDIY.png',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 3,
-//   ),
-//   // ///////////
-//   Business(
-//     id: 4,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 4,
-//   ),
-//   Business(
-//     id: 5,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 5,
-//   ),
-//   Business(
-//     id: 6,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 1,
-//   ),
-//   Business(
-//     id: 7,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 3,
-//   ),
-//   Business(
-//     id: 8,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 2,
-//   ),
-//   Business(
-//     id: 9,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 4,
-//   ),
-//   Business(
-//     id: 10,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 4,
-//   ),
-//   Business(
-//     id: 11,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 3,
-//   ),
-//   Business(
-//     id: 12,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 5,
-//   ),
-//   Business(
-//     id: 13,
-//     name: 'Everyday Parenting: The ABCs of Child Rearing',
-//     iconImgPath: 'assets/images/sunset.jpg',
-//     workingTime: 'Sun – Wed (10:00 – 22:00)',
-//     avgRate: 4,
-//   ),
-// ];

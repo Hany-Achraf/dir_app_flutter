@@ -1,7 +1,8 @@
-import 'package:dio/dio.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
-import 'package:plant_app/services/dio.dart';
+import 'package:http/http.dart' as http;
 
 class BusinessesProvider extends ChangeNotifier {
   List<Business> _businesses = null;
@@ -17,19 +18,24 @@ class BusinessesProvider extends ChangeNotifier {
     }
 
     String route = (categoryId != null)
-        ? 'api/categories/$categoryId'
+        ? '$api/categories/$categoryId'
         : (destinationId != null)
-            ? 'api/destinations/$destinationId'
-            : 'api/wishlist/$userId';
+            ? '$api/destinations/$destinationId'
+            : '$api/wishlist/$userId';
 
-    Response response = await dio().get(route);
+    var response = await http.get(
+      Uri.parse(route),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
     if (response.statusCode == 200) {
       // gotNextPage = response.data['next_page_url'] != null ? true : false;
       // List categoriesJson = response.data['data'];
-      List businessesJson = response.data;
+      List businessesJson = json.decode(response.body);
       _businesses = [];
-      businessesJson.forEach((i) {
-        _businesses.add(Business.fromJson(i,
+      businessesJson.forEach((businessJson) {
+        _businesses.add(Business.fromJson(businessJson,
             wishlistBusiness: (userId != null) ? true : false));
       });
       notifyListeners();
@@ -43,29 +49,16 @@ class BusinessesProvider extends ChangeNotifier {
       'business_id': businessId,
       'user_id': userId,
     };
-    Response response =
-        await dio().delete('api/wishlist/destroy', data: requestData);
+    var response = await http.delete(
+      Uri.parse('$api/wishlist/destroy'),
+      body: requestData,
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
     if (response.statusCode == 200) {
       _businesses.removeWhere((business) => business.id == businessId);
       notifyListeners();
     }
   }
-
-  // Future<bool> loadMoreCategories() async {
-  //   if (!gotNextPage) return false;
-
-  //   Response response =
-  //       await dio().get('/api/categories?page=${++currentPageNumber}');
-
-  //   if (response.statusCode == 200) {
-  //     gotNextPage = response.data['next_page_url'] != null ? true : false;
-  //     List categoriesJson = response.data['data'];
-  //     categoriesJson.forEach((i) {
-  //       _categories.add(Category.fromJson(i));
-  //     });
-  //     notifyListeners();
-  //   }
-
-  //   return gotNextPage;
-  // }
 }

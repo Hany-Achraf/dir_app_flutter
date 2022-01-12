@@ -9,8 +9,10 @@ import '../../../constants.dart';
 // We need satefull widget for our categories
 
 class SubcategoriesSlider extends StatefulWidget {
+  final int parentCategoryId;
   final List<Category> subcategories;
-  SubcategoriesSlider(this.subcategories);
+  SubcategoriesSlider(
+      {@required this.parentCategoryId, @required this.subcategories});
 
   @override
   _SubcategoriesSliderState createState() => _SubcategoriesSliderState();
@@ -21,7 +23,7 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
 
   @override
   void initState() {
-    selectedSubcategoryId = widget.subcategories[0].id;
+    selectedSubcategoryId = widget.parentCategoryId;
     super.initState();
   }
 
@@ -38,11 +40,12 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
   Widget buildSubcategoriesSlider() {
     Row subcategoriesSlider = Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [],
+      children: [buildSubcategory(subcategoryId: widget.parentCategoryId)],
     );
 
     widget.subcategories.forEach((subcategory) {
-      subcategoriesSlider.children.add(buildSubcategory(subcategory.id));
+      subcategoriesSlider.children
+          .add(buildSubcategory(subcategoryId: subcategory.id));
     });
 
     return SingleChildScrollView(
@@ -51,13 +54,12 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
     );
   }
 
-  Widget buildSubcategory(int subcategoryId) {
+  Widget buildSubcategory({@required int subcategoryId}) {
     Category subcategory = widget.subcategories
         .firstWhere((subcategory) => subcategory.id == subcategoryId);
 
     return GestureDetector(
       onTap: () {
-        // print('Subcategory Id: ${subcategory.id}');
         Provider.of<BusinessesProvider>(context, listen: false)
             .loadInitialBusinesses(categoryId: subcategory.id);
         setState(() {
@@ -70,7 +72,9 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
             Text(
-              subcategory.name,
+              subcategoryId == widget.parentCategoryId
+                  ? 'All'
+                  : subcategory.name,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 color: selectedSubcategoryId == subcategoryId
