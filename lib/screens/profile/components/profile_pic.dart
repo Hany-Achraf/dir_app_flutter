@@ -35,7 +35,7 @@ class ProfilePic extends StatelessWidget {
               child: user.avatarImgPath != null
                   ? CachedNetworkImage(
                       imageUrl: '${url}/${user.avatarImgPath}',
-                      color: kPrimaryColor,
+                      fit: BoxFit.fill,
                       progressIndicatorBuilder:
                           (context, url, downloadProgress) => Center(
                               child: CircularProgressIndicator(
@@ -44,7 +44,7 @@ class ProfilePic extends StatelessWidget {
                       cacheManager: CustomCacheManager.instance,
                     )
                   : Image.asset(
-                      'assets/images/avatar.png',
+                      'assets/icons/avatar.png',
                       color: kPrimaryColor,
                       // fit: BoxFit.fill,
                     ),

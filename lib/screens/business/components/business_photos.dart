@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/screens/business/components/gallery_screen.dart';
 import 'package:provider/provider.dart';
 
 class BusinessPhotos extends StatelessWidget {
-  const BusinessPhotos({Key key}) : super(key: key);
+  final Business business;
+  const BusinessPhotos({Key key, @required this.business}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    List<String> photos =
-        Provider.of<BusinessProvider>(context, listen: true).business.photos;
+    List<String> photos = business.photos;
 
     return Container(
       margin: EdgeInsets.all(8),

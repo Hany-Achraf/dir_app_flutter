@@ -8,6 +8,9 @@ class BusinessesProvider extends ChangeNotifier {
   List<Business> _businesses = null;
   List<Business> get businesses => _businesses;
 
+  bool _isWishlist = false;
+  bool get isWishlist => _isWishlist;
+
   // bool gotNextPage = false;
   // int currentPageNumber = 1;
 
@@ -17,11 +20,17 @@ class BusinessesProvider extends ChangeNotifier {
       _businesses = null;
     }
 
-    String route = (categoryId != null)
-        ? '$api/categories/$categoryId'
-        : (destinationId != null)
-            ? '$api/destinations/$destinationId'
-            : '$api/wishlist/$userId';
+    String route;
+    if (categoryId != null) {
+      _isWishlist = false;
+      route = '$api/categories/$categoryId';
+    } else if (destinationId != null) {
+      _isWishlist = false;
+      route = '$api/destinations/$destinationId';
+    } else {
+      _isWishlist = true;
+      route = '$api/wishlist/$userId';
+    }
 
     var response = await http.get(
       Uri.parse(route),
@@ -60,5 +69,10 @@ class BusinessesProvider extends ChangeNotifier {
       _businesses.removeWhere((business) => business.id == businessId);
       notifyListeners();
     }
+  }
+
+  void removeFromWishlistScreen({@required int businessId}) {
+    _businesses.removeWhere((business) => business.id == businessId);
+    notifyListeners();
   }
 }

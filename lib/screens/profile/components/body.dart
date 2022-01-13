@@ -37,7 +37,7 @@ class Body extends StatelessWidget {
                       cacheManager: CustomCacheManager.instance,
                     )
                   : Image.asset(
-                      'assets/images/avatar.png',
+                      'assets/icons/avatar.png',
                       color: kPrimaryColor,
                       // fit: BoxFit.fill,
                     ),
@@ -58,19 +58,6 @@ class Body extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => EditProfileScreen()),
-              );
-            },
-          ),
-          ProfileMenu(
-            text: 'Feedback/Report Issue',
-            icon: 'feedback',
-            // text: 'Help Center',
-            // icon: 'assets/icons/Question mark.svg',
-
-            press: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => FeedbackScreen()),
               );
             },
           ),

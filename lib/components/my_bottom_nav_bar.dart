@@ -63,8 +63,6 @@ class MyBottomNavBar extends StatelessWidget {
             },
           ),
           IconButton(
-            // icon: SvgPicture.asset("assets/icons/user-icon.svg",
-            //     color: kPrimaryColor),
             icon: Icon(Icons.person,
                 color: index == 2 ? kPrimaryColor : Colors.grey),
             onPressed: () {

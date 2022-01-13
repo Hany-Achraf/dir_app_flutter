@@ -13,60 +13,46 @@ Container searchAllResults({@required BuildContext context}) {
 
   List<Widget> sections = [];
 
-  if (searchProvider.promotions != null &&
-      searchProvider.promotions.isNotEmpty) {
+  if (searchProvider.totalPromotions > 0) {
     List<Promotion> promotions = searchProvider.promotions;
     sections.add(
       Column(
         children: [
-          sectionHeader(title: 'Promotions', seeAllScreen: Container()),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: promotions.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.all(8.0),
-                child: PromotionCard(
-                  promotion: promotions[index],
-                ),
-              );
-            },
-          ),
+          sectionHeader(
+              title: 'Promotions',
+              totalResults: searchProvider.totalPromotions,
+              seeAllScreen: Container()),
+          PromotionCard(promotion: promotions[0]),
         ],
       ),
     );
   }
 
-  if (searchProvider.events != null && searchProvider.events.isNotEmpty) {
+  if (searchProvider.totalEvents > 0) {
     List<Event> events = searchProvider.events;
     sections.add(
       Column(
         children: [
-          sectionHeader(title: 'Events', seeAllScreen: Container()),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: events.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: const EdgeInsets.all(8.0),
-                child: EventCard(
-                  event: events[index],
-                ),
-              );
-            },
-          ),
+          sectionHeader(
+              title: 'Events',
+              totalResults: searchProvider.totalEvents,
+              seeAllScreen: Container()),
+          EventCard(event: events[0]),
         ],
       ),
     );
   }
 
-  if (searchProvider.businesses != null &&
-      searchProvider.businesses.isNotEmpty) {
+  if (searchProvider.totalBusinesses > 0) {
     List<Business> businesses = searchProvider.businesses;
     sections.add(
       Column(
         children: [
-          sectionHeader(title: 'Businesses', seeAllScreen: Container()),
+          sectionHeader(
+            title: 'Businesses',
+            totalResults: searchProvider.totalBusinesses,
+            seeAllScreen: Container(),
+          ),
           ListView.builder(
             shrinkWrap: true,
             itemCount: businesses.length,
@@ -99,11 +85,13 @@ Container searchAllResults({@required BuildContext context}) {
 
 class sectionHeader extends StatelessWidget {
   final String title;
+  final int totalResults;
   final Widget seeAllScreen;
 
   const sectionHeader({
     Key key,
     @required this.title,
+    @required this.totalResults,
     @required this.seeAllScreen,
   }) : super(key: key);
 
@@ -116,9 +104,49 @@ class sectionHeader extends StatelessWidget {
         children: [
           Text(title),
           TextButton(
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  barrierColor: kBackgroundColor,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      child: Scaffold(
+                        appBar: AppBar(
+                          centerTitle: true,
+                          title: Text(
+                            'Title',
+                            style: TextStyle(color: kTextColor),
+                          ),
+                          backgroundColor: Colors.transparent,
+                          elevation: 0,
+                        ),
+                        body: Container(
+                          color: Colors.blue.shade100,
+                          child: ListView.builder(
+                              itemCount: 20,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  leading: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                      color: Colors.orange.shade100,
+                                    ),
+                                  ),
+                                  title: Text('Title'),
+                                  trailing: Icon(Icons.arrow_forward_ios),
+                                );
+                              }),
+                        ),
+                      ),
+                    );
+                  },
+                );
+              },
               child: Text(
-                'See All',
+                'See All ($totalResults)',
                 style: TextStyle(
                   color: kPrimaryColor,
                   fontWeight: FontWeight.bold,
@@ -139,18 +167,14 @@ class PromotionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final double _width = MediaQuery.of(context).size.width * 0.9;
+    final double _height = MediaQuery.of(context).size.height * 0.22;
 
     return InkWell(
       onTap: () {},
       child: Container(
-        margin: EdgeInsets.only(
-            // left: kDefaultPadding,
-            // top: kDefaultPadding / 2,
-            // bottom: kDefaultPadding,
-            ),
-        width: size.width * 0.8,
-        height: 150,
+        width: _width,
+        height: _height,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -175,13 +199,13 @@ class PromotionCard extends StatelessWidget {
               child: Image.network(
                 '$url/${promotion.imgPath}',
                 fit: BoxFit.fill,
-                width: 120,
-                height: 150,
+                width: _width * 0.32,
+                height: _height,
               ),
             ),
             Container(
               margin: const EdgeInsets.only(left: 8),
-              width: size.width * 0.8 - 140,
+              width: MediaQuery.of(context).size.width * 0.9 - 140,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -248,18 +272,14 @@ class EventCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
+    final double _width = MediaQuery.of(context).size.width * 0.9;
+    final double _height = MediaQuery.of(context).size.height * 0.22;
 
     return InkWell(
       onTap: () {},
       child: Container(
-        margin: EdgeInsets.only(
-            // left: kDefaultPadding,
-            // top: kDefaultPadding / 2,
-            // bottom: kDefaultPadding,
-            ),
-        width: size.width * 0.8,
-        height: 150,
+        width: _width,
+        height: _height,
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
@@ -281,22 +301,16 @@ class EventCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              // child: Image.network(
-              //   event.imgUrl,
-              //   fit: BoxFit.fill,
-              //   width: 120,
-              //   height: 150,
-              // ),
               child: Image.network(
                 '$url/${event.imgPath}',
                 fit: BoxFit.fill,
-                width: 120,
-                height: 150,
+                width: _width * 0.32,
+                height: _height,
               ),
             ),
             Container(
               margin: const EdgeInsets.only(left: 8),
-              width: size.width * 0.8 - 140,
+              width: MediaQuery.of(context).size.width * 0.9 - 140,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,

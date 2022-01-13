@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/review_model.dart';
 import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/business_provider.dart';
@@ -9,7 +10,10 @@ import 'package:provider/provider.dart';
 import 'package:readmore/readmore.dart';
 
 class BusinessReviews extends StatefulWidget {
-  const BusinessReviews({Key key}) : super(key: key);
+  final Business business;
+  final User user;
+  const BusinessReviews({Key key, @required this.business, @required this.user})
+      : super(key: key);
 
   @override
   State<BusinessReviews> createState() => _BusinessReviewsState();
@@ -17,6 +21,7 @@ class BusinessReviews extends StatefulWidget {
 
 class _BusinessReviewsState extends State<BusinessReviews> {
   bool _bottomMenuIsShown = false;
+
   Row _buildRatingStars(int rating) {
     List<Icon> ratingStars = [];
     for (int i = 0; i < 5; i++) {
@@ -33,23 +38,13 @@ class _BusinessReviewsState extends State<BusinessReviews> {
   Wrap _buildBottomMenu() {
     return Wrap(
       children: [
-        // ListTile(
-        //   leading: Icon(Icons.edit),
-        //   title: Text('Edit'),
-        //   onTap: () {},
-        // ),
         ListTile(
           leading: Icon(Icons.delete),
           title: Text('delete'),
           onTap: () {
-            int userId = Provider.of<Auth>(context, listen: true).user.id;
-            int businessId =
-                Provider.of<BusinessProvider>(context, listen: true)
-                    .business
-                    .id;
             Map<String, dynamic> requestJson = {
-              'user_id': '$userId',
-              'business_id': '$businessId',
+              'user_id': '${widget.user.id}',
+              'business_id': '${widget.business.id}',
             };
             Provider.of<BusinessProvider>(context, listen: false)
                 .deleteReview(requestJson);
@@ -63,26 +58,22 @@ class _BusinessReviewsState extends State<BusinessReviews> {
   void _showBottomMenu() {
     _bottomMenuIsShown = true;
     showBottomSheet(
-        context: context,
-        builder: (context) {
-          return Container(
-            decoration: BoxDecoration(
-              color: kBackgroundColor,
-              borderRadius: BorderRadius.only(
-                topLeft: const Radius.circular(20),
-                topRight: const Radius.circular(20),
-              ),
+      context: context,
+      builder: (context) {
+        return Container(
+          decoration: BoxDecoration(
+            color: kBackgroundColor,
+            borderRadius: BorderRadius.only(
+              topLeft: const Radius.circular(20),
+              topRight: const Radius.circular(20),
             ),
-            height: 60,
-            // height: MediaQuery.of(context).size.height * 0.1,
-            child: _buildBottomMenu(),
-          );
-        });
-  }
-
-  @override
-  void initState() {
-    super.initState();
+          ),
+          height: 60,
+          // height: MediaQuery.of(context).size.height * 0.1,
+          child: _buildBottomMenu(),
+        );
+      },
+    );
   }
 
   Widget renderReview(Review review) {
@@ -107,7 +98,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
               },
               onLongPress: () {
                 User user = Provider.of<Auth>(context, listen: false).user;
-                if (review.reviewerId != user.id) return;
+                if (review.reviewer.id != user.id) return;
                 _showBottomMenu();
               },
               child: Container(
@@ -170,9 +161,6 @@ class _BusinessReviewsState extends State<BusinessReviews> {
 
   @override
   Widget build(BuildContext context) {
-    List<Review> reviews =
-        Provider.of<BusinessProvider>(context, listen: true).business.reviews;
-
     return InkWell(
       onTap: () {
         if (_bottomMenuIsShown) {
@@ -183,7 +171,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
       child: Container(
         margin: EdgeInsets.all(4),
         child: SingleChildScrollView(
-          child: renderReviewsList(reviews),
+          child: renderReviewsList(widget.business.reviews),
         ),
       ),
     );

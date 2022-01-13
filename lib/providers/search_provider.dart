@@ -10,12 +10,19 @@ import 'package:plant_app/models/promotion_model.dart';
 class SearchProvider extends ChangeNotifier {
   String _searchQuery;
 
-  List<Promotion> _promotions = null;
-  List<Event> _events = null;
-  List<Business> _businesses = null;
-
+  int _totalPromotions = 0;
+  int get totalPromotions => _totalPromotions;
+  List<Promotion> _promotions = [];
   List<Promotion> get promotions => _promotions;
+
+  int _totalEvents = 0;
+  int get totalEvents => _totalEvents;
+  List<Event> _events = [];
   List<Event> get events => _events;
+
+  int _totalBusinesses = 0;
+  int get totalBusinesses => _totalBusinesses;
+  List<Business> _businesses = [];
   List<Business> get businesses => _businesses;
 
   void searchAll({@required String searchQuery}) async {
@@ -30,43 +37,49 @@ class SearchProvider extends ChangeNotifier {
 
     Map<String, dynamic> responseJson = json.decode(response.body);
 
-    print('Results: ${response.body}');
-
     if (response.statusCode == 200) {
-      if (responseJson['promotions']['total'] > 0) {
-        _promotions = [];
-        List promotionsJson = responseJson['promotions']['data'];
-        promotionsJson.forEach((promotionJson) {
-          _promotions.add(Promotion.fromJson(promotionJson));
-        });
+      _totalPromotions = responseJson['promotions']['total'];
+      if (_totalPromotions > 0) {
+        _promotions.clear();
+        promotions
+            .add(Promotion.fromJson(responseJson['promotions']['data'][0]));
       } else {
-        _promotions = null;
+        _promotions.clear();
       }
 
-      if (responseJson['events']['total'] > 0) {
-        _events = [];
-        List eventsJson = responseJson['events']['data'];
-        eventsJson.forEach((eventJson) {
-          _events.add(Event.fromJson(eventJson));
-        });
+      _totalEvents = responseJson['events']['total'];
+      if (_totalEvents > 0) {
+        _events.clear();
+        _events.add(Event.fromJson(responseJson['events']['data'][0]));
       } else {
-        _events = null;
+        _events.clear();
       }
 
-      if (responseJson['businesses']['total'] > 0) {
-        _businesses = [];
+      _totalBusinesses = responseJson['businesses']['total'];
+      if (_totalBusinesses > 0) {
+        _businesses.clear();
         List businessesJson = responseJson['businesses']['data'];
         businessesJson.forEach((businessJson) {
           _businesses.add(Business.fromJson(businessJson));
         });
       } else {
-        _businesses = null;
+        _businesses.clear();
       }
 
       notifyListeners();
-
-      // print(
-      //     'Promotions length: ${_promotions.length}\nEvents length: ${_events.length}\nBusinesses length: ${_businesses.length}\n');
     }
+  }
+
+  void clearSearchResults() {
+    _totalBusinesses = 0;
+    _businesses.clear();
+
+    _totalPromotions = 0;
+    _promotions.clear();
+
+    _totalEvents = 0;
+    _events.clear();
+
+    notifyListeners();
   }
 }

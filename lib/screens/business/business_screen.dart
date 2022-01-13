@@ -23,47 +23,25 @@ class BusinessScreen extends StatefulWidget {
 
 class _BusinessScreenState extends State<BusinessScreen>
     with SingleTickerProviderStateMixin {
-  final List<Tuple3> _pages = [
-    Tuple3('Info', BusinessInfo(), null),
-    Tuple3('Photos', BusinessPhotos(), null),
-    Tuple3(
-      'Reviews',
-      BusinessReviews(),
-      (BuildContext context) {
-        return FloatingActionButton.extended(
-          icon: const Icon(Icons.rate_review),
-          label: const Text('Write a review'),
-          backgroundColor: kPrimaryColor,
-          onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => AddReviewScreen()),
-            );
-          },
-        );
-      },
-    ),
-  ];
-
-  Future<Business> business;
-  TabController _tabController;
+  User user;
+  TabController tabController;
 
   @override
   void initState() {
-    super.initState();
+    tabController = TabController(length: 3, vsync: this);
+    tabController.addListener(() => setState(() {}));
 
-    _tabController = TabController(length: _pages.length, vsync: this);
-    _tabController.addListener(() => setState(() {}));
-
-    User user = Provider.of<Auth>(context, listen: false).user;
+    user = Provider.of<Auth>(context, listen: false).user;
 
     Provider.of<BusinessProvider>(context, listen: false)
         .fetchBusiness(businessId: widget.businessId, userId: user.id);
+
+    super.initState();
   }
 
   @override
   void dispose() {
-    _tabController.dispose();
+    tabController.dispose();
     super.dispose();
   }
 
@@ -89,7 +67,6 @@ class _BusinessScreenState extends State<BusinessScreen>
             BusinessSliverAppBar(
               name: business.name,
               coverImgPath: business.coverImgPath,
-              // _tabController,
             ),
             SliverPersistentHeader(
               pinned: true,
@@ -97,24 +74,51 @@ class _BusinessScreenState extends State<BusinessScreen>
                 tabBar: TabBar(
                   labelColor: Colors.white,
                   indicatorColor: Colors.black,
-                  controller: _tabController,
-                  tabs: _pages
-                      .map<Tab>((Tuple3 page) => Tab(text: page.item1))
-                      .toList(),
+                  controller: tabController,
+                  tabs: [
+                    Tab(text: 'Info'),
+                    Tab(text: 'Photos'),
+                    Tab(text: 'Reviews'),
+                  ],
                 ),
               ),
             ),
           ];
         },
         body: TabBarView(
-          controller: _tabController,
-          children: _pages.map<Widget>((Tuple3 page) => page.item2).toList(),
+          controller: tabController,
+          children: [
+            BusinessInfo(
+              business: business,
+              user: user,
+            ),
+            BusinessPhotos(
+              business: business,
+            ),
+            BusinessReviews(
+              business: business,
+              user: user,
+            ),
+          ],
         ),
       ),
-      floatingActionButton:
-          business.reviewedByUser || _pages[_tabController.index].item3 == null
-              ? null
-              : _pages[_tabController.index].item3(context),
+      floatingActionButton: business.reviewedByUser || tabController.index != 2
+          ? null // if already reviewed or different tab, don't show floatingActionButton
+          : FloatingActionButton.extended(
+              icon: const Icon(Icons.rate_review),
+              label: const Text('Write a review'),
+              backgroundColor: kPrimaryColor,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => AddReviewScreen(
+                            business: business,
+                            user: user,
+                          )),
+                );
+              },
+            ),
     );
   }
 }

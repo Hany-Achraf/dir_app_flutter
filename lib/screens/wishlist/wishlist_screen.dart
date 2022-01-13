@@ -4,6 +4,7 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
+import 'package:plant_app/providers/my_bottom_nav_provider.dart';
 import 'package:plant_app/screens/business/business_screen.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
@@ -31,7 +32,7 @@ class _WishlistScreenState extends State<WishlistScreen> {
   Future<bool> initialBusinessesLoaded;
   @override
   void initState() {
-    User user = Provider.of<Auth>(context, listen: false).user;
+    final User user = Provider.of<Auth>(context, listen: false).user;
 
     initialBusinessesLoaded =
         Provider.of<BusinessesProvider>(context, listen: false)
@@ -45,26 +46,38 @@ class _WishlistScreenState extends State<WishlistScreen> {
     final List<Business> businesses =
         Provider.of<BusinessesProvider>(context, listen: true).businesses;
 
-    return Scaffold(
-      appBar: AppBar(
-        leading: Container(),
-        title: Text('Wishlist'),
+    return WillPopScope(
+      onWillPop: () async {
+        Provider.of<BottomNavigatorProvider>(context, listen: false)
+            .changeIndex(index: 0);
+        Navigator.popUntil(
+          context,
+          (route) => route.isFirst,
+        );
+        return true;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          leading: Container(),
+          title: Text('Wishlist'),
+        ),
+        body: FutureBuilder(
+          future: initialBusinessesLoaded,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                itemCount: businesses.length,
+                itemBuilder: (context, index) {
+                  return SavedBusiness(business: businesses[index]);
+                },
+              );
+            }
+            return Center(
+                child: CircularProgressIndicator(color: kPrimaryColor));
+          },
+        ),
+        bottomNavigationBar: MyBottomNavBar(),
       ),
-      body: FutureBuilder(
-        future: initialBusinessesLoaded,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return ListView.builder(
-              itemCount: businesses.length,
-              itemBuilder: (context, index) {
-                return SavedBusiness(business: businesses[index]);
-              },
-            );
-          }
-          return Center(child: CircularProgressIndicator(color: kPrimaryColor));
-        },
-      ),
-      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 }
@@ -185,7 +198,9 @@ class SavedBusiness extends StatelessWidget {
                 onTap: () {
                   Provider.of<BusinessesProvider>(context, listen: false)
                       .removeBusinessFromWishlist(
-                          businessId: business.id, userId: 1);
+                    businessId: business.id,
+                    userId: Provider.of<Auth>(context, listen: false).user.id,
+                  );
                 },
                 child: Row(
                   children: [

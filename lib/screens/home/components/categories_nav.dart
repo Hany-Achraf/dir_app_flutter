@@ -39,13 +39,15 @@ class CategoriesNavigator extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.all(9.0),
           child: category == null
-              ? Image.asset('assets/images/more_horiz.png',
-                  color: kPrimaryColor)
+              ? Image.asset('assets/icons/more_horiz.png', color: kPrimaryColor)
               : CachedNetworkImage(
                   imageUrl: '${url}/${category.imgPath}',
                   color: kPrimaryColor,
                   progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(child: CircularProgressIndicator(color: kPrimaryColor,)),
+                      Center(
+                          child: CircularProgressIndicator(
+                        color: kPrimaryColor,
+                      )),
                   errorWidget: (context, url, error) => Icon(Icons.error)),
         ),
       ),

@@ -31,7 +31,7 @@ class BusinessProvider extends ChangeNotifier {
   void fetchBusinessPhotos() async {
     try {
       var response = await http.get(
-        Uri.parse('$api/businesses/${business.id}/photos'),
+        Uri.parse('$api/businesses/${_business.id}/photos'),
         headers: {
           'Accept': 'application/json',
         },
@@ -51,33 +51,34 @@ class BusinessProvider extends ChangeNotifier {
   void fetchBusinessReviews() async {
     try {
       var response = await http.get(
-        Uri.parse('$api/businesses/${business.id}/reviews'),
+        Uri.parse('$api/businesses/${_business.id}/reviews'),
         headers: {
           'Accept': 'application/json',
         },
       );
-
       if (response.statusCode == 200) {
+        _business.reviews = [];
         var reviewsJson = json.decode(response.body);
         reviewsJson.forEach((reviewJson) {
           _business.reviews.add(Review.fromJson(reviewJson));
         });
+
+        notifyListeners();
       }
     } catch (e) {
       rethrow;
     }
-    notifyListeners();
   }
 
   void handleFavoriteIconButtonClick({@required int userId}) async {
-    Map<String, int> requestData = {
-      'business_id': _business.id,
-      'user_id': userId,
+    Map<String, dynamic> requestData = {
+      'business_id': '${_business.id}',
+      'user_id': '${userId}',
     };
 
     var response;
 
-    if (!business.onUserWishlist) {
+    if (!_business.onUserWishlist) {
       response = await http.post(
         Uri.parse('$api/wishlist/create'),
         body: requestData,
@@ -86,7 +87,7 @@ class BusinessProvider extends ChangeNotifier {
         },
       );
     } else {
-      response = await http.post(
+      response = await http.delete(
         Uri.parse('$api/wishlist/destroy'),
         body: requestData,
         headers: {
@@ -110,7 +111,11 @@ class BusinessProvider extends ChangeNotifier {
       },
     );
 
-    if (response.statusCode == 200) fetchBusinessReviews();
+    if (response.statusCode == 200) {
+      _business.reviewedByUser = true;
+      fetchBusinessReviews();
+      notifyListeners();
+    }
   }
 
   void deleteReview(Map<String, dynamic> requestJson) async {
@@ -122,6 +127,10 @@ class BusinessProvider extends ChangeNotifier {
       },
     );
 
-    if (response.statusCode == 200) fetchBusinessReviews();
+    if (response.statusCode == 200) {
+      _business.reviewedByUser = false;
+      fetchBusinessReviews();
+      notifyListeners();
+    }
   }
 }

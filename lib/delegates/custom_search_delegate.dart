@@ -14,7 +14,7 @@ class CustomSearchDelegate extends SearchDelegate {
         icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
-          // showSuggestions(context);
+          showSuggestions(context);
         },
       ),
     ];
@@ -36,36 +36,23 @@ class CustomSearchDelegate extends SearchDelegate {
 
   @override
   Widget buildSuggestions(BuildContext context) {
-    print('Previous Query: $prevQuery .. Current Query: $query'); // Nice!!
-
     if (prevQuery != query) {
       Provider.of<SearchProvider>(context, listen: false)
           .searchAll(searchQuery: query);
-
       prevQuery = query;
     }
 
     return searchAllResults(context: context);
-
-    // List<String> matchQuery = [];
-    // searchTerms.forEach((fruit) {
-    //   if (fruit.toLowerCase().contains(query.toLowerCase())) {
-    //     matchQuery.add(fruit);
-    //   }
-    // });
-
-    // return ListView.builder(
-    //     itemCount: matchQuery.length,
-    //     itemBuilder: (context, index) {
-    //       String result = matchQuery[index];
-    //       return ListTile(
-    //         title: Text(result),
-    //       );
-    //     });
   }
 
   @override
   Widget buildResults(BuildContext context) {
     return null;
+  }
+
+  @override
+  void close(BuildContext context, result) {
+    Provider.of<SearchProvider>(context, listen: false).clearSearchResults();
+    super.close(context, result);
   }
 }

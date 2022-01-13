@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:plant_app/components/bezierContainer.dart';
 import 'package:plant_app/constants.dart';
 
 import 'components/profile_pic.dart';

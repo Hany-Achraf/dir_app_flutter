@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/business_model.dart';
+import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/business_provider.dart';
 import 'package:provider/provider.dart';
 
 class AddReviewScreen extends StatefulWidget {
-  const AddReviewScreen({Key key}) : super(key: key);
+  final Business business;
+  final User user;
+  const AddReviewScreen({Key key, @required this.business, @required this.user})
+      : super(key: key);
 
   @override
   _AddReviewScreenState createState() => _AddReviewScreenState();
@@ -106,12 +111,11 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
             Center(
               child: TextButton(
                 onPressed: () {
-                  int userId = 2, businessId = 2;
                   Map<String, dynamic> requestJson = {
                     'rate': '$rate',
                     'comment': _commentController.text,
-                    'user_id': '$userId',
-                    'business_id': '$businessId',
+                    'user_id': '${widget.user.id}',
+                    'business_id': '${widget.business.id}',
                   };
                   Provider.of<BusinessProvider>(context, listen: false)
                       .addReview(requestJson);
