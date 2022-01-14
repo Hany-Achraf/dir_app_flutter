@@ -88,6 +88,7 @@ class BusinessInfo extends StatelessWidget {
                 business.instagramLink != null
                     ? IconButton(
                         onPressed: () async {
+                          print(business.instagramLink);
                           await launch(business.instagramLink);
                         },
                         icon: Image.asset('assets/icons/instagram.png'),
@@ -96,6 +97,7 @@ class BusinessInfo extends StatelessWidget {
                 business.facebookLink != null
                     ? IconButton(
                         onPressed: () async {
+                          print(business.facebookLink);
                           await launch(business.facebookLink);
                         },
                         padding: EdgeInsets.zero,

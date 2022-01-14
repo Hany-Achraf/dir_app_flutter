@@ -4,83 +4,107 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/models/promotion_model.dart';
+import 'package:plant_app/providers/see_all_businesses_provider.dart';
 import 'package:plant_app/providers/search_provider.dart';
+import 'package:plant_app/providers/see_all_events_provider.dart';
+import 'package:plant_app/providers/see_all_promotions_provider.dart';
+import 'package:plant_app/screens/business/business_screen.dart';
+import 'package:plant_app/screens/event/event_screen.dart';
+import 'package:plant_app/screens/promotion/promotion_screen.dart';
+import 'package:plant_app/screens/search/see_all_businesses.dart';
+import 'package:plant_app/screens/search/see_all_events.dart';
+import 'package:plant_app/screens/search/seel_all_promotions.dart';
 import 'package:provider/provider.dart';
 
-Container searchAllResults({@required BuildContext context}) {
-  SearchProvider searchProvider =
-      Provider.of<SearchProvider>(context, listen: true);
+class searchAllResults extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    SearchProvider searchProvider =
+        Provider.of<SearchProvider>(context, listen: true);
 
-  List<Widget> sections = [];
+    List<Widget> sections = [];
 
-  if (searchProvider.totalPromotions > 0) {
-    List<Promotion> promotions = searchProvider.promotions;
-    sections.add(
-      Column(
-        children: [
-          sectionHeader(
-              title: 'Promotions',
-              totalResults: searchProvider.totalPromotions,
-              seeAllScreen: Container()),
-          PromotionCard(promotion: promotions[0]),
-        ],
-      ),
-    );
-  }
+    if (searchProvider.totalPromotions > 0) {
+      List<Promotion> promotions = searchProvider.promotions;
+      sections.add(
+        Column(
+          children: [
+            sectionHeader(
+                title: 'Promotions',
+                totalResults: searchProvider.totalPromotions,
+                seeAllScreen: SeeAllPromotions()),
+            PromotionCard(promotion: promotions[0]),
+          ],
+        ),
+      );
+    }
 
-  if (searchProvider.totalEvents > 0) {
-    List<Event> events = searchProvider.events;
-    sections.add(
-      Column(
-        children: [
-          sectionHeader(
-              title: 'Events',
-              totalResults: searchProvider.totalEvents,
-              seeAllScreen: Container()),
-          EventCard(event: events[0]),
-        ],
-      ),
-    );
-  }
+    if (searchProvider.totalEvents > 0) {
+      List<Event> events = searchProvider.events;
+      sections.add(
+        Column(
+          children: [
+            sectionHeader(
+                title: 'Events',
+                totalResults: searchProvider.totalEvents,
+                seeAllScreen: SeeAllEvents()),
+            EventCard(event: events[0]),
+          ],
+        ),
+      );
+    }
 
-  if (searchProvider.totalBusinesses > 0) {
-    List<Business> businesses = searchProvider.businesses;
-    sections.add(
-      Column(
-        children: [
-          sectionHeader(
-            title: 'Businesses',
-            totalResults: searchProvider.totalBusinesses,
-            seeAllScreen: Container(),
-          ),
-          ListView.builder(
-            shrinkWrap: true,
-            itemCount: businesses.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: () {},
-                child: ListTile(
-                  leading:
-                      Image.network('$url/${businesses[index].iconImgPath}'),
-                  title: Text(businesses[index].name),
-                  trailing: Icon(
-                    Icons.arrow_forward_ios,
-                    color: kPrimaryColor,
-                    size: 20,
+    if (searchProvider.totalBusinesses > 0) {
+      List<Business> businesses = searchProvider.businesses;
+      Column businessesList = Column(children: []);
+
+      // Add all businesses to businesses list
+      businesses.forEach(
+        (business) {
+          businessesList.children.add(
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        BusinessScreen(businessId: business.id),
                   ),
+                );
+              },
+              child: ListTile(
+                leading: Image.network('$url/${business.iconImgPath}'),
+                title: Text(business.name),
+                trailing: Icon(
+                  Icons.arrow_forward_ios,
+                  color: kPrimaryColor,
+                  size: 20,
                 ),
-              );
-            },
-          ),
-        ],
-      ),
+              ),
+            ),
+          );
+        },
+      );
+
+      sections.add(
+        Column(
+          children: [
+            sectionHeader(
+              title: 'Businesses',
+              totalResults: searchProvider.totalBusinesses,
+              seeAllScreen: SeeAllBusinesses(),
+            ),
+            businessesList,
+          ],
+        ),
+      );
+    }
+
+    return Container(
+      margin: const EdgeInsets.all(8.0),
+      child: ListView(children: sections),
     );
   }
-
-  return Container(
-    margin: const EdgeInsets.all(8.0),
-    child: ListView(children: sections),
-  );
 }
 
 class sectionHeader extends StatelessWidget {
@@ -97,6 +121,10 @@ class sectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // get the search key as it's gonna be needed for 'See All'
+    final String searchQuery =
+        Provider.of<SearchProvider>(context, listen: false).searchQuery;
+
     return Container(
       margin: const EdgeInsets.all(8.0),
       child: Row(
@@ -105,6 +133,17 @@ class sectionHeader extends StatelessWidget {
           Text(title),
           TextButton(
               onPressed: () {
+                if (title == 'Promotions')
+                  Provider.of<SeeAllPromotionsProvider>(context, listen: false)
+                      .seeAllPromotions(searchQuery: searchQuery);
+                else if (title == 'Events') {
+                  Provider.of<SeeAllEventsProvider>(context, listen: false)
+                      .seeAllEvents(searchQuery: searchQuery);
+                } else if (title == 'Businesses') {
+                  Provider.of<SeeAllBusinessesProvider>(context, listen: false)
+                      .seeAllBusinesses(searchQuery: searchQuery);
+                }
+
                 showModalBottomSheet(
                   barrierColor: kBackgroundColor,
                   isScrollControlled: true,
@@ -114,32 +153,23 @@ class sectionHeader extends StatelessWidget {
                       margin: const EdgeInsets.only(top: 20),
                       child: Scaffold(
                         appBar: AppBar(
+                          leading: IconButton(
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            icon: Icon(Icons.arrow_back_ios),
+                            color: kPrimaryColor,
+                          ),
                           centerTitle: true,
                           title: Text(
-                            'Title',
+                            title,
                             style: TextStyle(color: kTextColor),
                           ),
                           backgroundColor: Colors.transparent,
                           elevation: 0,
                         ),
-                        body: Container(
-                          color: Colors.blue.shade100,
-                          child: ListView.builder(
-                              itemCount: 20,
-                              itemBuilder: (context, index) {
-                                return ListTile(
-                                  leading: Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                      color: Colors.orange.shade100,
-                                    ),
-                                  ),
-                                  title: Text('Title'),
-                                  trailing: Icon(Icons.arrow_forward_ios),
-                                );
-                              }),
-                        ),
+                        // body: Container(child: seeAllScreen),
+                        body: seeAllScreen,
                       ),
                     );
                   },
@@ -171,7 +201,14 @@ class PromotionCard extends StatelessWidget {
     final double _height = MediaQuery.of(context).size.height * 0.22;
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => PromotionScreen(promotion: promotion),
+          ),
+        );
+      },
       child: Container(
         width: _width,
         height: _height,
@@ -266,9 +303,7 @@ class PromotionCard extends StatelessWidget {
 class EventCard extends StatelessWidget {
   final Event event;
 
-  EventCard({
-    this.event,
-  });
+  EventCard({this.event});
 
   @override
   Widget build(BuildContext context) {
@@ -276,7 +311,14 @@ class EventCard extends StatelessWidget {
     final double _height = MediaQuery.of(context).size.height * 0.22;
 
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => EventScreen(event: event),
+          ),
+        );
+      },
       child: Container(
         width: _width,
         height: _height,

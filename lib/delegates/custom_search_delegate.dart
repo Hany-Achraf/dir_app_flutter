@@ -1,4 +1,6 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/search_provider.dart';
 import 'package:plant_app/screens/search/search_all_results.dart';
 import 'package:provider/provider.dart';
@@ -12,6 +14,7 @@ class CustomSearchDelegate extends SearchDelegate {
       IconButton(
         tooltip: 'Clear',
         icon: const Icon(Icons.clear),
+        color: kPrimaryColor,
         onPressed: () {
           query = '';
           showSuggestions(context);
@@ -24,10 +27,8 @@ class CustomSearchDelegate extends SearchDelegate {
   Widget buildLeading(BuildContext context) {
     return IconButton(
       tooltip: 'Back',
-      icon: AnimatedIcon(
-        icon: AnimatedIcons.menu_arrow,
-        progress: transitionAnimation,
-      ),
+      icon: const Icon(Icons.arrow_back_ios),
+      color: kPrimaryColor,
       onPressed: () {
         close(context, null);
       },
@@ -42,7 +43,7 @@ class CustomSearchDelegate extends SearchDelegate {
       prevQuery = query;
     }
 
-    return searchAllResults(context: context);
+    return searchAllResults();
   }
 
   @override

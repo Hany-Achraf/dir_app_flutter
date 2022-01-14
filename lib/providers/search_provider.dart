@@ -9,6 +9,7 @@ import 'package:plant_app/models/promotion_model.dart';
 
 class SearchProvider extends ChangeNotifier {
   String _searchQuery;
+  String get searchQuery => _searchQuery;
 
   int _totalPromotions = 0;
   int get totalPromotions => _totalPromotions;

@@ -8,7 +8,10 @@ import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/providers/destinations_provider.dart';
 import 'package:plant_app/providers/events_provider.dart';
 import 'package:plant_app/providers/promotions_provider.dart';
+import 'package:plant_app/providers/see_all_businesses_provider.dart';
 import 'package:plant_app/providers/search_provider.dart';
+import 'package:plant_app/providers/see_all_events_provider.dart';
+import 'package:plant_app/providers/see_all_promotions_provider.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/revenge/revenge.dart';
 import 'package:plant_app/services/auth.dart';
@@ -23,6 +26,9 @@ void main() {
         providers: [
           ChangeNotifierProvider(create: (context) => Auth()),
           ChangeNotifierProvider(create: (_) => SearchProvider()),
+          ChangeNotifierProvider(create: (_) => SeeAllPromotionsProvider()),
+          ChangeNotifierProvider(create: (_) => SeeAllEventsProvider()),
+          ChangeNotifierProvider(create: (_) => SeeAllBusinessesProvider()),
           ChangeNotifierProvider(create: (_) => CategoriesProvider()),
           ChangeNotifierProvider(create: (_) => DestinationsProvider()),
           ChangeNotifierProvider(create: (_) => BusinessesProvider()),

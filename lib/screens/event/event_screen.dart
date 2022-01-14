@@ -127,17 +127,6 @@ SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
       },
     ),
     pinned: true,
-    actions: [
-      Padding(
-        padding: const EdgeInsets.only(right: 8.0),
-        child: Icon(
-          Icons.search,
-          color: Colors.white,
-          size: 30.0,
-        ),
-      ),
-    ],
-    // expandedHeight: 400,
     expandedHeight: MediaQuery.of(context).size.height / 1.5,
     flexibleSpace: FlexibleSpaceBar(
       background: Stack(children: [
