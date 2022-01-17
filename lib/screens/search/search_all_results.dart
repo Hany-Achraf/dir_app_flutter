@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/event_model.dart';
@@ -8,9 +7,9 @@ import 'package:plant_app/providers/see_all_businesses_provider.dart';
 import 'package:plant_app/providers/search_provider.dart';
 import 'package:plant_app/providers/see_all_events_provider.dart';
 import 'package:plant_app/providers/see_all_promotions_provider.dart';
-import 'package:plant_app/screens/business/business_screen.dart';
-import 'package:plant_app/screens/event/event_screen.dart';
-import 'package:plant_app/screens/promotion/promotion_screen.dart';
+import 'package:plant_app/screens/search/components/business_search_card.dart';
+import 'package:plant_app/screens/search/components/event_search_card.dart';
+import 'package:plant_app/screens/search/components/promotion_search_card.dart';
 import 'package:plant_app/screens/search/see_all_businesses.dart';
 import 'package:plant_app/screens/search/see_all_events.dart';
 import 'package:plant_app/screens/search/seel_all_promotions.dart';
@@ -33,7 +32,7 @@ class searchAllResults extends StatelessWidget {
                 title: 'Promotions',
                 totalResults: searchProvider.totalPromotions,
                 seeAllScreen: SeeAllPromotions()),
-            PromotionCard(promotion: promotions[0]),
+            PromotionSearchCard(promotion: promotions[0]),
           ],
         ),
       );
@@ -48,7 +47,7 @@ class searchAllResults extends StatelessWidget {
                 title: 'Events',
                 totalResults: searchProvider.totalEvents,
                 seeAllScreen: SeeAllEvents()),
-            EventCard(event: events[0]),
+            EventSearchCard(event: events[0]),
           ],
         ),
       );
@@ -61,28 +60,7 @@ class searchAllResults extends StatelessWidget {
       // Add all businesses to businesses list
       businesses.forEach(
         (business) {
-          businessesList.children.add(
-            InkWell(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        BusinessScreen(businessId: business.id),
-                  ),
-                );
-              },
-              child: ListTile(
-                leading: Image.network('$url/${business.iconImgPath}'),
-                title: Text(business.name),
-                trailing: Icon(
-                  Icons.arrow_forward_ios,
-                  color: kPrimaryColor,
-                  size: 20,
-                ),
-              ),
-            ),
-          );
+          businessesList.children.add(BusinessSearchCard(business: business));
         },
       );
 
@@ -183,228 +161,6 @@ class sectionHeader extends StatelessWidget {
                 ),
               )),
         ],
-      ),
-    );
-  }
-}
-
-class PromotionCard extends StatelessWidget {
-  final Promotion promotion;
-
-  PromotionCard({
-    this.promotion,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width * 0.9;
-    final double _height = MediaQuery.of(context).size.height * 0.22;
-
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => PromotionScreen(promotion: promotion),
-          ),
-        );
-      },
-      child: Container(
-        width: _width,
-        height: _height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 5),
-              blurRadius: 5,
-              color: kPrimaryColor.withOpacity(0.23),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-              child: Image.network(
-                '$url/${promotion.imgPath}',
-                fit: BoxFit.fill,
-                width: _width * 0.32,
-                height: _height,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 8),
-              width: MediaQuery.of(context).size.width * 0.9 - 140,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        text: promotion.name,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        text: promotion.provider.name,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Spacer(),
-                  Container(
-                    margin: const EdgeInsets.only(left: 5),
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        text:
-                            'Untill ${DateFormat("dd MMM yyyy").format(promotion.endDate)}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class EventCard extends StatelessWidget {
-  final Event event;
-
-  EventCard({this.event});
-
-  @override
-  Widget build(BuildContext context) {
-    final double _width = MediaQuery.of(context).size.width * 0.9;
-    final double _height = MediaQuery.of(context).size.height * 0.22;
-
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => EventScreen(event: event),
-          ),
-        );
-      },
-      child: Container(
-        width: _width,
-        height: _height,
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
-          boxShadow: [
-            BoxShadow(
-              offset: Offset(0, 5),
-              blurRadius: 5,
-              color: kPrimaryColor.withOpacity(0.23),
-            ),
-          ],
-        ),
-        child: Row(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(10),
-                bottomLeft: Radius.circular(10),
-              ),
-              child: Image.network(
-                '$url/${event.imgPath}',
-                fit: BoxFit.fill,
-                width: _width * 0.32,
-                height: _height,
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(left: 8),
-              width: MediaQuery.of(context).size.width * 0.9 - 140,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        text: event.name,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        text: event.organizer,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // Spacer(),
-                  Container(
-                    margin: const EdgeInsets.only(left: 5),
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        text:
-                            '${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.dateTime)}',
-                        style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

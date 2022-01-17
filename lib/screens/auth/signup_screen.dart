@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/screens/auth/login_page.dart';
+import 'package:plant_app/constants.dart';
+import 'package:plant_app/screens/auth/login_screen.dart';
+import 'package:plant_app/screens/auth/verify_email_screen.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:plant_app/services/auth.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
-
 import 'widgets/bezierContainer.dart';
 
-class SignUpPage extends StatefulWidget {
-  SignUpPage({Key key}) : super(key: key);
+class SignUpScreen extends StatefulWidget {
+  SignUpScreen({Key key}) : super(key: key);
 
   @override
-  _SignUpPageState createState() => _SignUpPageState();
+  _SignUpScreenState createState() => _SignUpScreenState();
 }
 
-class _SignUpPageState extends State<SignUpPage> {
+class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
@@ -69,12 +69,15 @@ class _SignUpPageState extends State<SignUpPage> {
             height: 10,
           ),
           TextField(
-              controller: controller,
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
+            controller: controller,
+            cursorColor: kPrimaryColor,
+            obscureText: isPassword,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              fillColor: Color(0xfff3f3f4),
+              filled: true,
+            ),
+          ),
         ],
       ),
     );
@@ -92,10 +95,14 @@ class _SignUpPageState extends State<SignUpPage> {
         };
         if (_formKey.currentState.validate()) {
           Provider.of<Auth>(context, listen: false).register(creds: creds);
-          Navigator.pushAndRemoveUntil(
+          // Navigator.pushAndRemoveUntil(
+          //   context,
+          //   MaterialPageRoute(builder: (context) => HomeScreen()),
+          //   ModalRoute.withName('/'),
+          // );
+          Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            ModalRoute.withName('/'),
+            MaterialPageRoute(builder: (context) => VerifyEmailScreen()),
           );
         }
       },
@@ -115,7 +122,7 @@ class _SignUpPageState extends State<SignUpPage> {
             gradient: LinearGradient(
                 begin: Alignment.centerLeft,
                 end: Alignment.centerRight,
-                colors: [HexColor("#A46DFF"), HexColor("#9E9E9E")])),
+                colors: [kPrimaryColor, HexColor("#9E9E9E")])),
         child: Text(
           'Register Now',
           style: TextStyle(fontSize: 20, color: Colors.white),
@@ -128,7 +135,7 @@ class _SignUpPageState extends State<SignUpPage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),
@@ -147,7 +154,7 @@ class _SignUpPageState extends State<SignUpPage> {
             Text(
               'Login',
               style: TextStyle(
-                  color: HexColor("#A46DFF"),
+                  color: kPrimaryColor,
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
             ),

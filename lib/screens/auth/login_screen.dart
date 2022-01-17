@@ -1,25 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/screens/auth/signup_page.dart';
+import 'package:plant_app/screens/auth/signup_screen.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/services/auth.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 import 'widgets/bezierContainer.dart';
 
-class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
+class LoginScreen extends StatefulWidget {
+  LoginScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginScreenState createState() => _LoginScreenState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -194,7 +193,7 @@ class _LoginPageState extends State<LoginPage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+            context, MaterialPageRoute(builder: (context) => SignUpScreen()));
       },
       child: Container(
         margin: EdgeInsets.symmetric(vertical: 20),

@@ -20,29 +20,19 @@ class Body extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
         children: [
-          Container(
-            height: 130,
-            width: 130,
-            decoration: BoxDecoration(color: Color(0xFFE7EBEE)),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(65),
-              child: user.avatarImgPath != null
-                  ? CachedNetworkImage(
-                      imageUrl: '${url}/${user.avatarImgPath}',
-                      progressIndicatorBuilder:
-                          (context, url, downloadProgress) => Center(
-                              child: CircularProgressIndicator(
-                                  color: kPrimaryColor)),
-                      errorWidget: (context, url, error) => Icon(Icons.error),
-                      cacheManager: CustomCacheManager.instance,
-                    )
-                  : Image.asset(
-                      'assets/icons/avatar.png',
-                      color: kPrimaryColor,
-                      // fit: BoxFit.fill,
-                    ),
-            ),
-          ),
+          user.avatarImgPath != null
+              ? CircleAvatar(
+                  radius: MediaQuery.of(context).size.height * 0.12,
+                  backgroundImage: NetworkImage('$url/${user.avatarImgPath}'),
+                )
+              : CircleAvatar(
+                  radius: MediaQuery.of(context).size.height * 0.12,
+                  backgroundColor: Color(0xFFE7EBEE),
+                  child: Image.asset(
+                    'assets/icons/avatar.png',
+                    color: kPrimaryColor,
+                  ),
+                ),
           Text(
             user.email,
             style: TextStyle(

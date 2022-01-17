@@ -112,7 +112,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
               child: TextButton(
                 onPressed: () {
                   Map<String, dynamic> requestJson = {
-                    'rate': '$rate',
+                    'rate': '${rate + 1}',
                     'comment': _commentController.text,
                     'user_id': '${widget.user.id}',
                     'business_id': '${widget.business.id}',

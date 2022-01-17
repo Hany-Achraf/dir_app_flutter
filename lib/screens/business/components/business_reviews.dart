@@ -83,11 +83,24 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            CircleAvatar(
-              backgroundColor: kPrimaryColor,
-              backgroundImage:
-                  NetworkImage('$url/${review.reviewer.avatarImgPath}'),
-            ),
+            // CircleAvatar(
+            //   backgroundColor: kPrimaryColor,
+            //   backgroundImage: review.reviewer.avatarImgPath != null
+            //       ? NetworkImage('$url/${review.reviewer.avatarImgPath}')
+            //       : AssetImage('assets/icons/avatar.png'),
+            // ),
+            review.reviewer.avatarImgPath != null
+                ? CircleAvatar(
+                    backgroundImage:
+                        NetworkImage('$url/${review.reviewer.avatarImgPath}'),
+                  )
+                : CircleAvatar(
+                    backgroundColor: Color(0xFFE7EBEE),
+                    child: Image.asset(
+                      'assets/icons/avatar.png',
+                      color: kPrimaryColor,
+                    ),
+                  ),
             InkWell(
               onTap: () {
                 if (_bottomMenuIsShown) {

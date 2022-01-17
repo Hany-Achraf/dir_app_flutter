@@ -1,28 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:plant_app/screens/auth/login_page.dart';
-import 'package:plant_app/screens/auth/signup_page.dart';
-import 'package:provider/provider.dart';
+import 'package:plant_app/screens/auth/login_screen.dart';
+import 'package:plant_app/screens/auth/signup_screen.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/services/auth.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-class WelcomePage extends StatefulWidget {
-  WelcomePage({Key key, this.title}) : super(key: key);
+class WelcomeScreen extends StatefulWidget {
+  WelcomeScreen({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _WelcomePageState createState() => _WelcomePageState();
+  _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
-class _WelcomePageState extends State<WelcomePage> {
+class _WelcomeScreenState extends State<WelcomeScreen> {
   Widget _submitButton() {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginPage()));
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -50,7 +48,7 @@ class _WelcomePageState extends State<WelcomePage> {
     return InkWell(
       onTap: () {
         Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpPage()));
+            context, MaterialPageRoute(builder: (context) => SignUpScreen()));
       },
       child: Container(
         width: MediaQuery.of(context).size.width,

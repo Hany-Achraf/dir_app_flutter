@@ -1,15 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/my_bottom_nav_provider.dart';
-import 'package:plant_app/screens/auth/loading_page.dart';
-import 'package:plant_app/screens/auth/welcome_page.dart';
+import 'package:plant_app/screens/auth/loading_screen.dart';
+import 'package:plant_app/screens/auth/welcome_screen.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
-// import 'package:shop_app/components/coustom_bottom_nav_bar.dart';
-// import 'package:shop_app/enums.dart';
-
 import 'components/body.dart';
 
 class ProfileScreen extends StatelessWidget {
@@ -30,11 +26,11 @@ class ProfileScreen extends StatelessWidget {
           if (auth.loading) {
             Provider.of<BottomNavigatorProvider>(context, listen: false)
                 .changeIndex(index: 0);
-            return Loading();
+            return LoadingScreen();
           }
 
           if (!auth.authenticated) {
-            return WelcomePage();
+            return WelcomeScreen();
           }
 
           return Scaffold(
@@ -49,7 +45,6 @@ class ProfileScreen extends StatelessWidget {
               elevation: 1.5,
             ),
             body: Body(),
-            // bottomNavigationBar: CustomBottomNavBar(selectedMenu: MenuState.profile),
             bottomNavigationBar: MyBottomNavBar(),
           );
         },
