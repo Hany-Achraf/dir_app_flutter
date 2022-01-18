@@ -9,7 +9,6 @@ import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 import 'profile_menu.dart';
-import 'profile_pic.dart';
 
 class Body extends StatelessWidget {
   @override
@@ -23,6 +22,7 @@ class Body extends StatelessWidget {
           user.avatarImgPath != null
               ? CircleAvatar(
                   radius: MediaQuery.of(context).size.height * 0.12,
+                  backgroundColor: kPrimaryColor,
                   backgroundImage: NetworkImage('$url/${user.avatarImgPath}'),
                 )
               : CircleAvatar(

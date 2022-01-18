@@ -57,7 +57,7 @@ class Body extends StatelessWidget {
             : SubcategoriesSlider(
                 parentCategoryId: category.id,
                 subcategories: category.subcategories),
-        businesses.length == 0
+        businesses.isEmpty
             ? Expanded(
                 child: Center(
                   child: Text(

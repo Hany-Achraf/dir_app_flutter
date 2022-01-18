@@ -14,13 +14,10 @@ class CategoriesScreen extends StatefulWidget {
 }
 
 class _CategoriesScreenState extends State<CategoriesScreen> {
-  Future<bool> initialCategoriesLoaded;
-
   @override
   void initState() {
-    initialCategoriesLoaded =
-        Provider.of<CategoriesProvider>(context, listen: false)
-            .loadInitialCategories();
+    Provider.of<CategoriesProvider>(context, listen: false)
+        .loadInitialCategories();
     super.initState();
   }
 
@@ -28,18 +25,7 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      body: FutureBuilder(
-        future: initialCategoriesLoaded,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Body();
-          }
-          return Center(
-              child: CircularProgressIndicator(
-            color: kPrimaryColor,
-          ));
-        },
-      ),
+      body: Body(),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }

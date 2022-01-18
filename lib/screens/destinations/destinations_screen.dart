@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/delegates/custom_search_delegate.dart';
+import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/providers/destinations_provider.dart';
 import 'package:plant_app/screens/destinations/components/body.dart';
 import 'package:provider/provider.dart';
@@ -13,33 +13,30 @@ class DestinationsScreen extends StatefulWidget {
 }
 
 class _DestinationsScreenState extends State<DestinationsScreen> {
-  Future<bool> initialDestinationsLoaded;
-
   @override
   void initState() {
-    initialDestinationsLoaded =
-        Provider.of<DestinationsProvider>(context, listen: false)
-            .loadInitialDestinations();
+    Provider.of<DestinationsProvider>(context, listen: false)
+        .loadInitialDestinations();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final List<Destination> destinations =
+        Provider.of<DestinationsProvider>(context, listen: true).destinations;
+
     return Scaffold(
       appBar: buildAppBar(context),
-      body: FutureBuilder(
-        future: initialDestinationsLoaded,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Body();
-          }
-          return Center(
-            child: CircularProgressIndicator(
-              color: kPrimaryColor,
-            ),
-          );
-        },
-      ),
+      body: destinations == null
+          ? Center(child: CircularProgressIndicator(color: kPrimaryColor))
+          : destinations.isEmpty
+              ? Center(
+                  child: Text(
+                    'No Data to Show!',
+                    style: TextStyle(color: kPrimaryColor, fontSize: 20),
+                  ),
+                )
+              : Body(),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }

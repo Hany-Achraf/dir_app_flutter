@@ -32,154 +32,158 @@ class _DestinationScreenState extends State<DestinationScreen> {
     );
   }
 
-  Future<bool> initialBusinessesLoaded;
   @override
   void initState() {
     super.initState();
-    initialBusinessesLoaded =
-        Provider.of<BusinessesProvider>(context, listen: false)
-            .loadInitialBusinesses(destinationId: widget.destination.id);
+    Provider.of<BusinessesProvider>(context, listen: false)
+        .loadInitialBusinesses(destinationId: widget.destination.id);
   }
 
   @override
   Widget build(BuildContext context) {
-    // final List<Business> _businesses = businesses;
     final List<Business> businesses =
         Provider.of<BusinessesProvider>(context, listen: true).businesses;
+
     return Scaffold(
       body: NestedScrollView(
         headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
           return <Widget>[
-            customAppBar(context,
-                imgPath: widget.destination.imgPath,
-                destinationName: widget.destination.name),
+            customAppBar(
+              context,
+              imgPath: widget.destination.imgPath,
+              destinationName: widget.destination.name,
+            ),
           ];
         },
-        body: FutureBuilder(
-          future: initialBusinessesLoaded,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
-                itemCount: businesses.length,
-                itemBuilder: (BuildContext context, int index) {
-                  Business business = businesses[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) =>
-                                BusinessScreen(businessId: business.id)),
-                      );
-                    },
-                    child: Container(
-                      margin: EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-                      // height: 150,
-                      height: MediaQuery.of(context).size.height * 0.2,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(20.0),
-                        boxShadow: [
-                          BoxShadow(
-                            offset: Offset(0, 5),
-                            blurRadius: 5,
-                            color: kPrimaryColor.withOpacity(0.23),
-                          ),
-                        ],
-                      ),
-                      child: Row(
-                        children: [
-                          Container(
-                            // height: 100,
-                            // width: 100,
-                            height: MediaQuery.of(context).size.height * 0.14,
-                            width: MediaQuery.of(context).size.height * 0.14,
-                            margin: EdgeInsets.only(left: 8.0, right: 8.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                border: Border.all(
-                                  width: 2,
-                                  color: Colors.grey,
-                                ),
-                                // borderRadius: BorderRadius.circular(50),
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.height *
-                                        0.14 /
-                                        2),
+        body: businesses == null
+            ? Center(child: CircularProgressIndicator(color: kPrimaryColor))
+            : businesses.isEmpty
+                ? Center(
+                    child: Text(
+                      'No Data to Show!',
+                      style: TextStyle(color: kPrimaryColor, fontSize: 20),
+                    ),
+                  )
+                : ListView.builder(
+                    padding: EdgeInsets.only(top: 10.0, bottom: 15.0),
+                    itemCount: businesses.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      Business business = businesses[index];
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    BusinessScreen(businessId: business.id)),
+                          );
+                        },
+                        child: Container(
+                          margin: EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
+                          // height: 150,
+                          height: MediaQuery.of(context).size.height * 0.2,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0),
+                            boxShadow: [
+                              BoxShadow(
+                                offset: Offset(0, 5),
+                                blurRadius: 5,
+                                color: kPrimaryColor.withOpacity(0.23),
                               ),
-                              child: ClipRRect(
-                                // borderRadius: BorderRadius.circular(50),
-                                borderRadius: BorderRadius.circular(
-                                    MediaQuery.of(context).size.height *
-                                        0.14 /
-                                        2),
-                                child: CachedNetworkImage(
-                                  imageUrl: '${url}/${business.iconImgPath}',
-                                  fit: BoxFit.fill,
-                                  progressIndicatorBuilder:
-                                      (context, url, downloadProgress) =>
+                            ],
+                          ),
+                          child: Row(
+                            children: [
+                              Container(
+                                // height: 100,
+                                // width: 100,
+                                height:
+                                    MediaQuery.of(context).size.height * 0.14,
+                                width:
+                                    MediaQuery.of(context).size.height * 0.14,
+                                margin: EdgeInsets.only(left: 8.0, right: 8.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    border: Border.all(
+                                      width: 2,
+                                      color: Colors.grey,
+                                    ),
+                                    // borderRadius: BorderRadius.circular(50),
+                                    borderRadius: BorderRadius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.14 /
+                                            2),
+                                  ),
+                                  child: ClipRRect(
+                                    // borderRadius: BorderRadius.circular(50),
+                                    borderRadius: BorderRadius.circular(
+                                        MediaQuery.of(context).size.height *
+                                            0.14 /
+                                            2),
+                                    child: CachedNetworkImage(
+                                      imageUrl:
+                                          '${url}/${business.iconImgPath}',
+                                      fit: BoxFit.fill,
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
                                           CircularProgressIndicator(
                                               value: downloadProgress.progress),
-                                  errorWidget: (context, url, error) =>
-                                      Icon(Icons.error),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Container(
-                            // width: 255,
-                            width: MediaQuery.of(context).size.width * 0.63,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                topRight: Radius.circular(20),
-                                bottomRight: Radius.circular(20),
-                              ),
-                            ),
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: <Widget>[
-                                Text(
-                                  business.name,
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                ),
-                                _buildRatingStars(business.avgRate),
-                                SizedBox(height: 10.0),
-                                Container(
-                                  padding: EdgeInsets.all(5.0),
-                                  width: 190.0,
-                                  decoration: BoxDecoration(
-                                    color: kPrimaryColor,
-                                    borderRadius: BorderRadius.circular(10.0),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    business.workingTime,
-                                    style: TextStyle(
-                                      color: Colors.white,
+                                      errorWidget: (context, url, error) =>
+                                          Icon(Icons.error),
                                     ),
                                   ),
                                 ),
-                              ],
-                            ),
+                              ),
+                              Container(
+                                // width: 255,
+                                width: MediaQuery.of(context).size.width * 0.63,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    topRight: Radius.circular(20),
+                                    bottomRight: Radius.circular(20),
+                                  ),
+                                ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: <Widget>[
+                                    Text(
+                                      business.name,
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
+                                    _buildRatingStars(business.avgRate),
+                                    SizedBox(height: 10.0),
+                                    Container(
+                                      padding: EdgeInsets.all(5.0),
+                                      width: 190.0,
+                                      decoration: BoxDecoration(
+                                        color: kPrimaryColor,
+                                        borderRadius:
+                                            BorderRadius.circular(10.0),
+                                      ),
+                                      alignment: Alignment.center,
+                                      child: Text(
+                                        business.workingTime,
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                    ),
-                  );
-                },
-              );
-            }
-            return Center(
-                child: CircularProgressIndicator(color: kPrimaryColor));
-          },
-        ),
+                        ),
+                      );
+                    },
+                  ),
       ),
     );
   }

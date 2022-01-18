@@ -18,13 +18,10 @@ class CategoryScreen extends StatefulWidget {
 }
 
 class _CategoryScreenState extends State<CategoryScreen> {
-  Future<bool> initialBusinessesLoaded;
-
   @override
   void initState() {
-    initialBusinessesLoaded =
-        Provider.of<BusinessesProvider>(context, listen: false)
-            .loadInitialBusinesses(categoryId: widget.category.id);
+    Provider.of<BusinessesProvider>(context, listen: false)
+        .loadInitialBusinesses(categoryId: widget.category.id);
     super.initState();
   }
 
@@ -32,16 +29,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context),
-      // body: FutureBuilder(
-      //     future: initialBusinessesLoaded,
-      //     builder: (context, snapshot) {
-      //       if (snapshot.hasData) {
-      //         return Body(category: widget.category);
-      //       }
-      //       return Center(
-      //           child: CircularProgressIndicator(color: kPrimaryColor));
-      //     }),
-
       body: Body(category: widget.category),
       bottomNavigationBar: MyBottomNavBar(),
     );

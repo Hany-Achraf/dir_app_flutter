@@ -11,16 +11,18 @@ class BusinessesProvider extends ChangeNotifier {
   bool _isWishlist = false;
   bool get isWishlist => _isWishlist;
 
-  // bool gotNextPage = false;
-  // int currentPageNumber = 1;
+  String route;
 
-  Future<bool> loadInitialBusinesses(
+  bool gotNextPage = false;
+  int currentPageNumber = 1;
+
+  void loadInitialBusinesses(
       {int categoryId, int destinationId, int userId}) async {
     if (_businesses != null) {
       _businesses = null;
+      currentPageNumber = 1;
     }
 
-    String route;
     if (categoryId != null) {
       _isWishlist = false;
       route = '$api/categories/$categoryId';
@@ -39,17 +41,39 @@ class BusinessesProvider extends ChangeNotifier {
       },
     );
     if (response.statusCode == 200) {
-      // gotNextPage = response.data['next_page_url'] != null ? true : false;
-      // List categoriesJson = response.data['data'];
-      List businessesJson = json.decode(response.body);
+      var responseJson = json.decode(response.body);
+      gotNextPage = responseJson['next_page_url'] != null ? true : false;
       _businesses = [];
+      List businessesJson = responseJson['data'];
       businessesJson.forEach((businessJson) {
         _businesses.add(Business.fromJson(businessJson,
             wishlistBusiness: (userId != null) ? true : false));
       });
       notifyListeners();
     }
-    return true;
+  }
+
+  Future<bool> loadMoreBusinesses() async {
+    if (!gotNextPage) return false;
+
+    var response = await http.get(
+      Uri.parse('$api/$route?page=${++currentPageNumber}'),
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+
+    if (response.statusCode == 200) {
+      var responseJson = json.decode(response.body);
+      gotNextPage = responseJson['next_page_url'] != null ? true : false;
+      List businessesJson = responseJson['data'];
+      businessesJson.forEach((categoryJson) {
+        _businesses.add(Business.fromJson(categoryJson));
+      });
+      notifyListeners();
+    }
+
+    return gotNextPage;
   }
 
   void removeBusinessFromWishlist(

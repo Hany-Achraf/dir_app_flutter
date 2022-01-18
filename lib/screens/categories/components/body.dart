@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
+import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/screens/category/category_screen.dart';
 import 'package:provider/provider.dart';
@@ -10,8 +11,21 @@ class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final refreshController = RefreshController();
-    final categories =
+    final List<Category> categories =
         Provider.of<CategoriesProvider>(context, listen: true).categories;
+
+    if (categories == null) {
+      return Center(child: CircularProgressIndicator(color: kPrimaryColor));
+    }
+
+    if (categories.isEmpty) {
+      return Center(
+        child: Text(
+          'No Data to Show!',
+          style: TextStyle(color: kPrimaryColor, fontSize: 20),
+        ),
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

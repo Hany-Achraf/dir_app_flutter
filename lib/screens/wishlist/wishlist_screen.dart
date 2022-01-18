@@ -15,14 +15,12 @@ class WishlistScreen extends StatefulWidget {
 }
 
 class _WishlistScreenState extends State<WishlistScreen> {
-  Future<bool> initialBusinessesLoaded;
   @override
   void initState() {
     final User user = Provider.of<Auth>(context, listen: false).user;
 
-    initialBusinessesLoaded =
-        Provider.of<BusinessesProvider>(context, listen: false)
-            .loadInitialBusinesses(userId: user.id);
+    Provider.of<BusinessesProvider>(context, listen: false)
+        .loadInitialBusinesses(userId: user.id);
 
     super.initState();
   }
@@ -47,21 +45,21 @@ class _WishlistScreenState extends State<WishlistScreen> {
           leading: Container(),
           title: Text('Wishlist'),
         ),
-        body: FutureBuilder(
-          future: initialBusinessesLoaded,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                itemCount: businesses.length,
-                itemBuilder: (context, index) {
-                  return WishlistBusinessCard(business: businesses[index]);
-                },
-              );
-            }
-            return Center(
-                child: CircularProgressIndicator(color: kPrimaryColor));
-          },
-        ),
+        body: businesses == null
+            ? Center(child: CircularProgressIndicator(color: kPrimaryColor))
+            : businesses.isEmpty
+                ? Center(
+                    child: Text(
+                      'No Data to Show!',
+                      style: TextStyle(color: kPrimaryColor, fontSize: 20),
+                    ),
+                  )
+                : ListView.builder(
+                    itemCount: businesses.length,
+                    itemBuilder: (context, index) {
+                      return WishlistBusinessCard(business: businesses[index]);
+                    },
+                  ),
         bottomNavigationBar: MyBottomNavBar(),
       ),
     );
