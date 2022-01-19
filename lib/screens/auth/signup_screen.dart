@@ -2,11 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/auth/login_screen.dart';
 import 'package:plant_app/screens/auth/verify_email_screen.dart';
-import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'widgets/bezierContainer.dart';
 
 class SignUpScreen extends StatefulWidget {
   SignUpScreen({Key key}) : super(key: key);
@@ -16,7 +14,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _firstnameController = TextEditingController();
+  final TextEditingController _lastnameController = TextEditingController();
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _passwordConfirmationController =
@@ -25,7 +24,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   @override
   void dispose() {
-    _nameController.dispose();
+    _firstnameController.dispose();
+    _lastnameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
     _passwordConfirmationController.dispose();
@@ -58,27 +58,24 @@ class _SignUpScreenState extends State<SignUpScreen> {
       {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+      child: TextField(
+        controller: controller,
+        cursorColor: kPrimaryColor,
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: title,
+          labelStyle: TextStyle(color: kPrimaryColor),
+          // border: InputBorder.none,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          SizedBox(
-            height: 10,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          TextField(
-            controller: controller,
-            cursorColor: kPrimaryColor,
-            obscureText: isPassword,
-            decoration: InputDecoration(
-              border: InputBorder.none,
-              fillColor: Color(0xfff3f3f4),
-              filled: true,
-            ),
-          ),
-        ],
+          fillColor: Color(0xfff3f3f4),
+          filled: true,
+        ),
       ),
     );
   }
@@ -87,7 +84,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
     return InkWell(
       onTap: () {
         Map creds = {
-          'name': _nameController.text,
+          'firstname': _firstnameController.text,
+          'lastname': _lastnameController.text,
           'email': _emailController.text,
           'password': _passwordController.text,
           'password_confirmation': _passwordConfirmationController.text,
@@ -164,36 +162,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'd',
-          style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
-              color: Color(0xffe46b10)),
-          children: [
-            TextSpan(
-              text: 'ev',
-              style: TextStyle(color: Colors.black, fontSize: 30),
-            ),
-            TextSpan(
-              text: 'rnz',
-              style: TextStyle(color: Color(0xffe46b10), fontSize: 30),
-            ),
-          ]),
-    );
-  }
-
   Widget _emailPasswordWidget() {
     return Column(
+      // crossAxisAlignment: CrossAxisAlignment.center,
+      // mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        _entryField("Name", _nameController),
-        _entryField("Email", _emailController),
-        _entryField("Password", _passwordController, isPassword: true),
-        _entryField("Password confirmation", _passwordConfirmationController,
-            isPassword: true),
+        _entryField('Firstname', _firstnameController),
+        _entryField('Lastname', _lastnameController),
+        _entryField('Email', _emailController),
+        _entryField('Password', _passwordController, isPassword: true),
+        _entryField(
+          'Password confirmation',
+          _passwordConfirmationController,
+          isPassword: true,
+        ),
       ],
     );
   }
@@ -202,42 +184,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Everything in Southkey',
+          style: TextStyle(color: kPrimaryColor),
+        ),
+        backgroundColor: Colors.transparent,
+        foregroundColor: kPrimaryColor,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            color: kPrimaryColor,
+            size: 30.0,
+          ),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
       body: Form(
         key: _formKey,
         child: Container(
-          height: height,
-          child: Stack(
-            children: <Widget>[
-              Positioned(
-                top: -MediaQuery.of(context).size.height * .15,
-                right: -MediaQuery.of(context).size.width * .4,
-                child: BezierContainer(),
-              ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 20),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      SizedBox(height: height * .1),
-                      // _title(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _emailPasswordWidget(),
-                      SizedBox(
-                        height: 20,
-                      ),
-                      _submitButton(),
-                      SizedBox(height: height * .14),
-                      _loginAccountLabel(),
-                    ],
-                  ),
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                _emailPasswordWidget(),
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-              Positioned(top: 40, left: 0, child: _backButton()),
-            ],
+                _submitButton(),
+                // SizedBox(height: height * .14),
+                _loginAccountLabel(),
+              ],
+            ),
           ),
         ),
       ),

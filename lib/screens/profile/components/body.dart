@@ -56,6 +56,10 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Log out.svg",
             press: () {
               Provider.of<Auth>(context, listen: false).logout();
+              Navigator.popUntil(
+                context,
+                (route) => route.isFirst,
+              );
             },
           ),
         ],

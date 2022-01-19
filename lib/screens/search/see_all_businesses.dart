@@ -25,6 +25,8 @@ class SeeAllBusinesses extends StatelessWidget {
         // if no more to load exeute the laodNoData() method on refreshController
         if (!gotMoreBusinessesToLoad) {
           refreshController.loadNoData();
+        } else {
+          refreshController.loadComplete();
         }
       },
       child: ListView.builder(

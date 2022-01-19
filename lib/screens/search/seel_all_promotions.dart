@@ -25,6 +25,8 @@ class SeeAllPromotions extends StatelessWidget {
         // if no more to load exeute the laodNoData() method on refreshController
         if (!gotMorePromotionsToLoad) {
           refreshController.loadNoData();
+        } else {
+          refreshController.loadComplete();
         }
       },
       child: ListView.builder(

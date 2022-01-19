@@ -19,9 +19,10 @@ class Category {
       imgPath: parsedJson['img_path'],
     );
 
-    if (parsedJson['subcategories'] != null) {
+    List subcategoriesJson = parsedJson['subcategories'];
+    if (subcategoriesJson != null && subcategoriesJson.isNotEmpty) {
       category.subcategories.add(Category(id: category.id, name: 'All'));
-      (parsedJson['subcategories'] as List).forEach((i) {
+      subcategoriesJson.forEach((i) {
         category.subcategories.add(Category.fromJson(i));
       });
     }

@@ -47,101 +47,103 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
-        child: Column(
-          children: [
-            Center(
-              child: Text(
-                'What is your rate?',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25,
-                ),
-              ),
-            ),
-            Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  for (int i = 0; i < 5; i++) Star(i),
-                ],
-              ),
-            ),
-            Center(
-              child: Text(
-                'Please share your comme about the place',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Center(
-              child: Container(
-                margin: EdgeInsets.all(8),
-                width: 350,
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                ),
-                child: TextField(
-                  controller: _commentController,
-                  minLines: 3,
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  cursorColor: kPrimaryColor,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: kPrimaryColor,
-                        width: 2.0,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                    ),
-                    hintText: 'Write your comment',
-                    labelStyle: const TextStyle(
-                      color: Colors.grey,
-                    ),
+      body: Center(
+        child: SingleChildScrollView(
+          padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
+          child: Column(
+            children: [
+              Center(
+                child: Text(
+                  'What is your rate?',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 25,
                   ),
                 ),
               ),
-            ),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  Map<String, dynamic> requestJson = {
-                    'rate': '${rate + 1}',
-                    'comment': _commentController.text,
-                    'user_id': '${widget.user.id}',
-                    'business_id': '${widget.business.id}',
-                  };
-                  Provider.of<BusinessProvider>(context, listen: false)
-                      .addReview(requestJson);
-                  Navigator.of(context).pop();
-                },
+              Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    for (int i = 0; i < 5; i++) Star(i),
+                  ],
+                ),
+              ),
+              Center(
+                child: Text(
+                  'Please share your comme about the place',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 18,
+                  ),
+                ),
+              ),
+              Center(
                 child: Container(
-                  padding: EdgeInsets.all(8),
+                  margin: EdgeInsets.all(8),
                   width: 350,
-                  height: 50,
                   decoration: BoxDecoration(
-                    color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(12),
+                    color: Colors.white,
                   ),
-                  child: Center(
-                    child: Text(
-                      'Submit review',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
+                  child: TextField(
+                    controller: _commentController,
+                    minLines: 3,
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    cursorColor: kPrimaryColor,
+                    decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: kPrimaryColor,
+                          width: 2.0,
+                        ),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                      ),
+                      hintText: 'Write your comment',
+                      labelStyle: const TextStyle(
+                        color: Colors.grey,
                       ),
                     ),
                   ),
                 ),
               ),
-            ),
-          ],
+              Center(
+                child: TextButton(
+                  onPressed: () {
+                    Map<String, dynamic> requestJson = {
+                      'rate': '${rate + 1}',
+                      'comment': _commentController.text,
+                      'user_id': '${widget.user.id}',
+                      'business_id': '${widget.business.id}',
+                    };
+                    Provider.of<BusinessProvider>(context, listen: false)
+                        .addReview(requestJson);
+                    Navigator.of(context).pop();
+                  },
+                  child: Container(
+                    padding: EdgeInsets.all(8),
+                    width: 350,
+                    height: 50,
+                    decoration: BoxDecoration(
+                      color: kPrimaryColor,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Submit review',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

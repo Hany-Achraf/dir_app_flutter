@@ -47,30 +47,35 @@ class Auth extends ChangeNotifier {
     }
   }
 
-  void login({@required Map creds}) async {
-    try {
-      _loading = true;
-      notifyListeners();
-      http.Response response = await http.post(
-        Uri.parse('$api/login'),
-        body: creds,
-        headers: {
-          'Accept': 'application/json',
-        },
-      );
-      var responseJson = jsonDecode(response.body);
+  Future<String> login({@required Map creds}) async {
+    String message = null;
+    _loading = true;
+    notifyListeners();
+    http.Response response = await http.post(
+      Uri.parse('$api/login'),
+      body: creds,
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+    var responseJson = jsonDecode(response.body);
 
+    if (response.statusCode == 201) {
       String token = responseJson['token'].toString();
-
       _isLoggedIn = true;
       _user = User.fromJson(responseJson['user']);
       _token = token;
       storeToken(token: token);
-      _loading = false;
-      notifyListeners();
-    } catch (e) {
-      rethrow;
+    } else {
+      if (responseJson['errors']['email'] != null) {
+        message = responseJson['errors']['email'][0];
+      }
     }
+
+    _loading = false;
+    notifyListeners();
+
+    return message;
   }
 
   void tryToken({String token}) async {

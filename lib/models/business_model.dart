@@ -44,7 +44,7 @@ class Business {
   });
 
   factory Business.fromJson(Map<String, dynamic> parsedJson,
-      {bool wishlistBusiness = false}) {
+      {bool isWishlistBusiness = false}) {
     Business business = Business(
       id: parsedJson['id'],
       name: parsedJson['name'],
@@ -64,7 +64,7 @@ class Business {
       reviewedByUser: parsedJson['reviewed_by_user'],
     );
 
-    if (wishlistBusiness) {
+    if (isWishlistBusiness) {
       business.addedToWishlistDateTime =
           DateTime.parse(parsedJson['wishlist']['created_at']);
     }

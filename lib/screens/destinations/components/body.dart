@@ -44,6 +44,8 @@ class Body extends StatelessWidget {
                 // if no more to load exeute the laodNoData() method on refreshController
                 if (!gotMoreToLoad) {
                   refreshController.loadNoData();
+                } else {
+                  refreshController.loadComplete();
                 }
               },
               child: GridView.builder(

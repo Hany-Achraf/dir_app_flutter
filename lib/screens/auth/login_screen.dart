@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:plant_app/screens/auth/signup_screen.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
@@ -23,10 +24,13 @@ class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _errorController = TextEditingController();
+  bool _showErrorMessage = false;
+
   @override
   void initState() {
-    _emailController.text = 'hany@mohamed.com';
-    _passwordController.text = '000000';
+    _emailController.text = 'hany@hany.net';
+    _passwordController.text = '00000000';
     super.initState();
   }
 
@@ -37,68 +41,69 @@ class _LoginScreenState extends State<LoginScreen> {
     super.dispose();
   }
 
-  Widget _backButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        padding: EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: Icon(Icons.keyboard_arrow_left, color: Colors.black),
-            ),
-            Text('Back',
-                style: TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _entryField(String title, TextEditingController controller,
       {bool isPassword = false}) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Text(
-            title,
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15),
+      child: TextField(
+        controller: controller,
+        cursorColor: kPrimaryColor,
+        obscureText: isPassword,
+        decoration: InputDecoration(
+          labelText: title,
+          labelStyle: TextStyle(color: kPrimaryColor),
+          // border: InputBorder.none,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          SizedBox(
-            height: 10,
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: kPrimaryColor),
+            borderRadius: BorderRadius.all(Radius.circular(5)),
           ),
-          TextField(
-              controller: controller,
-              obscureText: isPassword,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true)),
-        ],
+          fillColor: Color(0xfff3f3f4),
+          filled: true,
+        ),
       ),
     );
   }
 
   Widget _submitButton() {
     return InkWell(
-      onTap: () {
-        Map creds = {
-          'email': _emailController.text,
-          'password': _passwordController.text,
-          'device_name': 'myapptoken',
-        };
-        if (_formKey.currentState.validate()) {
-          Provider.of<Auth>(context, listen: false).login(creds: creds);
-          Navigator.pushAndRemoveUntil(
-            context,
-            MaterialPageRoute(builder: (context) => HomeScreen()),
-            ModalRoute.withName('/'),
-          );
+      onTap: () async {
+        _errorController.text = '';
+        if (_emailController.text.isEmpty) {
+          _errorController.text += '- Email address is required';
+        }
+        if (_passwordController.text.isEmpty) {
+          _errorController.text += _errorController.text.isNotEmpty ? '\n' : '';
+          _errorController.text += '- Password is required';
+        }
+
+        if (_errorController.text.isNotEmpty) {
+          setState(() {
+            _showErrorMessage = true;
+          });
+        } else {
+          Map creds = {
+            'email': _emailController.text,
+            'password': _passwordController.text,
+            'device_name': 'myapptoken',
+          };
+          String message = await Provider.of<Auth>(context, listen: false)
+              .login(creds: creds);
+          if (message != null) {
+            setState(() {
+              _errorController.text = message;
+              _showErrorMessage = true;
+            });
+          } else {
+            Navigator.of(context).pop();
+            // Navigator.pushAndRemoveUntil(
+            //   context,
+            //   MaterialPageRoute(builder: (context) => HomeScreen()),
+            //   ModalRoute.withName('/'),
+            // );
+          }
         }
       },
       child: Container(
@@ -162,7 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _googleButton() {
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
@@ -177,7 +182,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _facebookButton() {
     return Container(
       height: 50,
-      margin: EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.symmetric(vertical: 5),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(10)),
       ),
@@ -222,28 +227,6 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _title() {
-    return RichText(
-      textAlign: TextAlign.center,
-      text: TextSpan(
-          text: 'Everything',
-          style: TextStyle(
-              fontSize: 30,
-              fontWeight: FontWeight.w700,
-              color: HexColor("#696969")),
-          children: [
-            TextSpan(
-              text: ' in ',
-              style: TextStyle(color: Colors.black, fontSize: 30),
-            ),
-            TextSpan(
-              text: 'Southkey',
-              style: TextStyle(color: HexColor("#696969"), fontSize: 30),
-            ),
-          ]),
-    );
-  }
-
   Widget _emailPasswordWidget() {
     return Column(
       children: <Widget>[
@@ -253,42 +236,72 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget _errorMessages() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 10),
+      child: TextField(
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.red.shade900,
+        ),
+        controller: _errorController,
+        readOnly: true,
+        decoration: InputDecoration(
+          enabled: false,
+          fillColor: Colors.red.shade100,
+          filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
-        body: Container(
-      height: height,
-      child: Stack(
-        children: <Widget>[
-          Positioned(
-            top: -height * .15,
-            right: -MediaQuery.of(context).size.width * .4,
-            child: BezierContainer(),
-            // child: Container(),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Everything in Southkey',
+        ),
+        backgroundColor: kPrimaryColor,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios,
+            size: 30.0,
           ),
-          Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Form(
-              key: _formKey,
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: Container(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20),
+          child: Form(
+            key: _formKey,
+            child: Center(
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    // SizedBox(height: height * .1),
-                    const SizedBox(height: 80),
-                    // _title(),
-                    const SizedBox(height: 20),
+                    _showErrorMessage ? _errorMessages() : Container(),
                     _emailPasswordWidget(),
-                    const SizedBox(height: 20),
                     _submitButton(),
                     Container(
                       padding: EdgeInsets.symmetric(vertical: 10),
                       alignment: Alignment.centerRight,
-                      child: Text('Forgot Password ?',
-                          style: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.w500)),
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: kPrimaryColor),
+                      ),
                     ),
                     _divider(),
                     _facebookButton(),
@@ -300,9 +313,8 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
           ),
-          Positioned(top: 40, left: 0, child: _backButton()),
-        ],
+        ),
       ),
-    ));
+    );
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
@@ -25,17 +26,19 @@ class BusinessesProvider extends ChangeNotifier {
 
     if (categoryId != null) {
       _isWishlist = false;
-      route = '$api/categories/$categoryId';
+      route = 'categories/$categoryId';
     } else if (destinationId != null) {
       _isWishlist = false;
-      route = '$api/destinations/$destinationId';
+      route = 'destinations/$destinationId';
     } else {
       _isWishlist = true;
-      route = '$api/wishlist/$userId';
+      route = 'wishlist/$userId';
     }
 
+    print('$api/$route');
+
     var response = await http.get(
-      Uri.parse(route),
+      Uri.parse('$api/$route'),
       headers: {
         'Accept': 'application/json',
       },
@@ -46,8 +49,8 @@ class BusinessesProvider extends ChangeNotifier {
       _businesses = [];
       List businessesJson = responseJson['data'];
       businessesJson.forEach((businessJson) {
-        _businesses.add(Business.fromJson(businessJson,
-            wishlistBusiness: (userId != null) ? true : false));
+        _businesses.add(
+            Business.fromJson(businessJson, isWishlistBusiness: _isWishlist));
       });
       notifyListeners();
     }
@@ -55,6 +58,8 @@ class BusinessesProvider extends ChangeNotifier {
 
   Future<bool> loadMoreBusinesses() async {
     if (!gotNextPage) return false;
+
+    print('$api/$route?page=${currentPageNumber + 1}');
 
     var response = await http.get(
       Uri.parse('$api/$route?page=${++currentPageNumber}'),
@@ -67,8 +72,9 @@ class BusinessesProvider extends ChangeNotifier {
       var responseJson = json.decode(response.body);
       gotNextPage = responseJson['next_page_url'] != null ? true : false;
       List businessesJson = responseJson['data'];
-      businessesJson.forEach((categoryJson) {
-        _businesses.add(Business.fromJson(categoryJson));
+      businessesJson.forEach((businessJson) {
+        _businesses.add(
+            Business.fromJson(businessJson, isWishlistBusiness: _isWishlist));
       });
       notifyListeners();
     }

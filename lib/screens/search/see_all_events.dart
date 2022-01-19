@@ -25,6 +25,8 @@ class SeeAllEvents extends StatelessWidget {
         // if no more to load exeute the laodNoData() method on refreshController
         if (!gotMoreEventsToLoad) {
           refreshController.loadNoData();
+        } else {
+          refreshController.loadComplete();
         }
       },
       child: ListView.builder(

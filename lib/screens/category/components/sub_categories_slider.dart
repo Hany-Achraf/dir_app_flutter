@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../../constants.dart';
 
@@ -11,8 +12,12 @@ import '../../../constants.dart';
 class SubcategoriesSlider extends StatefulWidget {
   final int parentCategoryId;
   final List<Category> subcategories;
-  SubcategoriesSlider(
-      {@required this.parentCategoryId, @required this.subcategories});
+  final RefreshController refreshController;
+  SubcategoriesSlider({
+    @required this.parentCategoryId,
+    @required this.subcategories,
+    @required this.refreshController,
+  });
   @override
   _SubcategoriesSliderState createState() => _SubcategoriesSliderState();
 }
@@ -56,6 +61,7 @@ class _SubcategoriesSliderState extends State<SubcategoriesSlider> {
   Widget buildSubcategory({@required Category subcategory}) {
     return GestureDetector(
       onTap: () {
+        widget.refreshController.resetNoData();
         Provider.of<BusinessesProvider>(context, listen: false)
             .loadInitialBusinesses(categoryId: subcategory.id);
         setState(() {

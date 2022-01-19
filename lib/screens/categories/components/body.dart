@@ -8,9 +8,11 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'category_card.dart';
 
 class Body extends StatelessWidget {
+  final refreshController = RefreshController();
+
   @override
   Widget build(BuildContext context) {
-    final refreshController = RefreshController();
+    // final refreshController = RefreshController();
     final List<Category> categories =
         Provider.of<CategoriesProvider>(context, listen: true).categories;
 
@@ -57,6 +59,8 @@ class Body extends StatelessWidget {
                 // if no more to load exeute the laodNoData() method on refreshController
                 if (!gotMoreToLoad) {
                   refreshController.loadNoData();
+                } else {
+                  refreshController.loadComplete();
                 }
               },
               child: GridView.builder(

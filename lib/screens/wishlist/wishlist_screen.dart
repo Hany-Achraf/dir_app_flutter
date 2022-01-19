@@ -8,6 +8,7 @@ import 'package:plant_app/providers/my_bottom_nav_provider.dart';
 import 'package:plant_app/screens/wishlist/wishlist_business_card.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class WishlistScreen extends StatefulWidget {
   @override
@@ -15,6 +16,8 @@ class WishlistScreen extends StatefulWidget {
 }
 
 class _WishlistScreenState extends State<WishlistScreen> {
+  final RefreshController refreshController = RefreshController();
+
   @override
   void initState() {
     final User user = Provider.of<Auth>(context, listen: false).user;
@@ -54,11 +57,31 @@ class _WishlistScreenState extends State<WishlistScreen> {
                       style: TextStyle(color: kPrimaryColor, fontSize: 20),
                     ),
                   )
-                : ListView.builder(
-                    itemCount: businesses.length,
-                    itemBuilder: (context, index) {
-                      return WishlistBusinessCard(business: businesses[index]);
+                : SmartRefresher(
+                    controller: refreshController,
+                    enablePullDown: false,
+                    enablePullUp: true,
+                    onLoading: () async {
+                      // load more, and return true if there is more to load and vice versa
+                      bool gotMoreToLoad =
+                          await Provider.of<BusinessesProvider>(context,
+                                  listen: false)
+                              .loadMoreBusinesses();
+
+                      // if no more to load exeute the laodNoData() method on refreshController
+                      if (!gotMoreToLoad) {
+                        refreshController.loadNoData();
+                      } else {
+                        refreshController.loadComplete();
+                      }
                     },
+                    child: ListView.builder(
+                      itemCount: businesses.length,
+                      itemBuilder: (context, index) {
+                        return WishlistBusinessCard(
+                            business: businesses[index]);
+                      },
+                    ),
                   ),
         bottomNavigationBar: MyBottomNavBar(),
       ),
