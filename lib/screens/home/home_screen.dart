@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/screens/auth/loading_screen.dart';
+import 'package:plant_app/screens/auth/verify_email_screen.dart';
 import 'package:plant_app/screens/auth/welcome_screen.dart';
 import 'package:plant_app/screens/home/components/body.dart';
 import 'package:plant_app/services/auth.dart';
@@ -16,6 +17,11 @@ class HomeScreen extends StatelessWidget {
 
       if (!auth.authenticated) {
         return WelcomeScreen();
+      }
+
+      if (!auth.verified) {
+        // auth.sendVerificationEmail();
+        return VerifyEmailScreen();
       }
 
       return Scaffold(

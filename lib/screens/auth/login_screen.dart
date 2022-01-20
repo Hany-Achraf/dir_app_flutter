@@ -70,13 +70,13 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget _submitButton() {
     return InkWell(
       onTap: () async {
-        _errorController.text = '';
+        _errorController.clear();
         if (_emailController.text.isEmpty) {
-          _errorController.text += '- Email address is required';
+          _errorController.text += 'Email address is required.';
         }
         if (_passwordController.text.isEmpty) {
           _errorController.text += _errorController.text.isNotEmpty ? '\n' : '';
-          _errorController.text += '- Password is required';
+          _errorController.text += 'Password is required.';
         }
 
         if (_errorController.text.isNotEmpty) {
@@ -93,10 +93,12 @@ class _LoginScreenState extends State<LoginScreen> {
               .login(creds: creds);
           if (message != null) {
             setState(() {
+              _passwordController.clear();
               _errorController.text = message;
               _showErrorMessage = true;
             });
           } else {
+            Provider.of<Auth>(context, listen: false).getUser();
             Navigator.of(context).pop();
             // Navigator.pushAndRemoveUntil(
             //   context,
@@ -195,34 +197,34 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   Widget _createAccountLabel() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => SignUpScreen()));
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
-        padding: EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Don\'t have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Don\'t have an account?',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => SignUpScreen()));
+            },
+            child: Text(
               'Register',
               style: TextStyle(
                   color: kPrimaryColor,
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -240,6 +242,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 10),
       child: TextField(
+        maxLines: null,
         style: TextStyle(
           fontSize: 14,
           color: Colors.red.shade900,
@@ -279,37 +282,35 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ),
       body: Container(
-        child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 20),
-          child: Form(
-            key: _formKey,
-            child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    _showErrorMessage ? _errorMessages() : Container(),
-                    _emailPasswordWidget(),
-                    _submitButton(),
-                    Container(
-                      padding: EdgeInsets.symmetric(vertical: 10),
-                      alignment: Alignment.centerRight,
-                      child: Text(
-                        'Forgot Password?',
-                        style: TextStyle(
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: kPrimaryColor),
-                      ),
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _showErrorMessage ? _errorMessages() : Container(),
+                  _emailPasswordWidget(),
+                  _submitButton(),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 10),
+                    alignment: Alignment.centerRight,
+                    child: Text(
+                      'Forgot Password?',
+                      style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: kPrimaryColor),
                     ),
-                    _divider(),
-                    _facebookButton(),
-                    _googleButton(),
-                    // SizedBox(height: height * .055),
-                    _createAccountLabel(),
-                  ],
-                ),
+                  ),
+                  _divider(),
+                  _facebookButton(),
+                  _googleButton(),
+                  // SizedBox(height: height * .055),
+                  _createAccountLabel(),
+                ],
               ),
             ),
           ),

@@ -1,15 +1,13 @@
-import 'dart:developer';
 import 'dart:io';
+import 'package:another_flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:hexcolor/hexcolor.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/user_model.dart';
-import 'package:plant_app/screens/auth/loading_screen.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:http/http.dart' as http;
 
 class EditProfileScreen extends StatefulWidget {
   @override
@@ -59,12 +57,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
             height: 10,
           ),
           TextField(
-              controller: controller,
-              cursorColor: kPrimaryColor,
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: Color(0xfff3f3f4),
-                  filled: true))
+            controller: controller,
+            cursorColor: kPrimaryColor,
+            decoration: InputDecoration(
+              border: InputBorder.none,
+              fillColor: Color(0xfff3f3f4),
+              filled: true,
+            ),
+          ),
         ],
       ),
     );
@@ -72,13 +72,27 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Widget _submitButton() {
     return InkWell(
-      onTap: () {
+      onTap: () async {
         Map<String, dynamic> data = {
           'firstname': _firstnameController.text,
           'lastname': _lastnameController.text,
-          'image_file_path': imageFile.path,
+          'image_file_path': imageFile != null ? imageFile.path : null,
         };
-        Provider.of<Auth>(context, listen: false).update(data: data);
+        bool updateSucceeded =
+            await Provider.of<Auth>(context, listen: false).update(data: data);
+        if (updateSucceeded) {
+          Flushbar(
+            message: 'Profile has been updated successfully!',
+            duration: Duration(seconds: 2),
+          ).show(context).then((_) {
+            Navigator.pop(context);
+          });
+        } else {
+          Flushbar(
+            message: 'Failed to update the profile!',
+            duration: Duration(seconds: 2),
+          ).show(context);
+        }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
@@ -108,10 +122,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   @override
   Widget build(BuildContext context) {
     var userProvider = Provider.of<Auth>(context, listen: true);
-
-    if (userProvider.loading) {
-      return LoadingScreen();
-    }
 
     return Scaffold(
       appBar: AppBar(

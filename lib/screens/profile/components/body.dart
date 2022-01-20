@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/custom/custom_cache_manager.dart';
 import 'package:plant_app/models/user_model.dart';
+import 'package:plant_app/providers/my_bottom_nav_provider.dart';
 import 'package:plant_app/screens/profile/edit_profile_screen.dart';
 import 'package:plant_app/screens/profile/feedback_screen.dart';
 import 'package:plant_app/services/auth.dart';
@@ -56,10 +57,9 @@ class Body extends StatelessWidget {
             icon: "assets/icons/Log out.svg",
             press: () {
               Provider.of<Auth>(context, listen: false).logout();
-              Navigator.popUntil(
-                context,
-                (route) => route.isFirst,
-              );
+              Navigator.popUntil(context, (route) => route.isFirst);
+              Provider.of<BottomNavigatorProvider>(context, listen: false)
+                  .changeIndex(index: 0);
             },
           ),
         ],

@@ -22,6 +22,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
       TextEditingController();
   final _formKey = GlobalKey<FormState>();
 
+  final TextEditingController _errorController = TextEditingController();
+  bool _showErrorMessage = false;
+
   @override
   void dispose() {
     _firstnameController.dispose();
@@ -32,32 +35,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
     super.dispose();
   }
 
-  Widget _backButton() {
-    return InkWell(
-      onTap: () {
-        Navigator.pop(context);
-      },
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        child: Row(
-          children: <Widget>[
-            Container(
-              padding: const EdgeInsets.only(left: 0, top: 10, bottom: 10),
-              child: const Icon(Icons.keyboard_arrow_left, color: Colors.black),
-            ),
-            Text('Back',
-                style:
-                    const TextStyle(fontSize: 12, fontWeight: FontWeight.w500))
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget _entryField(String title, TextEditingController controller,
       {bool isPassword = false}) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 10),
+      margin: EdgeInsets.symmetric(vertical: 5),
       child: TextField(
         controller: controller,
         cursorColor: kPrimaryColor,
@@ -82,30 +63,65 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   Widget _submitButton() {
     return InkWell(
-      onTap: () {
-        Map creds = {
-          'firstname': _firstnameController.text,
-          'lastname': _lastnameController.text,
-          'email': _emailController.text,
-          'password': _passwordController.text,
-          'password_confirmation': _passwordConfirmationController.text,
-          'device_name': 'ios',
-        };
-        if (_formKey.currentState.validate()) {
-          Provider.of<Auth>(context, listen: false).register(creds: creds);
-          // Navigator.pushAndRemoveUntil(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => HomeScreen()),
-          //   ModalRoute.withName('/'),
-          // );
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (context) => VerifyEmailScreen()),
-          );
+      onTap: () async {
+        _errorController.text = '';
+        if (_firstnameController.text.isEmpty) {
+          _errorController.text += 'Firstname is required.';
+        }
+        if (_lastnameController.text.isEmpty) {
+          _errorController.text += _errorController.text.isNotEmpty ? '\n' : '';
+          _errorController.text += 'Lastname is required.';
+        }
+        if (_emailController.text.isEmpty) {
+          _errorController.text += _errorController.text.isNotEmpty ? '\n' : '';
+          _errorController.text += 'Email address is required.';
+        }
+        if (_passwordController.text.isEmpty) {
+          _errorController.text += _errorController.text.isNotEmpty ? '\n' : '';
+          _errorController.text += 'Password is required.';
+        } else {
+          if (_passwordController.text.length < 8) {
+            _errorController.text +=
+                _errorController.text.isNotEmpty ? '\n' : '';
+            _errorController.text += 'Password must be at least 8 characters.';
+          }
+          if (_passwordConfirmationController.text !=
+              _passwordController.text) {
+            _errorController.text +=
+                _errorController.text.isNotEmpty ? '\n' : '';
+            _errorController.text += 'Password confirmation does not match.';
+          }
+        }
+
+        if (_errorController.text.isNotEmpty) {
+          setState(() {
+            _showErrorMessage = true;
+          });
+        } else {
+          Map creds = {
+            'firstname': _firstnameController.text,
+            'lastname': _lastnameController.text,
+            'email': _emailController.text,
+            'password': _passwordController.text,
+            'password_confirmation': _passwordConfirmationController.text,
+            'device_name': 'ios',
+          };
+          String message = await Provider.of<Auth>(context, listen: false)
+              .register(creds: creds);
+          if (message != null) {
+            setState(() {
+              _errorController.text = message;
+              _showErrorMessage = true;
+            });
+          } else {
+            Provider.of<Auth>(context, listen: false).getUser();
+            Navigator.of(context).pop();
+          }
         }
       },
       child: Container(
         width: MediaQuery.of(context).size.width,
+        margin: EdgeInsets.symmetric(vertical: 5),
         padding: EdgeInsets.symmetric(vertical: 15),
         alignment: Alignment.center,
         decoration: BoxDecoration(
@@ -130,42 +146,40 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _loginAccountLabel() {
-    return InkWell(
-      onTap: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => LoginScreen()));
-      },
-      child: Container(
-        margin: EdgeInsets.symmetric(vertical: 20),
-        padding: EdgeInsets.all(15),
-        alignment: Alignment.bottomCenter,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              'Already have an account ?',
-              style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
-            ),
-            SizedBox(
-              width: 10,
-            ),
-            Text(
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 20),
+      padding: EdgeInsets.all(15),
+      alignment: Alignment.bottomCenter,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            'Already have an account?',
+            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600),
+          ),
+          SizedBox(
+            width: 10,
+          ),
+          InkWell(
+            onTap: () {
+              Navigator.pushReplacement(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
+            child: Text(
               'Login',
               style: TextStyle(
                   color: kPrimaryColor,
                   fontSize: 13,
                   fontWeight: FontWeight.w600),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
 
   Widget _emailPasswordWidget() {
     return Column(
-      // crossAxisAlignment: CrossAxisAlignment.center,
-      // mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
         _entryField('Firstname', _firstnameController),
         _entryField('Lastname', _lastnameController),
@@ -180,45 +194,67 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 
+  Widget _errorMessages() {
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: 5),
+      child: TextField(
+        maxLines: null,
+        style: TextStyle(
+          fontSize: 14,
+          color: Colors.red.shade900,
+        ),
+        controller: _errorController,
+        readOnly: true,
+        decoration: InputDecoration(
+          enabled: false,
+          fillColor: Colors.red.shade100,
+          filled: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.all(Radius.circular(5)),
+          ),
+        ),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: Text(
           'Everything in Southkey',
-          style: TextStyle(color: kPrimaryColor),
         ),
-        backgroundColor: Colors.transparent,
-        foregroundColor: kPrimaryColor,
+        backgroundColor: kPrimaryColor,
         elevation: 0,
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            color: kPrimaryColor,
             size: 30.0,
           ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
-      body: Form(
-        key: _formKey,
-        child: Container(
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                _emailPasswordWidget(),
-                SizedBox(
-                  height: 20,
-                ),
-                _submitButton(),
-                // SizedBox(height: height * .14),
-                _loginAccountLabel(),
-              ],
+      body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 20),
+        child: Form(
+          key: _formKey,
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  _showErrorMessage ? _errorMessages() : Container(),
+                  _emailPasswordWidget(),
+                  // SizedBox(height: 20),
+                  _submitButton(),
+                  // SizedBox(height: height * .14),
+                  _loginAccountLabel(),
+                ],
+              ),
             ),
           ),
         ),

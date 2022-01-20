@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/user_model.dart';
@@ -8,49 +9,85 @@ import 'package:http/http.dart' as http;
 import '../models/user_model.dart';
 
 class Auth extends ChangeNotifier {
-  bool _loading = true;
-  bool _isLoggedIn = false;
-  bool _gotError = false;
-  User _user = null;
-  String _token = null;
-
-  bool get loading => _loading;
-  bool get authenticated => _isLoggedIn;
-  bool get gotError => _gotError;
-  User get user => _user;
-  String get token => _token;
-
   final storage = const FlutterSecureStorage();
 
-  void register({@required Map creds}) async {
-    try {
-      // Response response = await dio().post('/register', data: creds);
-      http.Response response = await http.post(
-        Uri.parse('$api/register'),
-        body: creds,
-        headers: {
-          'Accept': 'application/json',
-        },
-      );
-      var responseJson = jsonDecode(response.body);
+  String _token = null;
+  String get token => _token;
 
-      String token = responseJson['token'].toString();
+  bool _loading = true;
+  bool get loading => _loading;
 
-      _isLoggedIn = true;
-      _user = User.fromJson(responseJson['user']);
-      _token = token;
-      storeToken(token: token);
-      _loading = false;
-      notifyListeners();
-    } catch (e) {
-      rethrow;
+  User _user = null;
+  User get user => _user;
+
+  bool _isLoggedIn = false;
+  bool get authenticated => _isLoggedIn;
+
+  bool _isVerified = false;
+  bool get verified => _isVerified;
+
+  void sendVerificationEmail() async {
+    http.Response response = await http.post(
+      Uri.parse('$api/email/verification-notification'),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $_token',
+      },
+    );
+  }
+
+  void getUser() async {
+    _loading = true;
+    notifyListeners();
+
+    http.Response response = await http.get(
+      Uri.parse('$api/user'),
+      headers: {
+        'Accept': 'application/json',
+        'Authorization': 'Bearer $_token',
+      },
+    );
+    var responseJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      storeToken(token: _token);
+      _user = User.fromJson(responseJson);
+      _isVerified = true;
     }
+
+    _loading = false;
+    notifyListeners();
+  }
+
+  Future<String> register({@required Map creds}) async {
+    _loading = true;
+    notifyListeners();
+
+    String message = null;
+
+    http.Response response = await http.post(
+      Uri.parse('$api/register'),
+      body: creds,
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+    var responseJson = jsonDecode(response.body);
+    if (response.statusCode == 201) {
+      _token = responseJson['token'].toString();
+      _isLoggedIn = true;
+    } else {
+      message = responseJson['errors']['email'][0];
+    }
+
+    _loading = false;
+    notifyListeners();
+    return message;
   }
 
   Future<String> login({@required Map creds}) async {
-    String message = null;
     _loading = true;
     notifyListeners();
+
     http.Response response = await http.post(
       Uri.parse('$api/login'),
       body: creds,
@@ -58,52 +95,45 @@ class Auth extends ChangeNotifier {
         'Accept': 'application/json',
       },
     );
-    var responseJson = jsonDecode(response.body);
+
+    String message = null;
+    var responseJson = json.decode(response.body);
 
     if (response.statusCode == 201) {
-      String token = responseJson['token'].toString();
+      _token = responseJson['token'];
       _isLoggedIn = true;
-      _user = User.fromJson(responseJson['user']);
-      _token = token;
-      storeToken(token: token);
     } else {
-      if (responseJson['errors']['email'] != null) {
-        message = responseJson['errors']['email'][0];
-      }
+      message = responseJson['errors']['email'][0];
     }
 
     _loading = false;
     notifyListeners();
-
     return message;
   }
 
-  void tryToken({String token}) async {
+  void tryToken({@required String token}) async {
     if (token == null) {
       _loading = false;
       notifyListeners();
       return;
     } else {
-      try {
-        http.Response response = await http.get(Uri.parse('$api/user'),
-            headers: {
-              'Accept': 'application/json',
-              'Authorization': 'Bearer $token'
-            });
+      http.Response response = await http.get(
+        Uri.parse('$api/user'),
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+      );
 
-        if (response.statusCode == 200) {
-          _isLoggedIn = true;
-          _user = User.fromJson(jsonDecode(response.body));
-          _token = token;
-          storeToken(token: token);
-        } else {
-          // cleanUp();
-        }
-        _loading = false;
-        notifyListeners();
-      } catch (e) {
-        rethrow;
+      if (response.statusCode == 200) {
+        _isLoggedIn = true;
+        _isVerified = true;
+        _user = User.fromJson(json.decode(response.body));
+      } else {
+        cleanUp();
       }
+      _loading = false;
+      notifyListeners();
     }
   }
 
@@ -119,14 +149,14 @@ class Auth extends ChangeNotifier {
     try {
       _loading = true;
       notifyListeners();
-      print("\nTokens on logout: $_token\n");
 
       http.Response response = await http.get(Uri.parse('$api/logout'),
           headers: {
             'Accept': 'application/json',
-            'Authorization': 'Bearer $token'
+            'Authorization': 'Bearer $_token'
           });
       cleanUp();
+
       _loading = false;
       notifyListeners();
     } catch (e) {
@@ -146,18 +176,18 @@ class Auth extends ChangeNotifier {
     }
   }
 
-  void update({@required Map data}) async {
-    _loading = true;
-    notifyListeners();
-
+  Future<bool> update({@required Map data}) async {
     var request =
         http.MultipartRequest('POST', Uri.parse('$api/user/${user.id}/update'));
     request.headers['Accept'] = 'application/json';
     request.fields['firstname'] = data['firstname'];
     request.fields['lastname'] = data['lastname'];
-    var image =
-        await http.MultipartFile.fromPath('image', data['image_file_path']);
-    request.files.add(image);
+
+    if (data['image_file_path'] != null) {
+      var image =
+          await http.MultipartFile.fromPath('image', data['image_file_path']);
+      request.files.add(image);
+    }
 
     var streamedResponse = await request.send();
     var response = await http.Response.fromStream(streamedResponse);
@@ -167,11 +197,27 @@ class Auth extends ChangeNotifier {
       _user.firstname = responseJson['user']['firstname'];
       _user.lastname = responseJson['user']['lastname'];
       _user.avatarImgPath = responseJson['user']['avatar_img_path'];
+      notifyListeners();
+      return true;
+    } else {
+      return false;
     }
-    // else {
-    //   _gotError = true;
-    // }
-    _loading = false;
-    notifyListeners();
   }
 }
+
+
+
+      // bool verificationEmailSent = await verify();
+      // if (verificationEmailSent) {
+      //   return null; // No errors, and verification email was sent successfully
+      // } else {
+      //   // remove failed user registration
+      //   http.Response response = await http.delete(
+      //     Uri.parse('$api/user/destroy'),
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Authorization': 'Bearer $_token',
+      //     },
+      //   );
+      //   return 'Failed send you a verification email';
+      // }

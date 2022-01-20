@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:plant_app/providers/my_bottom_nav_provider.dart';
 import 'package:plant_app/screens/auth/login_screen.dart';
 import 'package:plant_app/screens/auth/signup_screen.dart';
 import 'package:plant_app/constants.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hexcolor/hexcolor.dart';
+import 'package:provider/provider.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  WelcomeScreen({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _WelcomeScreenState createState() => _WelcomeScreenState();
 }
 
 class _WelcomeScreenState extends State<WelcomeScreen> {
-  Widget _submitButton() {
+  Widget _loginButton() {
     return InkWell(
       onTap: () {
         Navigator.push(
@@ -64,34 +62,6 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
         ),
       ),
     );
-  }
-
-  Widget _label() {
-    return Container(
-        margin: EdgeInsets.only(top: 40, bottom: 20),
-        child: Column(
-          children: <Widget>[
-            Text(
-              'Quick login with Touch ID',
-              style: TextStyle(color: Colors.white, fontSize: 17),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Icon(Icons.fingerprint, size: 90, color: Colors.white),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              'Touch ID',
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15,
-                decoration: TextDecoration.underline,
-              ),
-            ),
-          ],
-        ));
   }
 
   Widget _title() {
@@ -146,7 +116,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               SizedBox(
                 height: 80,
               ),
-              _submitButton(),
+              _loginButton(),
               SizedBox(
                 height: 20,
               ),

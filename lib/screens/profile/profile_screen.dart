@@ -24,8 +24,6 @@ class ProfileScreen extends StatelessWidget {
       child: Consumer<Auth>(
         builder: (context, auth, child) {
           if (auth.loading) {
-            Provider.of<BottomNavigatorProvider>(context, listen: false)
-                .changeIndex(index: 0);
             return LoadingScreen();
           }
 
