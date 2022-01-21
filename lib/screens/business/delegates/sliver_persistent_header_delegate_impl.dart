@@ -6,17 +6,12 @@ class SliverPersistentHeaderDelegateImpl
   final TabBar tabBar;
   final Color color = kPrimaryColor;
 
-  SliverPersistentHeaderDelegateImpl({
-    @required this.tabBar,
-  });
+  SliverPersistentHeaderDelegateImpl({@required this.tabBar});
 
   @override
   Widget build(
       BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: color,
-      child: tabBar,
-    );
+    return Container(color: color, child: tabBar);
   }
 
   @override

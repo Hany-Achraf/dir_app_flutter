@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/delegates/custom_search_delegate.dart';
 import 'package:plant_app/models/business_model.dart';
@@ -143,17 +142,10 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                           MediaQuery.of(context).size.height *
                                               0.14 /
                                               2),
-                                      child: CachedNetworkImage(
-                                        imageUrl:
-                                            '${url}/${business.iconImgPath}',
+                                      child: Image.network(
+                                        '${url}/${business.iconImgPath}',
+                                        headers: {'Connection': 'keep-alive'},
                                         fit: BoxFit.fill,
-                                        progressIndicatorBuilder: (context, url,
-                                                downloadProgress) =>
-                                            CircularProgressIndicator(
-                                                value:
-                                                    downloadProgress.progress),
-                                        errorWidget: (context, url, error) =>
-                                            Icon(Icons.error),
                                       ),
                                     ),
                                   ),
@@ -259,12 +251,9 @@ SliverAppBar customAppBar(BuildContext context,
             bottomRight: Radius.circular(20),
             bottomLeft: Radius.circular(20),
           ),
-          // child: Image.asset(
-          //   imgUrl,
-          //   fit: BoxFit.fill,
-          // ),
           child: Image.network(
             '${url}/${imgPath}',
+            headers: {'Connection': 'keep-alive'},
             fit: BoxFit.cover,
           ),
         ),

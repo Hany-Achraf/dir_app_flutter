@@ -112,10 +112,11 @@ class _BusinessScreenState extends State<BusinessScreen>
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => AddReviewScreen(
-                            business: business,
-                            user: user,
-                          )),
+                    builder: (context) => AddReviewScreen(
+                      business: business,
+                      user: user,
+                    ),
+                  ),
                 );
               },
             ),

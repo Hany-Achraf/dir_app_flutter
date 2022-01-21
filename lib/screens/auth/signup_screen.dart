@@ -114,7 +114,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               _showErrorMessage = true;
             });
           } else {
-            Provider.of<Auth>(context, listen: false).getUser();
+            Provider.of<Auth>(context, listen: false).sendVerificationEmail();
             Navigator.of(context).pop();
           }
         }

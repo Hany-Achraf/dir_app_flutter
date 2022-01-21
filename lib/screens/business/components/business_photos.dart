@@ -41,7 +41,10 @@ class BusinessPhotos extends StatelessWidget {
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(2),
                       image: DecorationImage(
-                        image: NetworkImage('$url/${photos[index]}'),
+                        image: NetworkImage(
+                          '$api/image?path=${photos[index]}',
+                          headers: {'Connection': 'keep-alive'},
+                        ),
                         fit: BoxFit.cover,
                       ),
                     ),

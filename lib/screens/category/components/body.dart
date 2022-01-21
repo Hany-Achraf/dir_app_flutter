@@ -147,19 +147,10 @@ class Body extends StatelessWidget {
                                         MediaQuery.of(context).size.height *
                                             0.14 /
                                             2),
-                                    child: CachedNetworkImage(
-                                      imageUrl:
-                                          '${url}/${business.iconImgPath}',
+                                    child: Image.network(
+                                      '${url}/${business.iconImgPath}',
+                                      headers: {'Connection': 'keep-alive'},
                                       fit: BoxFit.contain,
-                                      progressIndicatorBuilder: (context, url,
-                                              downloadProgress) =>
-                                          Center(
-                                              child: CircularProgressIndicator(
-                                        color: kPrimaryColor,
-                                      )),
-                                      errorWidget: (context, url, error) =>
-                                          Icon(Icons.error),
-                                      cacheManager: CustomCacheManager.instance,
                                     ),
                                   ),
                                 ),

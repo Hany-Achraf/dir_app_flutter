@@ -111,6 +111,23 @@ class Auth extends ChangeNotifier {
     return message;
   }
 
+  Future<String> sendResetPasswordEmail({@required String email}) async {
+    http.Response response = await http.post(
+      Uri.parse('$api/forgot-password'),
+      body: {'email': email},
+      headers: {
+        'Accept': 'application/json',
+      },
+    );
+
+    String message = null;
+    var responseJson = json.decode(response.body);
+    if (response.statusCode != 200) {
+      message = responseJson['errors']['email'][0];
+    }
+    return message;
+  }
+
   void tryToken({@required String token}) async {
     if (token == null) {
       _loading = false;
@@ -155,6 +172,7 @@ class Auth extends ChangeNotifier {
             'Accept': 'application/json',
             'Authorization': 'Bearer $_token'
           });
+
       cleanUp();
 
       _loading = false;
@@ -167,6 +185,7 @@ class Auth extends ChangeNotifier {
   void cleanUp() async {
     _user = null;
     _isLoggedIn = false;
+    _isVerified = false;
     _token = null;
 
     try {
@@ -204,20 +223,3 @@ class Auth extends ChangeNotifier {
     }
   }
 }
-
-
-
-      // bool verificationEmailSent = await verify();
-      // if (verificationEmailSent) {
-      //   return null; // No errors, and verification email was sent successfully
-      // } else {
-      //   // remove failed user registration
-      //   http.Response response = await http.delete(
-      //     Uri.parse('$api/user/destroy'),
-      //     headers: {
-      //       'Accept': 'application/json',
-      //       'Authorization': 'Bearer $_token',
-      //     },
-      //   );
-      //   return 'Failed send you a verification email';
-      // }

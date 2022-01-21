@@ -51,7 +51,10 @@ class _GalleryScreenState extends State<GalleryScreen> {
         },
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-              imageProvider: NetworkImage('$url/${businessPhotos[index]}'),
+              imageProvider: NetworkImage(
+                '$api/image?path=${businessPhotos[index]}',
+                headers: {'Connection': 'keep-alive'},
+              ),
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: PhotoViewComputedScale.covered * 2);
         },

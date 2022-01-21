@@ -83,16 +83,12 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // CircleAvatar(
-            //   backgroundColor: kPrimaryColor,
-            //   backgroundImage: review.reviewer.avatarImgPath != null
-            //       ? NetworkImage('$url/${review.reviewer.avatarImgPath}')
-            //       : AssetImage('assets/icons/avatar.png'),
-            // ),
             review.reviewer.avatarImgPath != null
                 ? CircleAvatar(
-                    backgroundImage:
-                        NetworkImage('$url/${review.reviewer.avatarImgPath}'),
+                    backgroundImage: NetworkImage(
+                      '$api/image?path=${review.reviewer.avatarImgPath}',
+                      headers: {'Connection': 'keep-alive'},
+                    ),
                   )
                 : CircleAvatar(
                     backgroundColor: Color(0xFFE7EBEE),

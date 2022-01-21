@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:plant_app/screens/auth/forgot_password_screen.dart';
 import 'package:plant_app/screens/auth/signup_screen.dart';
-import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:hexcolor/hexcolor.dart';
 
-import 'widgets/bezierContainer.dart';
-
 class LoginScreen extends StatefulWidget {
-  LoginScreen({Key key, this.title}) : super(key: key);
-
-  final String title;
-
   @override
   _LoginScreenState createState() => _LoginScreenState();
 }
@@ -100,11 +93,6 @@ class _LoginScreenState extends State<LoginScreen> {
           } else {
             Provider.of<Auth>(context, listen: false).getUser();
             Navigator.of(context).pop();
-            // Navigator.pushAndRemoveUntil(
-            //   context,
-            //   MaterialPageRoute(builder: (context) => HomeScreen()),
-            //   ModalRoute.withName('/'),
-            // );
           }
         }
       },
@@ -294,15 +282,25 @@ class _LoginScreenState extends State<LoginScreen> {
                   _showErrorMessage ? _errorMessages() : Container(),
                   _emailPasswordWidget(),
                   _submitButton(),
-                  Container(
-                    padding: EdgeInsets.symmetric(vertical: 10),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      'Forgot Password?',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: kPrimaryColor),
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ForgotPasswordScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 10),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                            color: kPrimaryColor),
+                      ),
                     ),
                   ),
                   _divider(),

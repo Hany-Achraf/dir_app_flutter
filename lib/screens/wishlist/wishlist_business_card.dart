@@ -67,6 +67,7 @@ class WishlistBusinessCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(6),
                       child: Image.network(
                         '${url}/${business.iconImgPath}',
+                        headers: {'Connection': 'keep-alive'},
                         fit: BoxFit.fill,
                       ),
                     ),

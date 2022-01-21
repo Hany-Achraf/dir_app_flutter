@@ -20,7 +20,6 @@ class HomeScreen extends StatelessWidget {
       }
 
       if (!auth.verified) {
-        // auth.sendVerificationEmail();
         return VerifyEmailScreen();
       }
 
