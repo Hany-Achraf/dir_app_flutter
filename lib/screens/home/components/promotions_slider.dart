@@ -92,14 +92,20 @@ class PromotionCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              child: CachedNetworkImage(
-                imageUrl: '${url}/${promotion.imgPath}',
+              // child: CachedNetworkImage(
+              //   imageUrl: '${url}/${promotion.imgPath}',
+              //   width: 120,
+              //   height: 150,
+              //   progressIndicatorBuilder: (context, url, downloadProgress) =>
+              //       Center(
+              //           child: CircularProgressIndicator(color: kPrimaryColor)),
+              //   errorWidget: (context, url, error) => Icon(Icons.error),
+              // ),
+              child: Image.network(
+                '$api/image?path=${promotion.imgPath}',
                 width: 120,
                 height: 150,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                        child: CircularProgressIndicator(color: kPrimaryColor)),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.fill,
               ),
             ),
             Container(

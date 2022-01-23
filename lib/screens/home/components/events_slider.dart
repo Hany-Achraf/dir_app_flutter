@@ -94,14 +94,20 @@ class EventCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              child: CachedNetworkImage(
-                imageUrl: '${url}/${event.imgPath}',
+              // child: CachedNetworkImage(
+              //   imageUrl: '${url}/${event.imgPath}',
+              //   width: 120,
+              //   height: 150,
+              //   progressIndicatorBuilder: (context, url, downloadProgress) =>
+              //       Center(
+              //           child: CircularProgressIndicator(color: kPrimaryColor)),
+              //   errorWidget: (context, url, error) => Icon(Icons.error),
+              // ),
+              child: Image.network(
+                '$api/image?path=${event.imgPath}',
                 width: 120,
                 height: 150,
-                progressIndicatorBuilder: (context, url, downloadProgress) =>
-                    Center(
-                        child: CircularProgressIndicator(color: kPrimaryColor)),
-                errorWidget: (context, url, error) => Icon(Icons.error),
+                fit: BoxFit.fill,
               ),
             ),
             Container(

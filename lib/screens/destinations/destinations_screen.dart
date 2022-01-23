@@ -22,21 +22,9 @@ class _DestinationsScreenState extends State<DestinationsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Destination> destinations =
-        Provider.of<DestinationsProvider>(context, listen: true).destinations;
-
     return Scaffold(
       appBar: buildAppBar(context),
-      body: destinations == null
-          ? Center(child: CircularProgressIndicator(color: kPrimaryColor))
-          : destinations.isEmpty
-              ? Center(
-                  child: Text(
-                    'No Data to Show!',
-                    style: TextStyle(color: kPrimaryColor, fontSize: 20),
-                  ),
-                )
-              : Body(),
+      body: Body(),
       bottomNavigationBar: MyBottomNavBar(),
     );
   }

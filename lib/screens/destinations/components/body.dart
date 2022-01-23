@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/providers/destinations_provider.dart';
-import 'package:plant_app/screens/destination/destination_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'destination_card.dart';
@@ -13,6 +11,17 @@ class Body extends StatelessWidget {
     final refreshController = RefreshController();
     final destinations =
         Provider.of<DestinationsProvider>(context, listen: true).destinations;
+
+    if (destinations == null)
+      return Center(child: CircularProgressIndicator(color: kPrimaryColor));
+
+    if (destinations.isEmpty)
+      return Center(
+        child: Text(
+          'No Data to Show!',
+          style: TextStyle(color: kPrimaryColor, fontSize: 20),
+        ),
+      );
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
