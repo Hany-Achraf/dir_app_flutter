@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
+import 'package:plant_app/services/auth.dart';
 
 class SeeAllPromotionsProvider extends ChangeNotifier {
+  final Auth auth;
+  SeeAllPromotionsProvider({@required this.auth});
+
   String searchQuery;
 
   List<Promotion> _promotions = [];
@@ -25,6 +29,7 @@ class SeeAllPromotionsProvider extends ChangeNotifier {
       Uri.parse('$api/promotions/search?search_query=${searchQuery}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -48,6 +53,7 @@ class SeeAllPromotionsProvider extends ChangeNotifier {
           '$api/promotions/search?search_query=${this.searchQuery}&page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:plant_app/services/auth.dart';
 
 class CategoriesProvider extends ChangeNotifier {
+  final Auth auth;
+  CategoriesProvider({@required this.auth});
+
   List<Category> _categories = null;
   List<Category> get categories => _categories;
 
@@ -21,6 +25,7 @@ class CategoriesProvider extends ChangeNotifier {
       Uri.parse('$api/categories'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -44,6 +49,7 @@ class CategoriesProvider extends ChangeNotifier {
       Uri.parse('$api/categories?page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

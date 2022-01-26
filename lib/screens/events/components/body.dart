@@ -115,7 +115,7 @@ class _BodyState extends State<Body> {
                                           topRight: Radius.circular(10),
                                         ),
                                         child: Image.network(
-                                          '$api/image?path=${events[index].imgPath}',
+                                          '${api}/image?path=${events[index].imgPath}',
                                           headers: {'Connection': 'Keep-Alive'},
                                           fit: BoxFit.fill,
                                         ),
@@ -204,7 +204,7 @@ class _BodyState extends State<Body> {
                                   bottomRight: Radius.circular(10),
                                 ),
                                 child: Image.network(
-                                  '$api/image?path=${events[index].imgPath}',
+                                  '${api}/image?path=${events[index].imgPath}',
                                   headers: {'Connection': 'Keep-Alive'},
                                   fit: BoxFit.fill,
                                 ),

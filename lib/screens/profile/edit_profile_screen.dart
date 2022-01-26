@@ -179,7 +179,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       MediaQuery.of(context).size.height * 0.12,
                                   backgroundColor: kPrimaryColor,
                                   backgroundImage: NetworkImage(
-                                      '$url/${userProvider.user.avatarImgPath}'),
+                                    '${api}/image?path=${userProvider.user.avatarImgPath}',
+                                    headers: {'Connection': 'keep-alive'},
+                                  ),
                                 )
                               : CircleAvatar(
                                   radius:

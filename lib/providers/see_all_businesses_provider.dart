@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
+import 'package:plant_app/services/auth.dart';
 
 class SeeAllBusinessesProvider extends ChangeNotifier {
+  final Auth auth;
+  SeeAllBusinessesProvider({@required this.auth});
+
   String searchQuery;
 
   List<Business> _businesses = [];
@@ -25,6 +29,7 @@ class SeeAllBusinessesProvider extends ChangeNotifier {
       Uri.parse('$api/businesses/search?search_query=${searchQuery}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -48,6 +53,7 @@ class SeeAllBusinessesProvider extends ChangeNotifier {
           '$api/businesses/search?search_query=${this.searchQuery}&page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

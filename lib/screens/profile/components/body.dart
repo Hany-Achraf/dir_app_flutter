@@ -1,11 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/custom/custom_cache_manager.dart';
 import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/my_bottom_nav_provider.dart';
 import 'package:plant_app/screens/profile/edit_profile_screen.dart';
-import 'package:plant_app/screens/profile/feedback_screen.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +21,10 @@ class Body extends StatelessWidget {
               ? CircleAvatar(
                   radius: MediaQuery.of(context).size.height * 0.12,
                   backgroundColor: kPrimaryColor,
-                  backgroundImage: NetworkImage('$url/${user.avatarImgPath}'),
+                  backgroundImage: NetworkImage(
+                    '${api}/image?path=${user.avatarImgPath}',
+                    headers: {'Connection': 'keep-alive'},
+                  ),
                 )
               : CircleAvatar(
                   radius: MediaQuery.of(context).size.height * 0.12,

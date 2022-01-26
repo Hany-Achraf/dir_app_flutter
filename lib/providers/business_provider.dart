@@ -4,17 +4,22 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/review_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:plant_app/services/auth.dart';
 
 class BusinessProvider extends ChangeNotifier {
+  final Auth auth;
+  BusinessProvider({@required this.auth});
+
   Business _business = null;
   Business get business => _business;
 
-  void fetchBusiness({@required int businessId, @required int userId}) async {
+  void fetchBusiness({@required int businessId}) async {
     try {
       var response = await http.get(
-        Uri.parse('$api/businesses/$businessId?user_id=$userId'),
+        Uri.parse('$api/businesses/${businessId}?user_id=${auth.user.id}'),
         headers: {
           'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.token}',
         },
       );
       if (response.statusCode == 200) {
@@ -34,6 +39,7 @@ class BusinessProvider extends ChangeNotifier {
         Uri.parse('$api/businesses/${_business.id}/photos'),
         headers: {
           'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.token}',
         },
       );
 
@@ -54,6 +60,7 @@ class BusinessProvider extends ChangeNotifier {
         Uri.parse('$api/businesses/${_business.id}/reviews'),
         headers: {
           'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.token}',
         },
       );
       if (response.statusCode == 200) {
@@ -70,10 +77,10 @@ class BusinessProvider extends ChangeNotifier {
     }
   }
 
-  void handleFavoriteIconButtonClick({@required int userId}) async {
+  void handleFavoriteIconButtonClick() async {
     Map<String, dynamic> requestData = {
       'business_id': '${_business.id}',
-      'user_id': '${userId}',
+      'user_id': '${auth.user.id}',
     };
 
     var response;
@@ -84,6 +91,7 @@ class BusinessProvider extends ChangeNotifier {
         body: requestData,
         headers: {
           'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.token}',
         },
       );
     } else {
@@ -92,6 +100,7 @@ class BusinessProvider extends ChangeNotifier {
         body: requestData,
         headers: {
           'Accept': 'application/json',
+          'Authorization': 'Bearer ${auth.token}',
         },
       );
     }
@@ -103,11 +112,17 @@ class BusinessProvider extends ChangeNotifier {
   }
 
   void addReview(Map<String, dynamic> requestJson) async {
+    requestJson.addAll({
+      'user_id': '${auth.user.id}',
+      'business_id': '${_business.id}',
+    });
+
     var response = await http.post(
       Uri.parse('$api/reviews/create'),
       body: requestJson,
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -118,12 +133,18 @@ class BusinessProvider extends ChangeNotifier {
     }
   }
 
-  void deleteReview(Map<String, dynamic> requestJson) async {
+  void deleteReview() async {
+    Map<String, dynamic> requestJson = {
+      'user_id': '${auth.user.id}',
+      'business_id': '${_business.id}',
+    };
+
     var response = await http.delete(
       Uri.parse('$api/reviews/destroy'),
       body: requestJson,
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

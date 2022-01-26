@@ -1,11 +1,14 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:plant_app/services/auth.dart';
 
 class BusinessesProvider extends ChangeNotifier {
+  final Auth auth;
+  BusinessesProvider({@required this.auth});
+
   List<Business> _businesses = null;
   List<Business> get businesses => _businesses;
 
@@ -41,6 +44,7 @@ class BusinessesProvider extends ChangeNotifier {
       Uri.parse('$api/$route'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
     if (response.statusCode == 200) {
@@ -65,6 +69,7 @@ class BusinessesProvider extends ChangeNotifier {
       Uri.parse('$api/$route?page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -93,6 +98,7 @@ class BusinessesProvider extends ChangeNotifier {
       body: requestData,
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
     if (response.statusCode == 200) {

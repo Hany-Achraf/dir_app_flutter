@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/destinations/destinations_screen.dart';
@@ -6,6 +7,8 @@ import 'package:plant_app/screens/events/events_screen.dart';
 import 'package:plant_app/screens/home/components/events_slider.dart';
 import 'package:plant_app/screens/promotions/promotions_screen.dart';
 import 'package:http/http.dart' as http;
+import 'package:plant_app/services/auth.dart';
+import 'package:provider/provider.dart';
 
 import 'categories_nav.dart';
 import 'promotions_slider.dart';
@@ -22,10 +25,15 @@ class _BodyState extends State<Body> {
   Future homeJson;
   Future fetchHomeContent() async {
     try {
+      String token = Provider.of<Auth>(context, listen: false).token;
       var response = await http.get(
         Uri.parse('$api'),
-        headers: {'Accept': 'appllication/json'},
+        headers: {
+          'Accept': 'appllication/json',
+          'Authorization': 'Bearer $token',
+        },
       );
+      log(response.body);
       return json.decode(response.body);
     } catch (e) {
       rethrow;

@@ -6,8 +6,13 @@ import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/models/promotion_model.dart';
+import 'package:plant_app/services/auth.dart';
+import 'package:provider/provider.dart';
 
 class SearchProvider extends ChangeNotifier {
+  final Auth auth;
+  SearchProvider({@required this.auth});
+
   String _searchQuery;
   String get searchQuery => _searchQuery;
 
@@ -33,6 +38,7 @@ class SearchProvider extends ChangeNotifier {
       Uri.parse('$api/search?search_query=${_searchQuery}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

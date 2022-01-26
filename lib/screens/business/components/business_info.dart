@@ -48,7 +48,7 @@ class BusinessInfo extends StatelessWidget {
                 IconButton(
                   onPressed: () {
                     Provider.of<BusinessProvider>(context, listen: false)
-                        .handleFavoriteIconButtonClick(userId: user.id);
+                        .handleFavoriteIconButtonClick();
 
                     // Remove from wishlist screen, so it's not shown on come back
                     bool comingFromWishlistScreen =

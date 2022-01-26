@@ -25,16 +25,56 @@ void main() {
       MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (context) => Auth()),
-          ChangeNotifierProvider(create: (_) => SearchProvider()),
-          ChangeNotifierProvider(create: (_) => SeeAllPromotionsProvider()),
-          ChangeNotifierProvider(create: (_) => SeeAllEventsProvider()),
-          ChangeNotifierProvider(create: (_) => SeeAllBusinessesProvider()),
-          ChangeNotifierProvider(create: (_) => CategoriesProvider()),
-          ChangeNotifierProvider(create: (_) => DestinationsProvider()),
-          ChangeNotifierProvider(create: (_) => BusinessesProvider()),
-          ChangeNotifierProvider(create: (_) => BusinessProvider()),
-          ChangeNotifierProvider(create: (_) => PromotionsProvider()),
-          ChangeNotifierProvider(create: (_) => EventsProvider()),
+          ChangeNotifierProxyProvider<Auth, SearchProvider>(
+            create: (context) => SearchProvider(auth: null),
+            update: (context, auth, previousSearchProvider) =>
+                SearchProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, SeeAllPromotionsProvider>(
+            create: (context) => SeeAllPromotionsProvider(auth: null),
+            update: (context, auth, previousSeeAllPromotionsProvider) =>
+                SeeAllPromotionsProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, SeeAllEventsProvider>(
+            create: (context) => SeeAllEventsProvider(auth: null),
+            update: (context, auth, previousSeeAllEventsProvider) =>
+                SeeAllEventsProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, SeeAllBusinessesProvider>(
+            create: (context) => SeeAllBusinessesProvider(auth: null),
+            update: (context, auth, previousSeeAllBusinessesProvider) =>
+                SeeAllBusinessesProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, BusinessesProvider>(
+            create: (context) => BusinessesProvider(auth: null),
+            update: (context, auth, previousBusinessesProvider) =>
+                BusinessesProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, BusinessProvider>(
+            create: (context) => BusinessProvider(auth: null),
+            update: (context, auth, previousBusinessProvider) =>
+                BusinessProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, CategoriesProvider>(
+            create: (context) => CategoriesProvider(auth: null),
+            update: (context, auth, previousCategoriesProvider) =>
+                CategoriesProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, DestinationsProvider>(
+            create: (context) => DestinationsProvider(auth: null),
+            update: (context, auth, previousDestinationsProvider) =>
+                DestinationsProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, PromotionsProvider>(
+            create: (context) => PromotionsProvider(auth: null),
+            update: (context, auth, previousPromotionsProvider) =>
+                PromotionsProvider(auth: auth),
+          ),
+          ChangeNotifierProxyProvider<Auth, EventsProvider>(
+            create: (context) => EventsProvider(auth: null),
+            update: (context, auth, previousEventsProvider) =>
+                EventsProvider(auth: auth),
+          ),
           ChangeNotifierProvider(create: (_) => BottomNavigatorProvider()),
         ],
         child: MyApp(),

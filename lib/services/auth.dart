@@ -143,6 +143,7 @@ class Auth extends ChangeNotifier {
       );
 
       if (response.statusCode == 200) {
+        _token = token;
         _isLoggedIn = true;
         _isVerified = true;
         _user = User.fromJson(json.decode(response.body));

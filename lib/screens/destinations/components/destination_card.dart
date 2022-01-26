@@ -38,14 +38,19 @@ class DestinationCard extends StatelessWidget {
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: '${url}/${destination.imgPath}',
+                // child: CachedNetworkImage(
+                //   imageUrl: '${url}/${destination.imgPath}',
+                //   fit: BoxFit.cover,
+                //   progressIndicatorBuilder: (context, url, downloadProgress) =>
+                //       CircularProgressIndicator(
+                //           value: downloadProgress.progress),
+                //   errorWidget: (context, url, error) => Icon(Icons.error),
+                //   cacheManager: CustomCacheManager.instance,
+                // ),
+                child: Image.network(
+                  '${api}/image?path=${destination.imgPath}',
+                  headers: {'Connection': 'keep-alive'},
                   fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      CircularProgressIndicator(
-                          value: downloadProgress.progress),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
-                  cacheManager: CustomCacheManager.instance,
                 ),
               ),
             ),

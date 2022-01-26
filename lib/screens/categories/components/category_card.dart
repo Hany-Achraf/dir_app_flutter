@@ -26,7 +26,7 @@ class CategoryCard extends StatelessWidget {
                 borderRadius: BorderRadius.circular(16),
               ),
               child: Image.network(
-                '$url/${category.imgPath}',
+                '${api}/image?path=${category.imgPath}',
                 headers: {'Connection': 'keep-alive'},
                 color: kPrimaryColor,
               ),

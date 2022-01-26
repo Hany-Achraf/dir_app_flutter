@@ -48,7 +48,8 @@ class PromotionSearchCard extends StatelessWidget {
                 bottomLeft: Radius.circular(10),
               ),
               child: Image.network(
-                '$url/${promotion.imgPath}',
+                '${api}/image?path=${promotion.imgPath}',
+                headers: {'Connection': 'keep-alive'},
                 fit: BoxFit.fill,
                 width: _width * 0.32,
                 height: _height,

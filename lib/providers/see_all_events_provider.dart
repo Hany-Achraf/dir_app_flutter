@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/event_model.dart';
+import 'package:plant_app/services/auth.dart';
 
 class SeeAllEventsProvider extends ChangeNotifier {
+  final Auth auth;
+  SeeAllEventsProvider({@required this.auth});
+
   String searchQuery;
 
   List<Event> _events = [];
@@ -25,6 +29,7 @@ class SeeAllEventsProvider extends ChangeNotifier {
       Uri.parse('$api/events/search?search_query=${searchQuery}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -48,6 +53,7 @@ class SeeAllEventsProvider extends ChangeNotifier {
           '$api/events/search?search_query=${this.searchQuery}&page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

@@ -35,7 +35,8 @@ class BusinessSearchCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6),
               child: Image.network(
-                '${url}/${business.iconImgPath}',
+                '${api}/image?path=${business.iconImgPath}',
+                headers: {'Connection': 'keep-alive'},
                 fit: BoxFit.fill,
               ),
             ),

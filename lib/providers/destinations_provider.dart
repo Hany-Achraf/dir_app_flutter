@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:plant_app/services/auth.dart';
 
 class DestinationsProvider extends ChangeNotifier {
+  final Auth auth;
+  DestinationsProvider({@required this.auth});
+
   List<Destination> _destinations = null;
   List<Destination> get destinations => _destinations;
 
@@ -21,6 +25,7 @@ class DestinationsProvider extends ChangeNotifier {
       Uri.parse('$api/destinations'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -44,6 +49,7 @@ class DestinationsProvider extends ChangeNotifier {
       Uri.parse('$api/destinations?page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

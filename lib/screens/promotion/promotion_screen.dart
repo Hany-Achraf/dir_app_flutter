@@ -104,7 +104,7 @@ SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
       background: Stack(children: [
         Positioned.fill(
           child: Image.network(
-            '${url}/${imgPath}',
+            '${api}/image?path=${imgPath}',
             headers: {'Connection': 'keep-alive'},
             fit: BoxFit.fill,
           ),

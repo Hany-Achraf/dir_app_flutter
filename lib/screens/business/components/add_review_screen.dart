@@ -115,8 +115,6 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     Map<String, dynamic> requestJson = {
                       'rate': '${rate + 1}',
                       'comment': _commentController.text,
-                      'user_id': '${widget.user.id}',
-                      'business_id': '${widget.business.id}',
                     };
                     Provider.of<BusinessProvider>(context, listen: false)
                         .addReview(requestJson);

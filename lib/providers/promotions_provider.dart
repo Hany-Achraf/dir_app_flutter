@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
 import 'package:http/http.dart' as http;
+import 'package:plant_app/services/auth.dart';
 
 class PromotionsProvider extends ChangeNotifier {
+  final Auth auth;
+  PromotionsProvider({@required this.auth});
+
   List<Promotion> _promotions = null;
   List<Promotion> get promotions => _promotions;
 
@@ -24,6 +28,7 @@ class PromotionsProvider extends ChangeNotifier {
       Uri.parse('$api/promotions'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 
@@ -49,6 +54,7 @@ class PromotionsProvider extends ChangeNotifier {
       Uri.parse('$api/promotions?page=${++currentPageNumber}'),
       headers: {
         'Accept': 'application/json',
+        'Authorization': 'Bearer ${auth.token}',
       },
     );
 

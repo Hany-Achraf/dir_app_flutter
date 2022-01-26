@@ -148,7 +148,7 @@ class Body extends StatelessWidget {
                                             0.14 /
                                             2),
                                     child: Image.network(
-                                      '${url}/${business.iconImgPath}',
+                                      '${api}/image?path=${business.iconImgPath}',
                                       headers: {'Connection': 'keep-alive'},
                                       fit: BoxFit.contain,
                                     ),

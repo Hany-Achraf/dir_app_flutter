@@ -42,12 +42,8 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           leading: Icon(Icons.delete),
           title: Text('delete'),
           onTap: () {
-            Map<String, dynamic> requestJson = {
-              'user_id': '${widget.user.id}',
-              'business_id': '${widget.business.id}',
-            };
             Provider.of<BusinessProvider>(context, listen: false)
-                .deleteReview(requestJson);
+                .deleteReview();
             Navigator.of(context).pop();
           },
         ),

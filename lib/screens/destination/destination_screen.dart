@@ -143,7 +143,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                               0.14 /
                                               2),
                                       child: Image.network(
-                                        '${url}/${business.iconImgPath}',
+                                        '${api}/image?path=${business.iconImgPath}',
                                         headers: {'Connection': 'keep-alive'},
                                         fit: BoxFit.fill,
                                       ),
@@ -178,7 +178,9 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                       SizedBox(height: 10.0),
                                       Container(
                                         padding: EdgeInsets.all(5.0),
-                                        width: 190.0,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.6,
                                         decoration: BoxDecoration(
                                           color: kPrimaryColor,
                                           borderRadius:
@@ -252,7 +254,7 @@ SliverAppBar customAppBar(BuildContext context,
             bottomLeft: Radius.circular(20),
           ),
           child: Image.network(
-            '${url}/${imgPath}',
+            '${api}/image?path=${imgPath}',
             headers: {'Connection': 'keep-alive'},
             fit: BoxFit.cover,
           ),
