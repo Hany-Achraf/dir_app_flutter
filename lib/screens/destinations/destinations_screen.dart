@@ -25,7 +25,6 @@ class _DestinationsScreenState extends State<DestinationsScreen> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(),
-      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 

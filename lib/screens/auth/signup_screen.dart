@@ -225,7 +225,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'Everything in Southkey',
+          'Register',
         ),
         backgroundColor: kPrimaryColor,
         elevation: 0,

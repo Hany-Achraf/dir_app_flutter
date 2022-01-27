@@ -30,7 +30,6 @@ class _CategoryScreenState extends State<CategoryScreen> {
     return Scaffold(
       appBar: buildAppBar(context),
       body: Body(category: widget.category),
-      bottomNavigationBar: MyBottomNavBar(),
     );
   }
 
