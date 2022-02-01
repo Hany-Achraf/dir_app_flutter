@@ -1,10 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
 import 'package:plant_app/screens/promotion/promotion_screen.dart';
-
-import '../../../constants.dart';
 
 class PromotionsSlider extends StatelessWidget {
   final List<Promotion> promotions = [];
@@ -12,7 +10,7 @@ class PromotionsSlider extends StatelessWidget {
   final dynamic promotionsJson;
   PromotionsSlider({@required this.promotionsJson});
 
-  void setPromotions() {
+  void setEvents() {
     promotionsJson.forEach((i) {
       promotions.add(Promotion.fromJson(i));
     });
@@ -36,7 +34,7 @@ class PromotionsSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    setPromotions();
+    setEvents();
     return buildPromotionsSlider();
   }
 }
@@ -70,13 +68,10 @@ class PromotionCard extends StatelessWidget {
           bottom: kDefaultPadding,
         ),
         width: size.width * 0.8,
-        height: 150,
+        height: size.height * 0.25,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 5),
@@ -92,25 +87,23 @@ class PromotionCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              // child: CachedNetworkImage(
-              //   imageUrl: '${url}/${promotion.imgPath}',
-              //   width: 120,
-              //   height: 150,
-              //   progressIndicatorBuilder: (context, url, downloadProgress) =>
-              //       Center(
-              //           child: CircularProgressIndicator(color: kPrimaryColor)),
-              //   errorWidget: (context, url, error) => Icon(Icons.error),
-              // ),
-              child: Image.network(
-                '$api/image?path=${promotion.imgPath}',
-                width: 120,
-                height: 150,
-                fit: BoxFit.fill,
+              child: Container(
+                width: size.width * 0.29,
+                height: size.height * 0.25,
+                color: Color(0xFFE7EBEE),
+                child: Image.network(
+                  '$api/image?path=${promotion.imgPath}',
+                  fit: BoxFit.fill,
+                  errorBuilder: (context, error, stackTrace) => Icon(
+                    Icons.image,
+                    color: kPrimaryColor,
+                  ),
+                ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(left: 8),
-              width: size.width * 0.8 - 140,
+              width: size.width * 0.49,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,

@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
@@ -21,8 +20,6 @@ class PromotionsProvider extends ChangeNotifier {
       _promotions = null;
       currentPageNumber = 1;
     }
-
-    log('$api/promotions');
 
     var response = await http.get(
       Uri.parse('$api/promotions'),
@@ -47,8 +44,6 @@ class PromotionsProvider extends ChangeNotifier {
 
   Future<bool> loadMorePromotions() async {
     if (!gotNextPage) return false;
-
-    log('$api/promotions?page=${currentPageNumber + 1}');
 
     var response = await http.get(
       Uri.parse('$api/promotions?page=${++currentPageNumber}'),

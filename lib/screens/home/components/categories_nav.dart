@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
@@ -40,15 +39,14 @@ class CategoriesNavigator extends StatelessWidget {
           padding: const EdgeInsets.all(9.0),
           child: category == null
               ? Image.asset('assets/icons/more_horiz.png', color: kPrimaryColor)
-              : CachedNetworkImage(
-                  imageUrl: '${url}/${category.imgPath}',
+              : Image.network(
+                  '$api/image?path=${category.imgPath}',
                   color: kPrimaryColor,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                          child: CircularProgressIndicator(
-                        color: kPrimaryColor,
-                      )),
-                  errorWidget: (context, url, error) => Icon(Icons.error)),
+                  errorBuilder: (context, url, error) => Icon(
+                    Icons.image,
+                    color: kPrimaryColor,
+                  ),
+                ),
         ),
       ),
     );

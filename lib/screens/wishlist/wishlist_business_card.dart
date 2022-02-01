@@ -30,124 +30,84 @@ class WishlistBusinessCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-
-    return Container(
-      margin: const EdgeInsets.all(8),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Flexible(
-            flex: 1,
-            fit: FlexFit.loose,
-            child: GestureDetector(
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) =>
-                        BusinessScreen(businessId: business.id),
-                  ),
-                );
-              },
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    width: size.width * 0.3,
-                    height: size.height * 0.12,
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        width: 1,
-                        color: Colors.grey,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(6),
-                      child: Image.network(
-                        '${api}/image?path=${business.iconImgPath}',
-                        headers: {'Connection': 'keep-alive'},
-                        fit: BoxFit.fill,
-                      ),
-                    ),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(
-                      left: size.width * 0.02,
-                    ),
-                    width: size.width * 0.5,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          child: RichText(
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            text: TextSpan(
-                              text: business.name,
-                              style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w500,
-                              ),
-                            ),
-                          ),
-                        ),
-                        _buildRatingStars(business.avgRate),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.circle_rounded,
-                              color: kPrimaryColor,
-                              size: 7,
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(left: size.width * 0.01),
-                              child: RichText(
-                                overflow: TextOverflow.ellipsis,
-                                maxLines: 2,
-                                text: TextSpan(
-                                  text:
-                                      'Added ${timeago.format(business.addedToWishlistDateTime, locale: 'en_short')} ago',
-                                  style: TextStyle(
-                                    fontSize: 12,
-                                    color: Colors.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
+    return ListTile(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => BusinessScreen(businessId: business.id),
+          ),
+        );
+      },
+      isThreeLine: true,
+      leading: Container(
+        width: size.width * 0.2,
+        decoration: BoxDecoration(
+          color: Color(0xFFE7EBEE),
+          border: Border.all(
+            width: 1,
+            color: Colors.grey,
+          ),
+          borderRadius: BorderRadius.circular(8),
+        ),
+        child: ClipRRect(
+          borderRadius: BorderRadius.circular(6),
+          child: Image.network(
+            '${api}/image?path=${business.iconImgPath}',
+            headers: {'Connection': 'keep-alive'},
+            fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) => Icon(
+              Icons.image,
+              color: kPrimaryColor,
             ),
           ),
-          PopupMenuButton(
-            icon: Icon(
-              Icons.more_horiz,
-            ),
-            itemBuilder: (BuildContext context) => [
-              PopupMenuItem(
-                onTap: () {
-                  Provider.of<BusinessesProvider>(context, listen: false)
-                      .removeBusinessFromWishlist(
-                    businessId: business.id,
-                    userId: Provider.of<Auth>(context, listen: false).user.id,
-                  );
-                },
-                child: Row(
-                  children: [
-                    Icon(Icons.remove_circle_outline_rounded),
-                    Container(
-                        margin: EdgeInsets.only(left: size.width * 0.01),
-                        child: Text('Remove from wishlist')),
-                  ],
+        ),
+      ),
+      title: Text(business.name),
+      subtitle: Column(
+        children: [
+          _buildRatingStars(business.avgRate),
+          Row(
+            children: [
+              Icon(
+                Icons.circle_rounded,
+                color: kPrimaryColor,
+                size: 7,
+              ),
+              Container(
+                margin: EdgeInsets.only(left: size.width * 0.01),
+                child: Text(
+                  'Added ${timeago.format(business.addedToWishlistDateTime, locale: 'en_short')} ago',
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                  ),
                 ),
               ),
             ],
+          ),
+        ],
+      ),
+      trailing: PopupMenuButton(
+        icon: Icon(
+          Icons.more_horiz,
+        ),
+        itemBuilder: (BuildContext context) => [
+          PopupMenuItem(
+            onTap: () {
+              Provider.of<BusinessesProvider>(context, listen: false)
+                  .removeBusinessFromWishlist(
+                businessId: business.id,
+              );
+            },
+            child: Row(
+              children: [
+                Icon(Icons.remove_circle_outline_rounded),
+                Container(
+                    margin: EdgeInsets.only(left: size.width * 0.01),
+                    child: Text('Remove from wishlist')),
+              ],
+            ),
           ),
         ],
       ),

@@ -13,76 +13,69 @@ import 'package:plant_app/providers/search_provider.dart';
 import 'package:plant_app/providers/see_all_events_provider.dart';
 import 'package:plant_app/providers/see_all_promotions_provider.dart';
 import 'package:plant_app/screens/home/home_screen.dart';
-import 'package:plant_app/screens/revenge/revenge.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  DateTime revengeDate = DateTime.utc(2022, 2, 28);
-
-  if (DateTime.now().isBefore(revengeDate)) {
-    runApp(
-      MultiProvider(
-        providers: [
-          ChangeNotifierProvider(create: (context) => Auth()),
-          ChangeNotifierProxyProvider<Auth, SearchProvider>(
-            create: (context) => SearchProvider(auth: null),
-            update: (context, auth, previousSearchProvider) =>
-                SearchProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, SeeAllPromotionsProvider>(
-            create: (context) => SeeAllPromotionsProvider(auth: null),
-            update: (context, auth, previousSeeAllPromotionsProvider) =>
-                SeeAllPromotionsProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, SeeAllEventsProvider>(
-            create: (context) => SeeAllEventsProvider(auth: null),
-            update: (context, auth, previousSeeAllEventsProvider) =>
-                SeeAllEventsProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, SeeAllBusinessesProvider>(
-            create: (context) => SeeAllBusinessesProvider(auth: null),
-            update: (context, auth, previousSeeAllBusinessesProvider) =>
-                SeeAllBusinessesProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, BusinessesProvider>(
-            create: (context) => BusinessesProvider(auth: null),
-            update: (context, auth, previousBusinessesProvider) =>
-                BusinessesProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, BusinessProvider>(
-            create: (context) => BusinessProvider(auth: null),
-            update: (context, auth, previousBusinessProvider) =>
-                BusinessProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, CategoriesProvider>(
-            create: (context) => CategoriesProvider(auth: null),
-            update: (context, auth, previousCategoriesProvider) =>
-                CategoriesProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, DestinationsProvider>(
-            create: (context) => DestinationsProvider(auth: null),
-            update: (context, auth, previousDestinationsProvider) =>
-                DestinationsProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, PromotionsProvider>(
-            create: (context) => PromotionsProvider(auth: null),
-            update: (context, auth, previousPromotionsProvider) =>
-                PromotionsProvider(auth: auth),
-          ),
-          ChangeNotifierProxyProvider<Auth, EventsProvider>(
-            create: (context) => EventsProvider(auth: null),
-            update: (context, auth, previousEventsProvider) =>
-                EventsProvider(auth: auth),
-          ),
-          ChangeNotifierProvider(create: (_) => BottomNavigatorProvider()),
-        ],
-        child: MyApp(),
-      ),
-    );
-  } else {
-    runApp(RevengeApp());
-  }
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => Auth()),
+        ChangeNotifierProxyProvider<Auth, SearchProvider>(
+          create: (context) => SearchProvider(auth: null),
+          update: (context, auth, previousSearchProvider) =>
+              SearchProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, SeeAllPromotionsProvider>(
+          create: (context) => SeeAllPromotionsProvider(auth: null),
+          update: (context, auth, previousSeeAllPromotionsProvider) =>
+              SeeAllPromotionsProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, SeeAllEventsProvider>(
+          create: (context) => SeeAllEventsProvider(auth: null),
+          update: (context, auth, previousSeeAllEventsProvider) =>
+              SeeAllEventsProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, SeeAllBusinessesProvider>(
+          create: (context) => SeeAllBusinessesProvider(auth: null),
+          update: (context, auth, previousSeeAllBusinessesProvider) =>
+              SeeAllBusinessesProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, BusinessesProvider>(
+          create: (context) => BusinessesProvider(auth: null),
+          update: (context, auth, previousBusinessesProvider) =>
+              BusinessesProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, BusinessProvider>(
+          create: (context) => BusinessProvider(auth: null),
+          update: (context, auth, previousBusinessProvider) =>
+              BusinessProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, CategoriesProvider>(
+          create: (context) => CategoriesProvider(auth: null),
+          update: (context, auth, previousCategoriesProvider) =>
+              CategoriesProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, DestinationsProvider>(
+          create: (context) => DestinationsProvider(auth: null),
+          update: (context, auth, previousDestinationsProvider) =>
+              DestinationsProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, PromotionsProvider>(
+          create: (context) => PromotionsProvider(auth: null),
+          update: (context, auth, previousPromotionsProvider) =>
+              PromotionsProvider(auth: auth),
+        ),
+        ChangeNotifierProxyProvider<Auth, EventsProvider>(
+          create: (context) => EventsProvider(auth: null),
+          update: (context, auth, previousEventsProvider) =>
+              EventsProvider(auth: auth),
+        ),
+        ChangeNotifierProvider(create: (_) => BottomNavigatorProvider()),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -121,17 +114,6 @@ class _MyAppState extends State<MyApp> {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: HomeScreen(),
-    );
-  }
-}
-
-class RevengeApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Don\'t work there',
-      home: RevengeScreen(),
     );
   }
 }

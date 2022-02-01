@@ -1,12 +1,8 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/screens/event/event_screen.dart';
-import 'package:plant_app/screens/events/events_screen.dart';
-import 'package:plant_app/screens/promotions/promotions_screen.dart';
-
-import '../../../constants.dart';
 
 class EventsSlider extends StatelessWidget {
   final List<Event> events = [];
@@ -72,13 +68,10 @@ class EventCard extends StatelessWidget {
           bottom: kDefaultPadding,
         ),
         width: size.width * 0.8,
-        height: 150,
+        height: size.height * 0.25,
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topRight: Radius.circular(10),
-            bottomRight: Radius.circular(10),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
           boxShadow: [
             BoxShadow(
               offset: Offset(0, 5),
@@ -94,25 +87,23 @@ class EventCard extends StatelessWidget {
                 topLeft: Radius.circular(10),
                 bottomLeft: Radius.circular(10),
               ),
-              // child: CachedNetworkImage(
-              //   imageUrl: '${url}/${event.imgPath}',
-              //   width: 120,
-              //   height: 150,
-              //   progressIndicatorBuilder: (context, url, downloadProgress) =>
-              //       Center(
-              //           child: CircularProgressIndicator(color: kPrimaryColor)),
-              //   errorWidget: (context, url, error) => Icon(Icons.error),
-              // ),
-              child: Image.network(
-                '$api/image?path=${event.imgPath}',
-                width: 120,
-                height: 150,
-                fit: BoxFit.fill,
+              child: Container(
+                width: size.width * 0.29,
+                height: size.height * 0.25,
+                color: Color(0xFFE7EBEE),
+                child: Image.network(
+                  '$api/image?path=${event.imgPath}',
+                  fit: BoxFit.fill,
+                  errorBuilder: (context, error, stackTrace) => Icon(
+                    Icons.image,
+                    color: kPrimaryColor,
+                  ),
+                ),
               ),
             ),
             Container(
               margin: const EdgeInsets.only(left: 8),
-              width: size.width * 0.8 - 140,
+              width: size.width * 0.49,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,

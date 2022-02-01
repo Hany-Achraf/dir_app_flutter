@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/destinations/destinations_screen.dart';
@@ -33,7 +32,6 @@ class _BodyState extends State<Body> {
           'Authorization': 'Bearer $token',
         },
       );
-      log(response.body);
       return json.decode(response.body);
     } catch (e) {
       rethrow;

@@ -20,10 +20,8 @@ class _WishlistScreenState extends State<WishlistScreen> {
 
   @override
   void initState() {
-    final User user = Provider.of<Auth>(context, listen: false).user;
-
     Provider.of<BusinessesProvider>(context, listen: false)
-        .loadInitialBusinesses(userId: user.id);
+        .loadInitialBusinesses();
 
     super.initState();
   }

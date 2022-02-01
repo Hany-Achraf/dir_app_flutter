@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/promotion_model.dart';
+import 'package:plant_app/screens/business/business_screen.dart';
 import 'package:readmore/readmore.dart';
 
 class PromotionScreen extends StatelessWidget {
@@ -26,12 +27,10 @@ class PromotionScreen extends StatelessWidget {
                       Text(
                         promotion.name,
                         style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 25),
-                      ),
-                      SizedBox(
-                        height: 8,
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -39,15 +38,24 @@ class PromotionScreen extends StatelessWidget {
                           Flexible(
                             flex: 1,
                             fit: FlexFit.loose,
-                            child: Text(
-                              promotion.provider.name,
-                              style: TextStyle(
-                                color: kPrimaryColor,
+                            child: TextButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => BusinessScreen(
+                                          businessId: promotion.provider.id)),
+                                );
+                              },
+                              child: Text(
+                                promotion.provider.name,
+                                style: TextStyle(
+                                  color: kPrimaryColor,
+                                ),
                               ),
                             ),
                           ),
                           Text(
-                            // 'Until 24 Dec 2021',
                             'Untill ${DateFormat("dd MMM yyyy").format(promotion.endDate)}',
                             style: TextStyle(
                               color: Colors.grey,
@@ -56,23 +64,16 @@ class PromotionScreen extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      SizedBox(
-                        // width: 300,
-                        child: ReadMoreText(
-                          // 'Promotion Description',
-                          promotion.description,
-                          style: TextStyle(color: Colors.black),
-                          trimLines: 3,
-                          colorClickableText: kPrimaryColor,
-                          trimMode: TrimMode.Line,
-                          trimCollapsedText: 'Show more',
-                          trimExpandedText: 'Show less',
-                          moreStyle: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
-                        ),
+                      ReadMoreText(
+                        promotion.description,
+                        style: TextStyle(color: Colors.black),
+                        trimLines: 3,
+                        colorClickableText: kPrimaryColor,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: 'Show more',
+                        trimExpandedText: 'Show less',
+                        moreStyle: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -107,6 +108,10 @@ SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
             '${api}/image?path=${imgPath}',
             headers: {'Connection': 'keep-alive'},
             fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) => Icon(
+              Icons.image,
+              color: Colors.grey,
+            ),
           ),
         ),
       ]),

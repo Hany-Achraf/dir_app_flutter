@@ -1,8 +1,7 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/screens/destination/destination_screen.dart';
-import '../../../constants.dart';
 
 class DestinationsSlider extends StatelessWidget {
   final List<Destination> destinations = [];
@@ -45,43 +44,51 @@ class DestinationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    return Container(
-      margin: EdgeInsets.only(
-        left: kDefaultPadding,
-        top: kDefaultPadding / 2,
-        bottom: kDefaultPadding,
-      ),
-      width: size.width * 0.4,
-      child: GestureDetector(
-        onTap: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => DestinationScreen(destination: destination),
-            ),
-          );
-        },
+
+    return InkWell(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => DestinationScreen(destination: destination),
+          ),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.only(
+          left: kDefaultPadding,
+          top: kDefaultPadding / 2,
+          bottom: kDefaultPadding,
+        ),
         child: Column(
           children: <Widget>[
             Container(
-              height: 130,
+              height: size.height * 0.2,
+              width: size.width * 0.4,
+              decoration: BoxDecoration(
+                color: Color(0xFFE7EBEE),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(10),
+                  topRight: Radius.circular(10),
+                ),
+              ),
               child: ClipRRect(
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(10),
                   topRight: Radius.circular(10),
                 ),
-                child: CachedNetworkImage(
-                  imageUrl: '${url}/${destination.imgPath}',
+                child: Image.network(
+                  '$api/image?path=${destination.imgPath}',
                   fit: BoxFit.cover,
-                  progressIndicatorBuilder: (context, url, downloadProgress) =>
-                      Center(
-                          child:
-                              CircularProgressIndicator(color: kPrimaryColor)),
-                  errorWidget: (context, url, error) => Icon(Icons.error),
+                  errorBuilder: (context, url, error) => Icon(
+                    Icons.image,
+                    color: kPrimaryColor,
+                  ),
                 ),
               ),
             ),
             Container(
+              width: size.width * 0.4,
               padding: EdgeInsets.all(kDefaultPadding / 2),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -97,23 +104,16 @@ class DestinationCard extends StatelessWidget {
                   ),
                 ],
               ),
-              child: Row(
-                children: <Widget>[
-                  Flexible(
-                    child: RichText(
-                      overflow: TextOverflow.ellipsis,
-                      maxLines: 2,
-                      text: TextSpan(
-                        children: [
-                          TextSpan(
-                              text: "${destination.name}\n".toUpperCase(),
-                              style: Theme.of(context).textTheme.button),
-                        ],
-                      ),
-                    ),
-                  ),
-                  // Spacer(),
-                ],
+              child: RichText(
+                overflow: TextOverflow.ellipsis,
+                maxLines: 2,
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                        text: "${destination.name * 3}\n".toUpperCase(),
+                        style: Theme.of(context).textTheme.button),
+                  ],
+                ),
               ),
             ),
           ],

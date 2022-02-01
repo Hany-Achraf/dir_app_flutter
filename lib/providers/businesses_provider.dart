@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
@@ -20,8 +21,7 @@ class BusinessesProvider extends ChangeNotifier {
   bool gotNextPage = false;
   int currentPageNumber = 1;
 
-  void loadInitialBusinesses(
-      {int categoryId, int destinationId, int userId}) async {
+  void loadInitialBusinesses({int categoryId, int destinationId}) async {
     if (_businesses != null) {
       _businesses = null;
       currentPageNumber = 1;
@@ -35,10 +35,8 @@ class BusinessesProvider extends ChangeNotifier {
       route = 'destinations/$destinationId';
     } else {
       _isWishlist = true;
-      route = 'wishlist/$userId';
+      route = 'wishlist/${auth.user.id}';
     }
-
-    print('$api/$route');
 
     var response = await http.get(
       Uri.parse('$api/$route'),
@@ -47,6 +45,7 @@ class BusinessesProvider extends ChangeNotifier {
         'Authorization': 'Bearer ${auth.token}',
       },
     );
+
     if (response.statusCode == 200) {
       var responseJson = json.decode(response.body);
       gotNextPage = responseJson['next_page_url'] != null ? true : false;
@@ -62,8 +61,6 @@ class BusinessesProvider extends ChangeNotifier {
 
   Future<bool> loadMoreBusinesses() async {
     if (!gotNextPage) return false;
-
-    print('$api/$route?page=${currentPageNumber + 1}');
 
     var response = await http.get(
       Uri.parse('$api/$route?page=${++currentPageNumber}'),
@@ -87,11 +84,10 @@ class BusinessesProvider extends ChangeNotifier {
     return gotNextPage;
   }
 
-  void removeBusinessFromWishlist(
-      {@required int businessId, @required int userId}) async {
+  void removeBusinessFromWishlist({@required int businessId}) async {
     Map<String, dynamic> requestData = {
       'business_id': '$businessId',
-      'user_id': '$userId',
+      'user_id': '${auth.user.id}',
     };
     var response = await http.delete(
       Uri.parse('$api/wishlist/destroy'),

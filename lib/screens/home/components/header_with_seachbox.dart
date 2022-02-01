@@ -56,7 +56,7 @@ class HeaderWithSearchBox extends StatelessWidget {
             child: Center(child: _title()),
           ),
           Positioned(
-            height: MediaQuery.of(context).size.height * 0.07,
+            height: size.height * 0.07,
             bottom: 0,
             left: 0,
             right: 0,
