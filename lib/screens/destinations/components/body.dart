@@ -6,9 +6,10 @@ import 'package:pull_to_refresh/pull_to_refresh.dart';
 import 'destination_card.dart';
 
 class Body extends StatelessWidget {
+  final RefreshController refreshController = RefreshController();
+
   @override
   Widget build(BuildContext context) {
-    final refreshController = RefreshController();
     final destinations =
         Provider.of<DestinationsProvider>(context, listen: true).destinations;
 
@@ -61,10 +62,8 @@ class Body extends StatelessWidget {
                 itemCount: destinations.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  mainAxisSpacing:
-                      kDefaultPadding, // Chang may be considered here
-                  crossAxisSpacing: kDefaultPadding,
-                  childAspectRatio: 0.75,
+                  crossAxisSpacing: kDefaultPadding / 4,
+                  childAspectRatio: 0.85,
                 ),
                 itemBuilder: (context, index) => DestinationCard(
                   destination: destinations[index],

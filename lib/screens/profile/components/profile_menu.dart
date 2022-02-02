@@ -17,7 +17,8 @@ class ProfileMenu extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: EdgeInsets.symmetric(
+          horizontal: kDefaultPadding, vertical: kDefaultPadding / 2),
       child: FlatButton(
         padding: EdgeInsets.all(20),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
@@ -30,8 +31,12 @@ class ProfileMenu extends StatelessWidget {
               color: kPrimaryColor,
               width: 22,
             ),
-            SizedBox(width: 20),
-            Expanded(child: Text(text)),
+            SizedBox(width: MediaQuery.of(context).size.width * 0.05),
+            Expanded(
+                child: Text(
+              text,
+              style: TextStyle(fontSize: 16),
+            )),
             Icon(
               Icons.arrow_forward_ios,
               color: kPrimaryColor,

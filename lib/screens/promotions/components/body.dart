@@ -197,16 +197,10 @@ class _BodyState extends State<Body> {
                           height: MediaQuery.of(context).size.height * 0.7,
                           decoration: BoxDecoration(
                             color: Color(0xFFE7EBEE),
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                           ),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(10),
-                              topRight: Radius.circular(10),
-                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
                             child: Image.network(
                               '$api/image?path=${promotions[index].imgPath}',
                               headers: {'Connection': 'Keep-Alive'},

@@ -1,7 +1,5 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
-import 'package:plant_app/custom/custom_cache_manager.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';

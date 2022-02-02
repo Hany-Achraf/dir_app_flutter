@@ -110,7 +110,7 @@ class DestinationCard extends StatelessWidget {
                 text: TextSpan(
                   children: [
                     TextSpan(
-                        text: "${destination.name * 3}\n".toUpperCase(),
+                        text: "${destination.name}\n".toUpperCase(),
                         style: Theme.of(context).textTheme.button),
                   ],
                 ),

@@ -145,89 +145,86 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
       ),
       body: Form(
         key: _formKey,
-        child: Container(
+        child: SingleChildScrollView(
           padding: EdgeInsets.symmetric(
-            horizontal: 30,
-            vertical: 30,
+            horizontal: kDefaultPadding,
+            vertical: kDefaultPadding,
           ),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                SizedBox(
-                  height: 130,
-                  width: 130,
-                  child: Stack(
-                    fit: StackFit.expand,
-                    overflow: Overflow.visible,
-                    children: [
-                      FutureBuilder(
-                        future: file,
-                        builder: (context, snapshot) {
-                          if (snapshot.hasData) {
-                            imageFile = File(snapshot.data.path);
-                            return CircleAvatar(
-                              radius: MediaQuery.of(context).size.height * 0.12,
-                              backgroundColor: kPrimaryColor,
-                              backgroundImage: FileImage(imageFile),
-                            );
-                          }
-                          return userProvider.user.avatarImgPath != null
-                              ? CircleAvatar(
-                                  radius:
-                                      MediaQuery.of(context).size.height * 0.12,
-                                  backgroundColor: kPrimaryColor,
-                                  backgroundImage: NetworkImage(
-                                    '${api}/image?path=${userProvider.user.avatarImgPath}',
-                                    headers: {'Connection': 'keep-alive'},
-                                  ),
-                                )
-                              : CircleAvatar(
-                                  radius:
-                                      MediaQuery.of(context).size.height * 0.12,
-                                  backgroundColor: Color(0xFFE7EBEE),
-                                  child: Image.asset(
-                                    'assets/icons/avatar.png',
-                                    color: kPrimaryColor,
-                                  ),
-                                );
-                        },
-                      ),
-                      Positioned(
-                        right: -16,
-                        bottom: 0,
-                        child: SizedBox(
-                          height: 46,
-                          width: 46,
-                          child: FlatButton(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(65),
-                              side: BorderSide(color: Colors.white),
-                            ),
-                            color: Color(0xFFF5F6F9),
-                            onPressed: chooseImage,
-                            child: SvgPicture.asset(
-                                "assets/icons/Camera Icon.svg"),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                height: 130,
+                width: 130,
+                child: Stack(
+                  fit: StackFit.expand,
+                  overflow: Overflow.visible,
+                  children: [
+                    FutureBuilder(
+                      future: file,
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          imageFile = File(snapshot.data.path);
+                          return CircleAvatar(
+                            radius: MediaQuery.of(context).size.height * 0.12,
+                            backgroundColor: kPrimaryColor,
+                            backgroundImage: FileImage(imageFile),
+                          );
+                        }
+                        return userProvider.user.avatarImgPath != null
+                            ? CircleAvatar(
+                                radius:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                backgroundColor: kPrimaryColor,
+                                backgroundImage: NetworkImage(
+                                  '${api}/image?path=${userProvider.user.avatarImgPath}',
+                                  headers: {'Connection': 'keep-alive'},
+                                ),
+                              )
+                            : CircleAvatar(
+                                radius:
+                                    MediaQuery.of(context).size.height * 0.12,
+                                backgroundColor: Color(0xFFE7EBEE),
+                                child: Image.asset(
+                                  'assets/icons/avatar.png',
+                                  color: kPrimaryColor,
+                                ),
+                              );
+                      },
+                    ),
+                    Positioned(
+                      right: -16,
+                      bottom: 0,
+                      child: SizedBox(
+                        height: 46,
+                        width: 46,
+                        child: FlatButton(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(65),
+                            side: BorderSide(color: Colors.white),
                           ),
+                          color: Color(0xFFF5F6F9),
+                          onPressed: chooseImage,
+                          child:
+                              SvgPicture.asset("assets/icons/Camera Icon.svg"),
                         ),
                       ),
-                    ],
-                  ),
-                ),
-                // SizedBox(height: height * .1),
-                Column(
-                  children: <Widget>[
-                    _entryField("First name", _firstnameController),
-                    _entryField("Last name", _lastnameController),
+                    ),
                   ],
                 ),
-                SizedBox(
-                  height: 20,
-                ),
-                _submitButton(),
-              ],
-            ),
+              ),
+              Column(
+                children: <Widget>[
+                  _entryField("First name", _firstnameController),
+                  _entryField("Last name", _lastnameController),
+                ],
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              _submitButton(),
+            ],
           ),
         ),
       ),

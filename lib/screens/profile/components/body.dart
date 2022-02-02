@@ -13,8 +13,8 @@ class Body extends StatelessWidget {
   Widget build(BuildContext context) {
     User user = Provider.of<Auth>(context, listen: true).user;
 
-    return SingleChildScrollView(
-      padding: EdgeInsets.symmetric(vertical: 20),
+    return Container(
+      padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
       child: Column(
         children: [
           user.avatarImgPath != null
@@ -41,7 +41,7 @@ class Body extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 14),
+          SizedBox(height: MediaQuery.of(context).size.height * 0.02),
           ProfileMenu(
             text: 'Edit Profile',
             icon: 'assets/icons/User Icon.svg',

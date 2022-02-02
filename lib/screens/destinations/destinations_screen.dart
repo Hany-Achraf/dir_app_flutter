@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/delegates/custom_search_delegate.dart';
-import 'package:plant_app/models/destination_model.dart';
 import 'package:plant_app/providers/destinations_provider.dart';
 import 'package:plant_app/screens/destinations/components/body.dart';
 import 'package:provider/provider.dart';

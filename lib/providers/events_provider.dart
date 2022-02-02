@@ -22,8 +22,6 @@ class EventsProvider extends ChangeNotifier {
       currentPageNumber = 1;
     }
 
-    log('$api/events');
-
     var response = await http.get(
       Uri.parse('$api/events'),
       headers: {
@@ -47,8 +45,6 @@ class EventsProvider extends ChangeNotifier {
 
   Future<bool> loadMoreEvents() async {
     if (!gotNextPage) return false;
-
-    log('$api/events?page=${currentPageNumber + 1}');
 
     var response = await http.get(
       Uri.parse('$api/events?page=${++currentPageNumber}'),

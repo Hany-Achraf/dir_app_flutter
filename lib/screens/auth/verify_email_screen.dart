@@ -36,11 +36,6 @@ class VerifyEmailScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () {
-                  // Navigator.pushAndRemoveUntil(
-                  //   context,
-                  //   MaterialPageRoute(builder: (context) => HomeScreen()),
-                  //   ModalRoute.withName('/'),
-                  // );
                   Provider.of<Auth>(context, listen: false).getUser();
                 },
                 child: Container(

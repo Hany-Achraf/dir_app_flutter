@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/screens/auth/login_screen.dart';
-import 'package:plant_app/screens/auth/verify_email_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:hexcolor/hexcolor.dart';
@@ -249,9 +248,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 children: <Widget>[
                   _showErrorMessage ? _errorMessages() : Container(),
                   _emailPasswordWidget(),
-                  // SizedBox(height: 20),
                   _submitButton(),
-                  // SizedBox(height: height * .14),
                   _loginAccountLabel(),
                 ],
               ),

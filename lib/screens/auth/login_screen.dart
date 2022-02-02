@@ -121,68 +121,66 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
-  Widget _divider() {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        children: <Widget>[
-          SizedBox(
-            width: 20,
-          ),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          Text('or'),
-          Expanded(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              child: Divider(
-                thickness: 1,
-              ),
-            ),
-          ),
-          SizedBox(
-            width: 20,
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _divider() {
+  //   return Container(
+  //     margin: const EdgeInsets.symmetric(vertical: 10),
+  //     child: Row(
+  //       children: <Widget>[
+  //         SizedBox(
+  //           width: 20,
+  //         ),
+  //         Expanded(
+  //           child: Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 10),
+  //             child: Divider(
+  //               thickness: 1,
+  //             ),
+  //           ),
+  //         ),
+  //         Text('or'),
+  //         Expanded(
+  //           child: Padding(
+  //             padding: EdgeInsets.symmetric(horizontal: 10),
+  //             child: Divider(
+  //               thickness: 1,
+  //             ),
+  //           ),
+  //         ),
+  //         SizedBox(
+  //           width: 20,
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget _googleButton() {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: SignInButton(
-        Buttons.Google,
-        // text: 'Continue with Google',
-        onPressed: () {},
-      ),
-    );
-  }
+  // Widget _googleButton() {
+  //   return Container(
+  //     height: 50,
+  //     margin: EdgeInsets.symmetric(vertical: 5),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.all(Radius.circular(10)),
+  //     ),
+  //     child: SignInButton(
+  //       Buttons.Google,
+  //       onPressed: () {},
+  //     ),
+  //   );
+  // }
 
-  Widget _facebookButton() {
-    return Container(
-      height: 50,
-      margin: EdgeInsets.symmetric(vertical: 5),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(10)),
-      ),
-      child: SignInButton(
-        Buttons.Facebook,
-        // text: 'Continue with Facebook',
-        onPressed: () {},
-      ),
-    );
-  }
+  // Widget _facebookButton() {
+  //   return Container(
+  //     height: 50,
+  //     margin: EdgeInsets.symmetric(vertical: 5),
+  //     decoration: BoxDecoration(
+  //       borderRadius: BorderRadius.all(Radius.circular(10)),
+  //     ),
+  //     child: SignInButton(
+  //       Buttons.Facebook,
+  //       onPressed: () {},
+  //     ),
+  //   );
+  // }
 
   Widget _createAccountLabel() {
     return Container(
@@ -251,8 +249,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
-
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -303,10 +299,9 @@ class _LoginScreenState extends State<LoginScreen> {
                       ),
                     ),
                   ),
-                  _divider(),
-                  _facebookButton(),
-                  _googleButton(),
-                  // SizedBox(height: height * .055),
+                  // _divider(),
+                  // _facebookButton(),
+                  // _googleButton(),
                   _createAccountLabel(),
                 ],
               ),

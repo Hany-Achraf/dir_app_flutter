@@ -33,51 +33,35 @@ class EventScreen extends StatelessWidget {
                       SizedBox(
                         height: 8,
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.loose,
-                            child: Text(
-                              // 'Business Name',
-                              event.organizer,
-                              style: TextStyle(
-                                color: kPrimaryColor,
-                              ),
-                            ),
-                          ),
-                          Text(
-                            // 'On 24 Dec 2021',
-                            // 'On ${DateFormat("dd MMM yyyy").format(event.date)}',
-                            'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.dateTime)}',
-                            style: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                      SizedBox(
-                        // width: 300,
-                        child: ReadMoreText(
-                          // 'Event Description',
-                          event.description,
-                          style: TextStyle(color: Colors.black),
-                          trimLines: 3,
-                          colorClickableText: kPrimaryColor,
-                          trimMode: TrimMode.Line,
-                          trimCollapsedText: 'Show more',
-                          trimExpandedText: 'Show less',
-                          moreStyle: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                      Text(
+                        'Organized by: ${event.organizer}',
+                        style: TextStyle(
+                          color: kPrimaryColor,
                         ),
                       ),
                       SizedBox(
                         height: 8,
+                      ),
+                      Text(
+                        'On ${DateFormat("E, dd-MM-yyyy (hh:mm a)").format(event.dateTime)}',
+                        style: TextStyle(
+                          color: Colors.grey,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 8,
+                      ),
+                      ReadMoreText(
+                        event.description,
+                        style: TextStyle(color: Colors.black),
+                        trimLines: 3,
+                        colorClickableText: kPrimaryColor,
+                        trimMode: TrimMode.Line,
+                        trimCollapsedText: 'Show more',
+                        trimExpandedText: 'Show less',
+                        moreStyle: TextStyle(
+                            fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -112,6 +96,10 @@ SliverAppBar customAppBar(BuildContext context, {String imgPath}) {
             '${api}/image?path=${imgPath}',
             headers: {'Connection': 'keep-alive'},
             fit: BoxFit.fill,
+            errorBuilder: (context, error, stackTrace) => Icon(
+              Icons.image,
+              color: Colors.grey,
+            ),
           ),
         ),
       ]),
