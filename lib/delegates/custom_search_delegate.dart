@@ -1,4 +1,3 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/search_provider.dart';

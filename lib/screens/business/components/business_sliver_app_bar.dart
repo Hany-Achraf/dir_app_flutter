@@ -32,8 +32,7 @@ class BusinessSliverAppBar extends StatelessWidget {
         onPressed: () => Navigator.pop(context),
       ),
       elevation: 0.0,
-      // backgroundColor: kPrimaryColor,
-      expandedHeight: 280,
+      expandedHeight: MediaQuery.of(context).size.height * 0.45,
       pinned: true,
       floating: false,
       flexibleSpace: FlexibleSpaceBar(
@@ -43,6 +42,10 @@ class BusinessSliverAppBar extends StatelessWidget {
               '$api/image?path=$coverImgPath',
               headers: {'Connection': 'keep-alive'},
               fit: BoxFit.fill,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.image,
+                color: Colors.grey,
+              ),
             ),
           ),
         ]),

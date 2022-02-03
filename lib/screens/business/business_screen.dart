@@ -11,10 +11,9 @@ import 'package:plant_app/screens/business/components/business_photos.dart';
 import 'package:plant_app/screens/business/delegates/sliver_persistent_header_delegate_impl.dart';
 import 'package:plant_app/services/auth.dart';
 import 'package:provider/provider.dart';
-import 'package:tuple/tuple.dart';
 
 class BusinessScreen extends StatefulWidget {
-  int businessId;
+  final int businessId;
   BusinessScreen({@required this.businessId});
 
   @override
@@ -90,7 +89,6 @@ class _BusinessScreenState extends State<BusinessScreen>
           children: [
             BusinessInfo(
               business: business,
-              user: user,
             ),
             BusinessPhotos(
               business: business,

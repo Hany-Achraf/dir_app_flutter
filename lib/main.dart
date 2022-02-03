@@ -95,7 +95,7 @@ class _MyAppState extends State<MyApp> {
   void readToken() async {
     String token = await storage.read(key: 'token');
     Provider.of<Auth>(context, listen: false).tryToken(token: token);
-    print(token);
+    // print(token);
   }
 
   @override

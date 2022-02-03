@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
-import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/screens/business/components/gallery_screen.dart';
-import 'package:provider/provider.dart';
 
 class BusinessPhotos extends StatelessWidget {
   final Business business;
@@ -39,13 +37,18 @@ class BusinessPhotos extends StatelessWidget {
                   },
                   child: Container(
                     decoration: BoxDecoration(
+                      color: Color(0xFFE7EBEE),
                       borderRadius: BorderRadius.circular(2),
                       image: DecorationImage(
                         image: NetworkImage(
                           '$api/image?path=${photos[index]}',
                           headers: {'Connection': 'keep-alive'},
                         ),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
+                        // onError: (exception, stackTrace) => Icon(
+                        //   Icons.image,
+                        //   color: kPrimaryColor,
+                        // ),
                       ),
                     ),
                   ),

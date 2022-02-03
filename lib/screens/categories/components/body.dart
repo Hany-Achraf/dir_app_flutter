@@ -12,7 +12,6 @@ class Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final refreshController = RefreshController();
     final List<Category> categories =
         Provider.of<CategoriesProvider>(context, listen: true).categories;
 

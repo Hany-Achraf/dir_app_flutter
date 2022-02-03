@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
-
-import '../../../constants.dart';
-
-// We need satefull widget for our categories
 
 class SubcategoriesSlider extends StatefulWidget {
   final int parentCategoryId;

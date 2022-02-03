@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:plant_app/constants.dart';
@@ -7,7 +6,6 @@ import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/event_model.dart';
 import 'package:plant_app/models/promotion_model.dart';
 import 'package:plant_app/services/auth.dart';
-import 'package:provider/provider.dart';
 
 class SearchProvider extends ChangeNotifier {
   final Auth auth;

@@ -104,7 +104,6 @@ class Body extends StatelessWidget {
                         },
                         child: Container(
                           margin: EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-                          // height: 150,
                           height: MediaQuery.of(context).size.height * 0.2,
                           decoration: BoxDecoration(
                             color: Colors.white,
@@ -120,8 +119,6 @@ class Body extends StatelessWidget {
                           child: Row(
                             children: [
                               Container(
-                                // height: 100,
-                                // width: 100,
                                 height:
                                     MediaQuery.of(context).size.height * 0.14,
                                 width:
@@ -129,18 +126,17 @@ class Body extends StatelessWidget {
                                 margin: EdgeInsets.only(left: 8.0, right: 8.0),
                                 child: Container(
                                   decoration: BoxDecoration(
+                                    color: Color(0xFFE7EBEE),
                                     border: Border.all(
                                       width: 2,
                                       color: Colors.grey,
                                     ),
-                                    // borderRadius: BorderRadius.circular(50),
                                     borderRadius: BorderRadius.circular(
                                         MediaQuery.of(context).size.height *
                                             0.14 /
                                             2),
                                   ),
                                   child: ClipRRect(
-                                    // borderRadius: BorderRadius.circular(50),
                                     borderRadius: BorderRadius.circular(
                                         MediaQuery.of(context).size.height *
                                             0.14 /
@@ -148,14 +144,18 @@ class Body extends StatelessWidget {
                                     child: Image.network(
                                       '${api}/image?path=${business.iconImgPath}',
                                       headers: {'Connection': 'keep-alive'},
-                                      fit: BoxFit.contain,
+                                      fit: BoxFit.fill,
+                                      errorBuilder:
+                                          (context, error, stackTrace) => Icon(
+                                        Icons.image,
+                                        color: kPrimaryColor,
+                                      ),
                                     ),
                                   ),
                                 ),
                               ),
                               Container(
-                                // width: 255,
-                                width: MediaQuery.of(context).size.width * 0.63,
+                                width: MediaQuery.of(context).size.width * 0.55,
                                 decoration: BoxDecoration(
                                   borderRadius: BorderRadius.only(
                                     topRight: Radius.circular(20),
@@ -176,10 +176,9 @@ class Body extends StatelessWidget {
                                       ),
                                     ),
                                     _buildRatingStars(business.avgRate),
-                                    SizedBox(height: 10.0),
+                                    SizedBox(height: 8.0),
                                     Container(
                                       padding: EdgeInsets.all(5.0),
-                                      // width: 210.0,
                                       width: MediaQuery.of(context).size.width *
                                           0.55,
                                       decoration: BoxDecoration(

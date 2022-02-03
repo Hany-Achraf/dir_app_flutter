@@ -1,4 +1,4 @@
-import 'business_model.dart';
+import 'package:plant_app/models/business_model.dart';
 
 class Promotion {
   final int id;

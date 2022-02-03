@@ -55,6 +55,15 @@ class _GalleryScreenState extends State<GalleryScreen> {
                 '$api/image?path=${businessPhotos[index]}',
                 headers: {'Connection': 'keep-alive'},
               ),
+              errorBuilder: (context, error, stackTrace) => Container(
+                    decoration: BoxDecoration(
+                      color: Colors.black,
+                    ),
+                    child: Icon(
+                      Icons.image,
+                      color: Colors.white,
+                    ),
+                  ),
               minScale: PhotoViewComputedScale.contained * 0.8,
               maxScale: PhotoViewComputedScale.covered * 2);
         },
@@ -67,7 +76,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
             decoration: BoxDecoration(color: Colors.black),
             child: Center(
               child: CircularProgressIndicator(
-                color: kPrimaryColor,
+                color: Colors.white,
               ),
             ),
           );

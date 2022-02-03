@@ -1,9 +1,6 @@
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:plant_app/components/my_bottom_nav_bar.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/delegates/custom_search_delegate.dart';
-import 'package:plant_app/models/category_model.dart';
 import 'package:plant_app/providers/categories_provider.dart';
 import 'package:plant_app/screens/categories/components/body.dart';
 import 'package:provider/provider.dart';
@@ -42,17 +39,19 @@ class _CategoriesScreenState extends State<CategoriesScreen> {
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.search,
-            color: kPrimaryColor,
-            size: 30.0,
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: IconButton(
+            icon: Icon(
+              Icons.search,
+              color: kPrimaryColor,
+              size: 30.0,
+            ),
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            },
           ),
-          onPressed: () {
-            showSearch(context: context, delegate: CustomSearchDelegate());
-          },
-        ),
-        SizedBox(width: kDefaultPadding / 2)
+        )
       ],
     );
   }

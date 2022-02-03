@@ -52,89 +52,79 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
           padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
           child: Column(
             children: [
-              Center(
-                child: Text(
-                  'What is your rate?',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
+              Text(
+                'What is your rate?',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 25,
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  for (int i = 0; i < 5; i++) Star(i),
+                ],
+              ),
+              Text(
+                'Please share your comment about the place',
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                ),
+              ),
+              Container(
+                margin: EdgeInsets.all(8),
+                width: MediaQuery.of(context).size.width * 0.85,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: TextField(
+                  controller: _commentController,
+                  minLines: 3,
+                  maxLines: null,
+                  keyboardType: TextInputType.multiline,
+                  cursorColor: kPrimaryColor,
+                  decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                      borderSide: BorderSide(
+                        color: kPrimaryColor,
+                        width: 2.0,
+                      ),
+                    ),
+                    enabledBorder: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                    ),
+                    hintText: 'Write your comment',
+                    labelStyle: const TextStyle(
+                      color: Colors.grey,
+                    ),
                   ),
                 ),
               ),
-              Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    for (int i = 0; i < 5; i++) Star(i),
-                  ],
-                ),
-              ),
-              Center(
-                child: Text(
-                  'Please share your comme about the place',
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                ),
-              ),
-              Center(
+              TextButton(
+                onPressed: () {
+                  Map<String, dynamic> requestJson = {
+                    'rate': '${rate + 1}',
+                    'comment': _commentController.text,
+                  };
+                  Provider.of<BusinessProvider>(context, listen: false)
+                      .addReview(requestJson);
+                  Navigator.of(context).pop();
+                },
                 child: Container(
-                  margin: EdgeInsets.all(8),
-                  width: 350,
+                  padding: EdgeInsets.all(8),
+                  width: MediaQuery.of(context).size.width * 0.85,
+                  height: 50,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: kPrimaryColor,
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  child: TextField(
-                    controller: _commentController,
-                    minLines: 3,
-                    maxLines: null,
-                    keyboardType: TextInputType.multiline,
-                    cursorColor: kPrimaryColor,
-                    decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: kPrimaryColor,
-                          width: 2.0,
-                        ),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.grey, width: 2.0),
-                      ),
-                      hintText: 'Write your comment',
-                      labelStyle: const TextStyle(
-                        color: Colors.grey,
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              Center(
-                child: TextButton(
-                  onPressed: () {
-                    Map<String, dynamic> requestJson = {
-                      'rate': '${rate + 1}',
-                      'comment': _commentController.text,
-                    };
-                    Provider.of<BusinessProvider>(context, listen: false)
-                        .addReview(requestJson);
-                    Navigator.of(context).pop();
-                  },
-                  child: Container(
-                    padding: EdgeInsets.all(8),
-                    width: 350,
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: kPrimaryColor,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Center(
-                      child: Text(
-                        'Submit review',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
+                  child: Center(
+                    child: Text(
+                      'Submit review',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
                       ),
                     ),
                   ),

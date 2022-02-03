@@ -29,6 +29,13 @@ class CategoryCard extends StatelessWidget {
                 '${api}/image?path=${category.imgPath}',
                 headers: {'Connection': 'keep-alive'},
                 color: kPrimaryColor,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  width: MediaQuery.of(context).size.width,
+                  child: Icon(
+                    Icons.image,
+                    color: kPrimaryColor,
+                  ),
+                ),
               ),
             ),
           ),

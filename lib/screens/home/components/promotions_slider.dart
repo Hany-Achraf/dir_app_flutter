@@ -103,7 +103,7 @@ class PromotionCard extends StatelessWidget {
             ),
             Container(
               margin: const EdgeInsets.only(left: 8),
-              width: size.width * 0.49,
+              width: size.width * 0.48,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 crossAxisAlignment: CrossAxisAlignment.start,

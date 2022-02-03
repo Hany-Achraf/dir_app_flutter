@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';

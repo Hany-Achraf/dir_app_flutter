@@ -32,7 +32,7 @@ class _DestinationScreenState extends State<DestinationScreen> {
     );
   }
 
-  RefreshController refreshController = RefreshController();
+  final RefreshController refreshController = RefreshController();
 
   @override
   void initState() {
@@ -100,7 +100,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                           },
                           child: Container(
                             margin: EdgeInsets.fromLTRB(20.0, 8.0, 20.0, 8.0),
-                            // height: 150,
                             height: MediaQuery.of(context).size.height * 0.2,
                             decoration: BoxDecoration(
                               color: Colors.white,
@@ -116,8 +115,6 @@ class _DestinationScreenState extends State<DestinationScreen> {
                             child: Row(
                               children: [
                                 Container(
-                                  // height: 100,
-                                  // width: 100,
                                   height:
                                       MediaQuery.of(context).size.height * 0.14,
                                   width:
@@ -126,18 +123,17 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                       EdgeInsets.only(left: 8.0, right: 8.0),
                                   child: Container(
                                     decoration: BoxDecoration(
+                                      color: Color(0xFFE7EBEE),
                                       border: Border.all(
                                         width: 2,
                                         color: Colors.grey,
                                       ),
-                                      // borderRadius: BorderRadius.circular(50),
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.height *
                                               0.14 /
                                               2),
                                     ),
                                     child: ClipRRect(
-                                      // borderRadius: BorderRadius.circular(50),
                                       borderRadius: BorderRadius.circular(
                                           MediaQuery.of(context).size.height *
                                               0.14 /
@@ -146,12 +142,17 @@ class _DestinationScreenState extends State<DestinationScreen> {
                                         '${api}/image?path=${business.iconImgPath}',
                                         headers: {'Connection': 'keep-alive'},
                                         fit: BoxFit.fill,
+                                        errorBuilder:
+                                            (context, error, stackTrace) =>
+                                                Icon(
+                                          Icons.image,
+                                          color: kPrimaryColor,
+                                        ),
                                       ),
                                     ),
                                   ),
                                 ),
                                 Container(
-                                  // width: 255,
                                   width:
                                       MediaQuery.of(context).size.width * 0.63,
                                   decoration: BoxDecoration(
@@ -241,22 +242,34 @@ SliverAppBar customAppBar(BuildContext context,
         ),
       ),
     ],
-    // expandedHeight: 400,
     expandedHeight: MediaQuery.of(context).size.height / 1.9,
     flexibleSpace: FlexibleSpaceBar(
       background: Container(
         decoration: BoxDecoration(
           color: kBackgroundColor,
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(20),
-            bottomLeft: Radius.circular(20),
+        child: Container(
+          decoration: BoxDecoration(
+            color: kPrimaryColor,
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+            ),
           ),
-          child: Image.network(
-            '${api}/image?path=${imgPath}',
-            headers: {'Connection': 'keep-alive'},
-            fit: BoxFit.cover,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              bottomRight: Radius.circular(20),
+              bottomLeft: Radius.circular(20),
+            ),
+            child: Image.network(
+              '${api}/image?path=${imgPath}',
+              headers: {'Connection': 'keep-alive'},
+              fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) => Icon(
+                Icons.image,
+                color: Colors.grey,
+              ),
+            ),
           ),
         ),
       ),

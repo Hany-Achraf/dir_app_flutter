@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
-import 'package:plant_app/models/user_model.dart';
 import 'package:plant_app/providers/business_provider.dart';
 import 'package:plant_app/providers/businesses_provider.dart';
 import 'package:provider/provider.dart';
@@ -11,19 +10,22 @@ import 'package:readmore/readmore.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-class BusinessInfo extends StatelessWidget {
+class BusinessInfo extends StatefulWidget {
   final Business business;
-  final User user;
+  BusinessInfo({@required this.business});
 
-  BusinessInfo({@required this.business, @required this.user});
+  @override
+  State<BusinessInfo> createState() => _BusinessInfoState();
+}
 
+class _BusinessInfoState extends State<BusinessInfo> {
   WebViewController _controller;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(8),
-      child: SingleChildScrollView(
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.all(8),
         child: Column(
           children: [
             SizedBox(
@@ -37,7 +39,7 @@ class BusinessInfo extends StatelessWidget {
                   flex: 1,
                   fit: FlexFit.loose,
                   child: Text(
-                    business.name,
+                    widget.business.name,
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
@@ -56,12 +58,13 @@ class BusinessInfo extends StatelessWidget {
                             .isWishlist;
                     if (comingFromWishlistScreen) {
                       Provider.of<BusinessesProvider>(context, listen: false)
-                          .removeFromWishlistScreen(businessId: business.id);
+                          .removeFromWishlistScreen(
+                              businessId: widget.business.id);
                     }
                   },
                   padding: EdgeInsets.zero,
                   alignment: Alignment.topCenter,
-                  icon: business.onUserWishlist
+                  icon: widget.business.onUserWishlist
                       ? Icon(
                           Icons.favorite,
                           color: Colors.red,
@@ -83,22 +86,22 @@ class BusinessInfo extends StatelessWidget {
                 Flexible(
                   flex: 1,
                   fit: FlexFit.loose,
-                  child: _buildRatingStars(business.avgRate),
+                  child: _buildRatingStars(widget.business.avgRate),
                 ),
-                business.instagramLink != null
+                widget.business.instagramLink != null
                     ? IconButton(
                         onPressed: () async {
-                          print(business.instagramLink);
-                          await launch(business.instagramLink);
+                          print(widget.business.instagramLink);
+                          await launch(widget.business.instagramLink);
                         },
                         icon: Image.asset('assets/icons/instagram.png'),
                       )
                     : Container(),
-                business.facebookLink != null
+                widget.business.facebookLink != null
                     ? IconButton(
                         onPressed: () async {
-                          print(business.facebookLink);
-                          await launch(business.facebookLink);
+                          print(widget.business.facebookLink);
+                          await launch(widget.business.facebookLink);
                         },
                         padding: EdgeInsets.zero,
                         icon: FaIcon(
@@ -113,10 +116,10 @@ class BusinessInfo extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            business.description != null
+            widget.business.description != null
                 ? SizedBox(
                     child: ReadMoreText(
-                      business.description,
+                      widget.business.description,
                       style: TextStyle(color: Colors.black),
                       trimLines: 3,
                       colorClickableText: kPrimaryColor,
@@ -131,10 +134,10 @@ class BusinessInfo extends StatelessWidget {
             SizedBox(
               height: 8,
             ),
-            business.websiteLink != null
+            widget.business.websiteLink != null
                 ? InkWell(
                     onTap: () async {
-                      await launch(business.websiteLink);
+                      await launch(widget.business.websiteLink);
                     },
                     child: Row(
                       children: [
@@ -150,7 +153,7 @@ class BusinessInfo extends StatelessWidget {
                           flex: 1,
                           fit: FlexFit.loose,
                           child: Text(
-                            business.websiteLink,
+                            widget.business.websiteLink,
                             style: TextStyle(
                               color: kPrimaryColor,
                             ),
@@ -165,7 +168,7 @@ class BusinessInfo extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                launch(business.linkOnGoogleMaps);
+                launch(widget.business.linkOnGoogleMaps);
               },
               child: Row(
                 children: [
@@ -177,7 +180,7 @@ class BusinessInfo extends StatelessWidget {
                     flex: 1,
                     fit: FlexFit.loose,
                     child: Text(
-                      business.address,
+                      widget.business.address,
                       style: TextStyle(
                         color: kPrimaryColor,
                       ),
@@ -203,7 +206,7 @@ class BusinessInfo extends StatelessWidget {
                   flex: 1,
                   fit: FlexFit.loose,
                   child: Text(
-                    business.workingTime,
+                    widget.business.workingTime,
                     style: TextStyle(
                       color: kPrimaryColor,
                     ),
@@ -228,7 +231,7 @@ class BusinessInfo extends StatelessWidget {
                   flex: 1,
                   fit: FlexFit.loose,
                   child: Text(
-                    'Call us ${business.phoneNo}',
+                    'Call us ${widget.business.phoneNo}',
                     style: TextStyle(
                       color: kPrimaryColor,
                     ),
@@ -244,7 +247,7 @@ class BusinessInfo extends StatelessWidget {
               height: 280,
               child: WebView(
                 navigationDelegate: (navigation) {
-                  launch(business.linkOnGoogleMaps);
+                  launch(widget.business.linkOnGoogleMaps);
                   return null;
                 },
                 javascriptMode: JavascriptMode.unrestricted,
@@ -258,7 +261,7 @@ class BusinessInfo extends StatelessWidget {
                 onWebViewCreated: (controller) {
                   _controller = controller;
                   loadLocalHtml(
-                      iframeOnGoogleMaps: business.iframeOnGoogleMaps);
+                      iframeOnGoogleMaps: widget.business.iframeOnGoogleMaps);
                 },
               ),
             ),

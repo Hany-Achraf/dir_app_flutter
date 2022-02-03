@@ -39,17 +39,19 @@ class _DestinationsScreenState extends State<DestinationsScreen> {
         onPressed: () => Navigator.pop(context),
       ),
       actions: <Widget>[
-        IconButton(
-          icon: Icon(
-            Icons.search,
-            color: kPrimaryColor,
-            size: 30.0,
+        Padding(
+          padding: const EdgeInsets.only(right: 8.0),
+          child: IconButton(
+            icon: Icon(
+              Icons.search,
+              color: kPrimaryColor,
+              size: 30.0,
+            ),
+            onPressed: () {
+              showSearch(context: context, delegate: CustomSearchDelegate());
+            },
           ),
-          onPressed: () {
-            showSearch(context: context, delegate: CustomSearchDelegate());
-          },
-        ),
-        SizedBox(width: kDefaultPadding / 2)
+        )
       ],
     );
   }

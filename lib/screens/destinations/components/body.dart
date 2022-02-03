@@ -62,8 +62,12 @@ class Body extends StatelessWidget {
                 itemCount: destinations.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: kDefaultPadding / 4,
-                  childAspectRatio: 0.85,
+                  // crossAxisSpacing: kDefaultPadding / 4,
+                  // mainAxisSpacing: kDefaultPadding / 4,
+                  // childAspectRatio: 0.85,
+                  mainAxisSpacing: kDefaultPadding / 2,
+                  crossAxisSpacing: kDefaultPadding,
+                  childAspectRatio: 0.65,
                 ),
                 itemBuilder: (context, index) => DestinationCard(
                   destination: destinations[index],

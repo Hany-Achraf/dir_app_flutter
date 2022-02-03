@@ -58,14 +58,13 @@ class _BusinessReviewsState extends State<BusinessReviews> {
       builder: (context) {
         return Container(
           decoration: BoxDecoration(
-            color: kBackgroundColor,
+            color: Color(0xFFE7EBEE),
             borderRadius: BorderRadius.only(
               topLeft: const Radius.circular(20),
               topRight: const Radius.circular(20),
             ),
           ),
-          height: 60,
-          // height: MediaQuery.of(context).size.height * 0.1,
+          height: MediaQuery.of(context).size.height * 0.08,
           child: _buildBottomMenu(),
         );
       },
@@ -81,6 +80,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           children: [
             review.reviewer.avatarImgPath != null
                 ? CircleAvatar(
+                    backgroundColor: Color(0xFFE7EBEE),
                     backgroundImage: NetworkImage(
                       '$api/image?path=${review.reviewer.avatarImgPath}',
                       headers: {'Connection': 'keep-alive'},
@@ -107,47 +107,47 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                 _showBottomMenu();
               },
               child: Container(
+                width: MediaQuery.of(context).size.width * 0.8,
                 margin: EdgeInsets.only(left: 8),
                 padding: EdgeInsets.all(8),
                 decoration: BoxDecoration(
                     color: Colors.grey.shade400,
                     borderRadius: BorderRadius.circular(5)),
                 child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(review.reviewer.getFullName(),
-                          style: TextStyle(
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          _buildRatingStars(review.rate),
-                          SizedBox(
-                            width: 90,
-                          ),
-                          Text(
-                            DateFormat('dd MMM yyyy').format(review.date),
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 15),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        width: 300,
-                        child: ReadMoreText(
-                          review.comment,
-                          style: TextStyle(color: Colors.black),
-                          trimLines: 2,
-                          colorClickableText: kPrimaryColor,
-                          trimMode: TrimMode.Line,
-                          trimCollapsedText: 'Show more',
-                          trimExpandedText: 'Show less',
-                          moreStyle: TextStyle(
-                              fontSize: 14, fontWeight: FontWeight.bold),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      review.reviewer.getFullName(),
+                      style: TextStyle(
+                          color: Colors.black, fontWeight: FontWeight.bold),
+                    ),
+                    Row(
+                      children: [
+                        Flexible(
+                          flex: 1,
+                          fit: FlexFit.loose,
+                          child: _buildRatingStars(review.rate),
                         ),
-                      ),
-                    ]),
+                        Text(
+                          DateFormat('dd MMM yyyy').format(review.date),
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    ReadMoreText(
+                      review.comment,
+                      style: TextStyle(color: Colors.black),
+                      trimLines: 2,
+                      colorClickableText: kPrimaryColor,
+                      trimMode: TrimMode.Line,
+                      trimCollapsedText: 'Show more',
+                      trimExpandedText: 'Show less',
+                      moreStyle:
+                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    ),
+                  ],
+                ),
               ),
             ),
           ]),
@@ -173,9 +173,9 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           _bottomMenuIsShown = false;
         }
       },
-      child: Container(
-        margin: EdgeInsets.all(4),
-        child: SingleChildScrollView(
+      child: SingleChildScrollView(
+        child: Container(
+          margin: EdgeInsets.all(4),
           child: renderReviewsList(widget.business.reviews),
         ),
       ),

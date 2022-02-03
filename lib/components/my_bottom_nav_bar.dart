@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:plant_app/providers/my_bottom_nav_provider.dart';
-import 'package:plant_app/screens/home/home_screen.dart';
 import 'package:plant_app/screens/profile/profile_screen.dart';
 import 'package:plant_app/screens/wishlist/wishlist_screen.dart';
 import 'package:provider/provider.dart';
