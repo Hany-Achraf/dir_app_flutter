@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:plant_app/constants.dart';
@@ -34,8 +35,7 @@ class _GalleryScreenState extends State<GalleryScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            // color: kPrimaryColor,
-            size: 30.0,
+            size: 90.sp,
           ),
           onPressed: () => Navigator.pop(context),
         ),
@@ -51,21 +51,22 @@ class _GalleryScreenState extends State<GalleryScreen> {
         },
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-              imageProvider: NetworkImage(
-                '$api/image?path=${businessPhotos[index]}',
-                headers: {'Connection': 'keep-alive'},
+            imageProvider: NetworkImage(
+              '$api/image?path=${businessPhotos[index]}',
+              headers: {'Connection': 'keep-alive'},
+            ),
+            errorBuilder: (context, error, stackTrace) => Container(
+              decoration: BoxDecoration(
+                color: Colors.black,
               ),
-              errorBuilder: (context, error, stackTrace) => Container(
-                    decoration: BoxDecoration(
-                      color: Colors.black,
-                    ),
-                    child: Icon(
-                      Icons.image,
-                      color: Colors.white,
-                    ),
-                  ),
-              minScale: PhotoViewComputedScale.contained * 0.8,
-              maxScale: PhotoViewComputedScale.covered * 2);
+              child: Icon(
+                Icons.image,
+                color: Colors.white,
+              ),
+            ),
+            minScale: PhotoViewComputedScale.contained * 0.8,
+            maxScale: PhotoViewComputedScale.covered * 2,
+          );
         },
         scrollPhysics: BouncingScrollPhysics(),
         backgroundDecoration: BoxDecoration(

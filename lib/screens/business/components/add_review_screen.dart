@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/models/user_model.dart';
@@ -30,7 +31,7 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
       child: Icon(
         Icons.star,
         color: rate < index ? Colors.grey.shade300 : Colors.yellow,
-        size: 60,
+        size: 220.sp,
       ),
     );
   }
@@ -42,21 +43,20 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
         leading: IconButton(
           icon: Icon(
             Icons.arrow_back_ios,
-            size: 30.0,
+            size: 90.sp,
           ),
           onPressed: () => Navigator.pop(context),
         ),
       ),
       body: Center(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: kDefaultPadding),
           child: Column(
             children: [
               Text(
                 'What is your rate?',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
-                  fontSize: 25,
+                  fontSize: 95.sp,
                 ),
               ),
               Row(
@@ -65,16 +65,8 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   for (int i = 0; i < 5; i++) Star(i),
                 ],
               ),
-              Text(
-                'Please share your comment about the place',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
-                ),
-              ),
               Container(
-                margin: EdgeInsets.all(8),
-                width: MediaQuery.of(context).size.width * 0.85,
+                margin: EdgeInsets.symmetric(horizontal: 100.w, vertical: 24.h),
                 decoration: BoxDecoration(
                   color: Colors.white,
                 ),
@@ -88,11 +80,11 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                     focusedBorder: OutlineInputBorder(
                       borderSide: BorderSide(
                         color: kPrimaryColor,
-                        width: 2.0,
+                        width: 10.sp,
                       ),
                     ),
                     enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.grey, width: 2.0),
+                      borderSide: BorderSide(color: Colors.grey, width: 10.sp),
                     ),
                     hintText: 'Write your comment',
                     labelStyle: const TextStyle(
@@ -112,19 +104,19 @@ class _AddReviewScreenState extends State<AddReviewScreen> {
                   Navigator.of(context).pop();
                 },
                 child: Container(
-                  padding: EdgeInsets.all(8),
-                  width: MediaQuery.of(context).size.width * 0.85,
-                  height: 50,
+                  margin:
+                      EdgeInsets.symmetric(horizontal: 75.w, vertical: 24.h),
+                  height: 220.h,
                   decoration: BoxDecoration(
                     color: kPrimaryColor,
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(20.r),
                   ),
                   child: Center(
                     child: Text(
                       'Submit review',
                       style: TextStyle(
                         color: Colors.white,
-                        fontSize: 20,
+                        fontSize: 80.sp,
                       ),
                     ),
                   ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plant_app/constants.dart';
 
 class BusinessSliverAppBar extends StatelessWidget {
@@ -27,12 +28,12 @@ class BusinessSliverAppBar extends StatelessWidget {
       leading: IconButton(
         icon: Icon(
           Icons.arrow_back_ios,
-          size: 30.0,
+          size: 90.sp,
         ),
         onPressed: () => Navigator.pop(context),
       ),
       elevation: 0.0,
-      expandedHeight: MediaQuery.of(context).size.height * 0.45,
+      expandedHeight: 0.5.sh,
       pinned: true,
       floating: false,
       flexibleSpace: FlexibleSpaceBar(

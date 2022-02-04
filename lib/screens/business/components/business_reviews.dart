@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
@@ -26,9 +27,10 @@ class _BusinessReviewsState extends State<BusinessReviews> {
     List<Icon> ratingStars = [];
     for (int i = 0; i < 5; i++) {
       if (i < rating)
-        ratingStars.add(Icon(Icons.star, color: Colors.yellow));
+        ratingStars.add(Icon(Icons.star, color: Colors.yellow, size: 80.sp));
       else
-        ratingStars.add(Icon(Icons.star, color: Colors.grey.shade300));
+        ratingStars
+            .add(Icon(Icons.star, color: Colors.grey.shade300, size: 80.sp));
     }
     return Row(
       children: ratingStars,
@@ -40,7 +42,10 @@ class _BusinessReviewsState extends State<BusinessReviews> {
       children: [
         ListTile(
           leading: Icon(Icons.delete),
-          title: Text('delete'),
+          title: Text(
+            'delete',
+            style: TextStyle(fontSize: 50.sp),
+          ),
           onTap: () {
             Provider.of<BusinessProvider>(context, listen: false)
                 .deleteReview();
@@ -60,11 +65,11 @@ class _BusinessReviewsState extends State<BusinessReviews> {
           decoration: BoxDecoration(
             color: Color(0xFFE7EBEE),
             borderRadius: BorderRadius.only(
-              topLeft: const Radius.circular(20),
-              topRight: const Radius.circular(20),
+              topLeft: Radius.circular(20.r),
+              topRight: Radius.circular(20.r),
             ),
           ),
-          height: MediaQuery.of(context).size.height * 0.08,
+          height: 200.h,
           child: _buildBottomMenu(),
         );
       },
@@ -73,13 +78,14 @@ class _BusinessReviewsState extends State<BusinessReviews> {
 
   Widget renderReview(Review review) {
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       child: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             review.reviewer.avatarImgPath != null
                 ? CircleAvatar(
+                    radius: 100.r,
                     backgroundColor: Color(0xFFE7EBEE),
                     backgroundImage: NetworkImage(
                       '$api/image?path=${review.reviewer.avatarImgPath}',
@@ -87,6 +93,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                     ),
                   )
                 : CircleAvatar(
+                    radius: 100.r,
                     backgroundColor: Color(0xFFE7EBEE),
                     child: Image.asset(
                       'assets/icons/avatar.png',
@@ -99,7 +106,6 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                   Navigator.of(context).pop();
                   _bottomMenuIsShown = false;
                 }
-                ;
               },
               onLongPress: () {
                 User user = Provider.of<Auth>(context, listen: false).user;
@@ -107,19 +113,23 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                 _showBottomMenu();
               },
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.8,
-                margin: EdgeInsets.only(left: 8),
-                padding: EdgeInsets.all(8),
+                width: 1100.w,
+                margin: EdgeInsets.only(left: 24.w),
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
                 decoration: BoxDecoration(
-                    color: Colors.grey.shade400,
-                    borderRadius: BorderRadius.circular(5)),
+                  color: Colors.grey.shade400,
+                  borderRadius: BorderRadius.circular(20.r),
+                ),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       review.reviewer.getFullName(),
                       style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
+                        fontSize: 50.sp,
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                     Row(
                       children: [
@@ -131,20 +141,24 @@ class _BusinessReviewsState extends State<BusinessReviews> {
                         Text(
                           DateFormat('dd MMM yyyy').format(review.date),
                           style: TextStyle(
-                              fontWeight: FontWeight.bold, fontSize: 15),
+                            fontSize: 50.sp,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
                       ],
                     ),
                     ReadMoreText(
                       review.comment,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(fontSize: 50.sp, color: Colors.black),
                       trimLines: 2,
                       colorClickableText: kPrimaryColor,
                       trimMode: TrimMode.Line,
                       trimCollapsedText: 'Show more',
                       trimExpandedText: 'Show less',
-                      moreStyle:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      moreStyle: TextStyle(
+                        fontSize: 50.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ],
                 ),
@@ -175,7 +189,7 @@ class _BusinessReviewsState extends State<BusinessReviews> {
       },
       child: SingleChildScrollView(
         child: Container(
-          margin: EdgeInsets.all(4),
+          margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
           child: renderReviewsList(widget.business.reviews),
         ),
       ),

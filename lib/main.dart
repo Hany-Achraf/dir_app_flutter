@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/providers/my_bottom_nav_provider.dart';
@@ -95,25 +97,57 @@ class _MyAppState extends State<MyApp> {
   void readToken() async {
     String token = await storage.read(key: 'token');
     Provider.of<Auth>(context, listen: false).tryToken(token: token);
-    // print(token);
+    print(token);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Everything in SouthKey',
-      theme: ThemeData(
-        appBarTheme: AppBarTheme(
-          centerTitle: true,
-          backgroundColor: kPrimaryColor,
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+    ]);
+
+    return ScreenUtilInit(
+      designSize: Size(1440, 2560),
+      minTextAdapt: true,
+      // splitScreenMode: true,
+      builder: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Everything in SouthKey',
+        theme: ThemeData(
+          appBarTheme: AppBarTheme(
+            centerTitle: true,
+            backgroundColor: kPrimaryColor,
+          ),
+          scaffoldBackgroundColor: kBackgroundColor,
+          primaryColor: kPrimaryColor,
+          textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
+          visualDensity: VisualDensity.adaptivePlatformDensity,
         ),
-        scaffoldBackgroundColor: kBackgroundColor,
-        primaryColor: kPrimaryColor,
-        textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+        builder: (context, widget) {
+          ScreenUtil.setContext(context);
+          return MediaQuery(
+            //Setting font does not change with system font size
+            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+            child: widget,
+          );
+        },
+        home: HomeScreen(),
       ),
-      home: HomeScreen(),
     );
+    // return MaterialApp(
+    //   debugShowCheckedModeBanner: false,
+    //   title: 'Everything in SouthKey',
+    //   theme: ThemeData(
+    //     appBarTheme: AppBarTheme(
+    //       centerTitle: true,
+    //       backgroundColor: kPrimaryColor,
+    //     ),
+    //     scaffoldBackgroundColor: kBackgroundColor,
+    //     primaryColor: kPrimaryColor,
+    //     textTheme: Theme.of(context).textTheme.apply(bodyColor: kTextColor),
+    //     visualDensity: VisualDensity.adaptivePlatformDensity,
+    //   ),
+    //   home: HomeScreen(),
+    // );
   }
 }

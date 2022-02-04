@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
@@ -25,12 +26,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.all(8),
+        margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
         child: Column(
           children: [
-            SizedBox(
-              height: 8,
-            ),
+            SizedBox(height: 24.h),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +42,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                     style: TextStyle(
                       color: Colors.black,
                       fontWeight: FontWeight.bold,
-                      fontSize: 25,
+                      fontSize: 90.sp,
                     ),
                   ),
                 ),
@@ -68,18 +67,15 @@ class _BusinessInfoState extends State<BusinessInfo> {
                       ? Icon(
                           Icons.favorite,
                           color: Colors.red,
-                          size: 25,
+                          size: 90.sp,
                         )
                       : Icon(
                           Icons.favorite_border,
                           color: Colors.grey,
-                          size: 25,
+                          size: 90.sp,
                         ),
                 ),
               ],
-            ),
-            SizedBox(
-              height: 8,
             ),
             Row(
               children: [
@@ -95,6 +91,7 @@ class _BusinessInfoState extends State<BusinessInfo> {
                           await launch(widget.business.instagramLink);
                         },
                         icon: Image.asset('assets/icons/instagram.png'),
+                        iconSize: 80.sp,
                       )
                     : Container(),
                 widget.business.facebookLink != null
@@ -107,81 +104,116 @@ class _BusinessInfoState extends State<BusinessInfo> {
                         icon: FaIcon(
                           FontAwesomeIcons.facebook,
                           color: Colors.blue,
-                          size: 35,
                         ),
+                        iconSize: 120.sp,
                       )
                     : Container(),
               ],
             ),
-            SizedBox(
-              height: 8,
-            ),
             widget.business.description != null
-                ? SizedBox(
+                ? Padding(
+                    padding: EdgeInsets.only(bottom: 24.h),
                     child: ReadMoreText(
                       widget.business.description,
-                      style: TextStyle(color: Colors.black),
+                      style: TextStyle(
+                        fontSize: 55.sp,
+                        color: Colors.black,
+                      ),
                       trimLines: 3,
                       colorClickableText: kPrimaryColor,
                       trimMode: TrimMode.Line,
                       trimCollapsedText: 'Show more',
                       trimExpandedText: 'Show less',
-                      moreStyle:
-                          TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                      moreStyle: TextStyle(
+                        fontSize: 55.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   )
                 : Container(),
-            SizedBox(
-              height: 8,
-            ),
             widget.business.websiteLink != null
-                ? InkWell(
+                ? GestureDetector(
                     onTap: () async {
                       await launch(widget.business.websiteLink);
                     },
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: const EdgeInsets.only(right: 4),
-                          child: Icon(
-                            Icons.language,
-                            color: kPrimaryColor,
-                            size: 25,
-                          ),
-                        ),
-                        Flexible(
-                          flex: 1,
-                          fit: FlexFit.loose,
-                          child: Text(
-                            widget.business.websiteLink,
-                            style: TextStyle(
+                    child: Padding(
+                      padding: EdgeInsets.only(bottom: 24.h),
+                      child: Row(
+                        children: [
+                          Container(
+                            margin: EdgeInsets.only(right: 16.w),
+                            child: Icon(
+                              Icons.language,
                               color: kPrimaryColor,
+                              size: 90.sp,
                             ),
                           ),
-                        ),
-                      ],
+                          Flexible(
+                            flex: 1,
+                            fit: FlexFit.loose,
+                            child: Text(
+                              widget.business.websiteLink,
+                              style: TextStyle(
+                                fontSize: 55.sp,
+                                color: kPrimaryColor,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   )
                 : Container(),
-            SizedBox(
-              height: 8,
-            ),
-            InkWell(
+            GestureDetector(
               onTap: () {
                 launch(widget.business.linkOnGoogleMaps);
               },
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 24.h),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(right: 16.w),
+                      child: Icon(
+                        Icons.pin_drop,
+                        color: kPrimaryColor,
+                        size: 90.sp,
+                      ),
+                    ),
+                    Flexible(
+                      flex: 1,
+                      fit: FlexFit.loose,
+                      child: Text(
+                        widget.business.address,
+                        style: TextStyle(
+                          fontSize: 55.sp,
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(bottom: 24.h),
               child: Row(
                 children: [
                   Container(
-                      margin: const EdgeInsets.only(right: 4),
-                      child:
-                          Icon(Icons.pin_drop, color: kPrimaryColor, size: 25)),
+                    margin: EdgeInsets.only(right: 16.w),
+                    child: Icon(
+                      Icons.watch_later_outlined,
+                      color: kPrimaryColor,
+                      size: 90.sp,
+                    ),
+                  ),
                   Flexible(
                     flex: 1,
                     fit: FlexFit.loose,
                     child: Text(
-                      widget.business.address,
+                      widget.business.workingTime,
                       style: TextStyle(
+                        fontSize: 55.sp,
                         color: kPrimaryColor,
                       ),
                     ),
@@ -189,62 +221,35 @@ class _BusinessInfoState extends State<BusinessInfo> {
                 ],
               ),
             ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 4),
-                  child: Icon(
-                    Icons.watch_later_outlined,
-                    color: kPrimaryColor,
-                    size: 25,
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.loose,
-                  child: Text(
-                    widget.business.workingTime,
-                    style: TextStyle(
+            Padding(
+              padding: EdgeInsets.only(bottom: 24.h),
+              child: Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(right: 16.w),
+                    child: Icon(
+                      Icons.phone,
                       color: kPrimaryColor,
+                      size: 90.sp,
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 8,
-            ),
-            Row(
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(right: 4),
-                  child: Icon(
-                    Icons.phone,
-                    color: kPrimaryColor,
-                    size: 25,
-                  ),
-                ),
-                Flexible(
-                  flex: 1,
-                  fit: FlexFit.loose,
-                  child: Text(
-                    'Call us ${widget.business.phoneNo}',
-                    style: TextStyle(
-                      color: kPrimaryColor,
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.loose,
+                    child: Text(
+                      'Call us ${widget.business.phoneNo}',
+                      style: TextStyle(
+                        fontSize: 55.sp,
+                        color: kPrimaryColor,
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 8,
+                ],
+              ),
             ),
             Container(
-              margin: EdgeInsets.all(8),
-              height: 280,
+              margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+              height: 1050.h,
               child: WebView(
                 navigationDelegate: (navigation) {
                   launch(widget.business.linkOnGoogleMaps);
@@ -284,9 +289,10 @@ class _BusinessInfoState extends State<BusinessInfo> {
     List<Icon> ratingStars = [];
     for (int i = 0; i < 5; i++) {
       if (i < rating)
-        ratingStars.add(Icon(Icons.star, color: Colors.yellow));
+        ratingStars.add(Icon(Icons.star, color: Colors.yellow, size: 90.sp));
       else
-        ratingStars.add(Icon(Icons.star, color: Colors.grey.shade300));
+        ratingStars
+            .add(Icon(Icons.star, color: Colors.grey.shade300, size: 90.sp));
     }
     return Row(
       children: ratingStars,

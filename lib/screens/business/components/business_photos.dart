@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:plant_app/constants.dart';
 import 'package:plant_app/models/business_model.dart';
 import 'package:plant_app/screens/business/components/gallery_screen.dart';
@@ -12,7 +13,7 @@ class BusinessPhotos extends StatelessWidget {
     List<String> photos = business.photos;
 
     return Container(
-      margin: EdgeInsets.all(8),
+      margin: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
@@ -38,17 +39,12 @@ class BusinessPhotos extends StatelessWidget {
                   child: Container(
                     decoration: BoxDecoration(
                       color: Color(0xFFE7EBEE),
-                      borderRadius: BorderRadius.circular(2),
                       image: DecorationImage(
                         image: NetworkImage(
                           '$api/image?path=${photos[index]}',
                           headers: {'Connection': 'keep-alive'},
                         ),
                         fit: BoxFit.fill,
-                        // onError: (exception, stackTrace) => Icon(
-                        //   Icons.image,
-                        //   color: kPrimaryColor,
-                        // ),
                       ),
                     ),
                   ),
